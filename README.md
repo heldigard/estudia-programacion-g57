@@ -30,7 +30,7 @@ estudia-programacion/
 │   ├── datasets/            # Archivos de datos para ejercicios
 │   ├── assignments/         # Tareas y evaluaciones
 │   └── templates/           # Plantillas de notebooks
-├── profesor/                # Material del instructor (privado)
+├── profesor/                # Material del docente (privado)
 │   ├── solutions/           # Soluciones de ejercicios
 │   ├── rubrics/             # Rubricas de evaluacion
 │   ├── assessments/         # Evaluaciones completas
@@ -65,9 +65,9 @@ estudia-programacion/
 - Conexion a internet
 - Navegador web actualizado (Chrome, Firefox, Edge)
 
-## Instructor
+## Docente
 
-[Nombre del Instructor]
+**Eldigardo Camacho**
 [Email de contacto]
 
 ## Licencia
