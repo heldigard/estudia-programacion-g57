@@ -1,0 +1,21 @@
+producto,cantidad,precio,fecha,vendedor
+Laptop HP,2,2500000,2025-01-05,Ana García
+Mouse Logitech,5,45000,2025-01-05,Carlos Ruiz
+Teclado Mecánico,3,120000,2025-01-06,Ana García
+Monitor Samsung,1,850000,2025-01-07,María López
+Audífonos Sony,4,180000,2025-01-08,Carlos Ruiz
+Webcam HD,2,95000,2025-01-08,Ana García
+Cable HDMI,10,25000,2025-01-09,María López
+Disco SSD 500GB,3,280000,2025-01-10,Carlos Ruiz
+Memoria USB 64GB,8,35000,2025-01-10,Ana García
+Cargador Universal,6,42000,2025-01-11,María López
+Laptop Dell,1,3200000,2025-01-12,Carlos Ruiz
+Mouse Inalámbrico,7,55000,2025-01-12,Ana García
+Teclado Bluetooth,2,85000,2025-01-13,María López
+Monitor LG,2,920000,2025-01-14,Carlos Ruiz
+Audífonos Bose,1,450000,2025-01-15,Ana García
+Impresora Epson,1,680000,2025-01-16,María López
+Tablet Samsung,2,1200000,2025-01-17,Carlos Ruiz
+Parlante JBL,3,250000,2025-01-18,Ana García
+Router WiFi,4,180000,2025-01-19,María López
+Batería Externa,5,75000,2025-01-20,Carlos Ruiz
