@@ -22,9 +22,9 @@ Curso de introduccion a la programacion en Python para el programa Estud-IA / Di
 | 12 | 3 feb | Presencial | Funciones y Modularidad | [S12](estudiantes/notebooks/s12_modulos_y_reuso.ipynb) |
 | 15 | 10 feb | Presencial | Manejo de Archivos y Entrada/Salida | [S15](estudiantes/notebooks/s15_archivos_txt_csv.ipynb) |
 | 18 | 17 feb | Virtual | Manejo de Archivos y Entrada/Salida | [S18](estudiantes/notebooks/s18_archivos_practica.ipynb) |
-| 21 | 24 feb | Virtual | Resolución de Problemas Técnicos | *En desarrollo* |
-| 24 | 3 mar | Presencial | Resolución de Problemas Técnicos | *En desarrollo* |
-| 26-27 | 7-9 mar | Presencial | Desarrollo de Aplicaciones Prácticas | *En desarrollo* |
+| 21 | 24 feb | Virtual | Debugging y Resolución de Problemas | [S21](estudiantes/notebooks/s21_debugging_problemas.ipynb) |
+| 24 | 3 mar | Presencial | Optimización y Buenas Prácticas | [S24](estudiantes/notebooks/s24_optimizacion_buenas_practicas.ipynb) |
+| 26-27 | 7-9 mar | Presencial | Desarrollo de Aplicaciones Prácticas | [S26](estudiantes/notebooks/s26_proyecto_final_parte1.ipynb) |
 
 *Nota: Las demás sesiones del horario corresponden a módulos de inglés.*
 
@@ -44,7 +44,10 @@ EstudIA-Programacion/
 │   │   ├── s09_funciones_return.ipynb
 │   │   ├── s12_modulos_y_reuso.ipynb
 │   │   ├── s15_archivos_txt_csv.ipynb
-│   │   └── s18_archivos_practica.ipynb
+│   │   ├── s18_archivos_practica.ipynb
+│   │   ├── s21_debugging_problemas.ipynb
+│   │   ├── s24_optimizacion_buenas_practicas.ipynb
+│   │   └── s26_proyecto_final_parte1.ipynb
 │   ├── assignments/               # Evaluaciones y talleres
 │   │   ├── evaluacion_1_fundamentos.md
 │   │   ├── evaluacion_2_bucles_listas.md
@@ -64,6 +67,7 @@ EstudIA-Programacion/
 │   ├── rubrics/                  # Rúbricas de evaluación
 │   ├── assessments/              # Evaluaciones completas
 │   └── recursos_privados/        # Recursos exclusivos del profesor
+├── memory-bank/                  # Contexto del proyecto para IA
 ├── README.md                     # Este archivo
 └── plan_ajustes_curso.md         # Plan de ajustes identificados
 ```
