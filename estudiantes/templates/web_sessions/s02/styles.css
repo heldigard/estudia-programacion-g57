@@ -1,97 +1,190 @@
+/*
+  =====================================================
+  S02: Variables y Tipos - PLANTILLA CSS
+  =====================================================
+
+  ¿QUÉ ES CSS?
+  -------------
+  CSS (Cascading Style Sheets) define el ESTILO de la página.
+  Es como la pintura y decoración de una casa: define CÓMO se ven
+  los elementos (colores, tamaños, posiciones, fuentes).
+
+  SINTAXIS BÁSICA DE CSS:
+  ----------------------
+  selector {
+    propiedad: valor;
+  }
+
+  Ejemplo:
+  h1 {
+    color: blue;
+    font-size: 32px;
+  }
+
+  SELECTORES COMUNES:
+  ------------------
+  button          - Selecciona todas las etiquetas <button>
+  #miId           - Selecciona el elemento con id="miId"
+  .miClase        - Selecciona todos los elementos con class="miClase"
+  button.primary  - Selecciona botones con class="primary"
+
+  PROPIEDADES IMPORTANTES:
+  ------------------------
+  color           - Color del texto
+  background      - Color de fondo
+  font-size       - Tamaño de fuente (píxeles, rem, em)
+  margin          - Espacio EXTERNO (fuera del elemento)
+  padding         - Espacio INTERNO (dentro del elemento)
+  border-radius   - Redondea las esquinas
+  display         - Cómo se muestra (block, inline, flex, none)
+  text-align      - Alineación del texto
+
+  UNIDADES COMUNES:
+  ----------------
+  px              - Píxeles (absoluto)
+  rem             - Relativo al tamaño base del documento
+  %               - Porcentaje relativo al padre
+  vh/vw           - Porcentaje de la altura/ancho de la pantalla
+
+  COLORES:
+  --------
+  red, blue       - Nombres de colores
+  #ff0000         - Código hexadecimal
+  rgb(255,0,0)    - RGB
+  rgba(255,0,0,0.5) - RGB con transparencia
+*/
+
 /* S02: Variables y Tipos - Estilos */
 
 /* ============================================
-   VARIABLES Y RESET
-   ============================================ */
-:root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --accent-primary: #38bdf8;
-  --accent-secondary: #818cf8;
-  --accent-success: #22c55e;
-  --accent-warning: #f59e0b;
-  --accent-danger: #ef4444;
-  --border-color: #334155;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
+   VARIABLES CSS (CSS CUSTOM PROPERTIES)
+   ============================================
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+   :root es como crear variables globales en Python.
+   Las variables permiten reutilizar valores en todo el CSS.
+
+   Para usar una variable: var(--nombre-variable)
+
+   Ejemplo: color: var(--accent-primary);
+*/
+:root {
+  /* Colores de fondo */
+  --bg-primary: #0f172a;      /* Fondo principal (muy oscuro) */
+  --bg-secondary: #1e293b;    /* Fondo secundario (oscuro) */
+  --bg-card: #1e293b;         /* Fondo de tarjetas */
+
+  /* Colores de texto */
+  --text-primary: #f1f5f9;    /* Texto principal (blanco) */
+  --text-secondary: #94a3b8;  /* Texto secundario (gris claro) */
+
+  /* Colores de acento (para botones, resaltados) */
+  --accent-primary: #38bdf8;    /* Azul - botón principal */
+  --accent-secondary: #818cf8;  /* Púrpura - botón secundario */
+  --accent-success: #22c55e;    /* Verde - éxito/confirmación */
+  --accent-warning: #f59e0b;    /* Amarillo - advertencia */
+  --accent-danger: #ef4444;     /* Rojo - error */
+
+  /* Otros valores reutilizables */
+  --border-color: #334155;     /* Color de bordes */
+  --radius-md: 12px;           /* Bordes redondeados medianos */
+  --radius-sm: 8px;            /* Bordes redondeados pequeños */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);  /* Sombra suave */
 }
 
 /* ============================================
-   LAYOUT
-   ============================================ */
+   RESET - Configuración base
+   ============================================
+
+   El * es un comodín que selecciona TODOS los elementos.
+   Esto elimina los márgenes predeterminados del navegador.
+*/
+* {
+  box-sizing: border-box;  /* Incluye padding/border en el tamaño total */
+  margin: 0;               /* Elimina márgenes externos */
+  padding: 0;              /* Elimina márgenes internos */
+}
+
+/* ============================================
+   LAYOUT - Estructura general
+   ============================================
+*/
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  min-height: 100vh;
-  padding: 20px;
+  /* Fuente del sistema: usa la fuente predeterminada del usuario */
+
+  background: var(--bg-primary);  /* Fondo oscuro */
+  color: var(--text-primary);     /* Texto blanco */
+  line-height: 1.6;               /* Espacio entre líneas (interlineado) */
+  min-height: 100vh;              /* Altura mínima = 100% de la ventana */
+  padding: 20px;                  /* Espacio alrededor del contenido */
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 800px;   /* Ancho máximo */
+  margin: 0 auto;     /* Centrar horizontalmente (0 arriba/abajo, auto izq/der) */
 }
 
 /* ============================================
-   HEADER
-   ============================================ */
+   HEADER - Cabecera de la página
+   ============================================
+
+   Conexión HTML: <header class="header">
+*/
 .header {
-  text-align: center;
-  margin-bottom: 32px;
-  padding: 24px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
+  text-align: center;      /* Centrar texto */
+  margin-bottom: 32px;     /* Espacio debajo del header */
+  padding: 24px;           /* Espacio interno */
+  background: var(--bg-secondary);  /* Fondo */
+  border-radius: var(--radius-md);  /* Esquinas redondeadas */
+  border: 1px solid var(--border-color);  /* Borde */
 }
 
 .header h1 {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
-  color: var(--accent-primary);
+  font-size: 1.8rem;       /* Tamaño grande */
+  margin-bottom: 8px;      /* Espacio debajo */
+  color: var(--accent-primary);  /* Color azul */
 }
 
 .subtitle {
-  color: var(--text-secondary);
-  font-size: 1rem;
+  color: var(--text-secondary);  /* Gris claro */
+  font-size: 1rem;               /* Tamaño normal */
 }
 
 /* ============================================
-   CARDS
-   ============================================ */
+   CARDS - Tarjetas de ejercicios
+   ============================================
+
+   Conexión HTML: <section class="card">
+
+   Las tarjetas son contenedores visuales que agrupan
+   contenido relacionado (inputs, botones, resultados).
+*/
 .card {
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--bg-card);              /* Fondo */
+  border-radius: var(--radius-md);        /* Esquinas redondeadas */
+  padding: 24px;                           /* Espacio interno */
+  margin-bottom: 20px;                     /* Espacio debajo de cada tarjeta */
+  border: 1px solid var(--border-color);   /* Borde sutil */
+  box-shadow: var(--shadow);               /* Sombra */
+  transition: transform 0.2s, box-shadow 0.2s;  /* Animación suave */
 }
 
+/* Efecto al pasar el mouse (hover) */
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);  /* Mueve hacia arriba 2px */
+  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);  /* Sombra más grande */
 }
 
+/* Tarjeta destacada (ej: el ejercicio principal) */
 .card.highlight {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-primary);  /* Borde azul */
   background: linear-gradient(135deg, var(--bg-card) 0%, rgba(56, 189, 248, 0.1) 100%);
+  /* Degradado sutil */
 }
 
 .card.debug {
   background: var(--bg-secondary);
-  opacity: 0.9;
+  opacity: 0.9;  /* Ligeramente transparente */
 }
 
 .card h2 {
@@ -102,116 +195,133 @@ body {
 
 .hint {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.9rem;     /* Un poco más pequeño */
   margin-bottom: 16px;
-  font-style: italic;
+  font-style: italic;    /* Texto en cursiva */
 }
 
 /* ============================================
-   FORMS
-   ============================================ */
+   FORMS - Inputs y etiquetas
+   ============================================
+
+   Conexión HTML: <div class="input-group">, <input>, <label>
+*/
 .input-group {
-  margin-bottom: 16px;
+  margin-bottom: 16px;  /* Espacio entre grupos de inputs */
 }
 
 .input-group label {
-  display: block;
+  display: block;        /* Ocupa toda la línea (label arriba del input) */
   margin-bottom: 6px;
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: 500;      /* Texto medio grueso */
 }
 
+/* Estilo de TODOS los inputs */
 input {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;           /* Ocupa todo el ancho disponible */
+  padding: 12px 16px;    /* Espacio interno (arriba/abajo, izq/der) */
+  border-radius: var(--radius-sm);  /* Esquinas redondeadas */
+  border: 1px solid var(--border-color);  /* Borde */
+  background: var(--bg-primary);     /* Fondo oscuro */
+  color: var(--text-primary);        /* Texto blanco */
+  font-size: 1rem;                   /* Tamaño de texto del input */
+  transition: border-color 0.2s, box-shadow 0.2s;  /* Animación suave */
 }
 
+/* Estilo cuando el input está seleccionado */
 input:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+  outline: none;  /* Quita el borde azul predeterminado del navegador */
+  border-color: var(--accent-primary);  /* Borde azul */
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);  /* Resplandor azul */
 }
 
 input::placeholder {
-  color: var(--text-secondary);
+  color: var(--text-secondary);  /* Texto de ejemplo gris */
 }
 
 /* ============================================
-   BUTTONS
-   ============================================ */
+   BUTTONS - Botones
+   ============================================
+
+   Conexión HTML: <button class="btn primary">
+*/
 .btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  width: 100%;
+  padding: 12px 24px;         /* Espacio interno */
+  border: none;                /* Sin borde */
+  border-radius: var(--radius-sm);  /* Esquinas redondeadas */
+  font-size: 1rem;             /* Tamaño de texto */
+  font-weight: 600;            /* Texto grueso */
+  cursor: pointer;             /* Cambia cursor al pasar el mouse */
+  transition: all 0.2s;        /* Animación suave */
+  width: 100%;                 /* Ancho completo */
 }
 
 .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);  /* Eleva 1px al pasar mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(0);    /* Vuelve a posición al hacer click */
 }
 
+/* Variantes de botones */
 .btn.primary {
-  background: var(--accent-primary);
-  color: var(--bg-primary);
+  background: var(--accent-primary);  /* Azul */
+  color: var(--bg-primary);           /* Texto oscuro */
 }
 
 .btn.primary:hover {
-  background: #0ea5e9;
+  background: #0ea5e9;  /* Azul más oscuro */
 }
 
 .btn.secondary {
-  background: var(--accent-secondary);
+  background: var(--accent-secondary);  /* Púrpura */
   color: var(--bg-primary);
 }
 
 .btn.secondary:hover {
-  background: #6366f1;
+  background: #6366f1;  /* Púrpura más oscuro */
 }
 
 .btn.success {
-  background: var(--accent-success);
+  background: var(--accent-success);  /* Verde */
   color: var(--bg-primary);
 }
 
 .btn.success:hover {
-  background: #16a34a;
+  background: #16a34a;  /* Verde más oscuro */
 }
 
 /* ============================================
-   RESULTS
-   ============================================ */
+   RESULTS - Cajas de resultado
+   ============================================
+
+   Conexión HTML: <div id="resultado" class="result hidden">
+
+   Estas clases controlan si se muestra u oculta el resultado.
+*/
 .result {
   margin-top: 16px;
   padding: 16px;
   border-radius: var(--radius-sm);
-  animation: fadeIn 0.3s ease-in;
+  animation: fadeIn 0.3s ease-in;  /* Animación de entrada */
 }
 
+/* Ocultar elemento */
 .result.hidden {
-  display: none;
+  display: none;  /* No se muestra ni ocupa espacio */
 }
 
+/* Mostrar elemento */
 .result.visible {
-  display: block;
+  display: block;  /* Se muestra como bloque */
 }
 
+/* Caja de resultado exitoso (verde) */
 .success-box {
-  background: rgba(34, 197, 94, 0.1);
+  background: rgba(34, 197, 94, 0.1);  /* Verde transparente */
   border: 1px solid var(--accent-success);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -226,17 +336,19 @@ input::placeholder {
   margin: 8px 0;
 }
 
+/* Fórmula o código mostrado */
 .formula {
-  font-family: monospace;
+  font-family: monospace;  /* Fuente de código */
   background: var(--bg-primary);
   padding: 8px 12px;
   border-radius: var(--radius-sm);
   margin-top: 8px;
-  color: var(--accent-warning);
+  color: var(--accent-warning);  /* Amarillo */
 }
 
+/* Caja informativa (azul) */
 .info-box {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(56, 189, 248, 0.1);  /* Azul transparente */
   border: 1px solid var(--accent-primary);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -262,8 +374,9 @@ input::placeholder {
   font-size: 0.9rem;
 }
 
+/* Mensaje de error (rojo) */
 .error {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.1);  /* Rojo transparente */
   border: 1px solid var(--accent-danger);
   padding: 12px;
   border-radius: var(--radius-sm);
@@ -271,8 +384,11 @@ input::placeholder {
 }
 
 /* ============================================
-   TICKET
-   ============================================ */
+   TICKET - Estilo especial para ticket de compra
+   ============================================
+
+   Conexión HTML: <div id="resultadoTicket" class="ticket hidden">
+*/
 .ticket {
   margin-top: 16px;
 }
@@ -281,33 +397,35 @@ input::placeholder {
   display: none;
 }
 
+/* Contenido blanco del ticket (como un ticket real) */
 .ticket-content {
-  background: #fff;
-  color: #000;
+  background: #fff;        /* Fondo blanco */
+  color: #000;             /* Texto negro */
   padding: 20px;
   border-radius: var(--radius-sm);
-  font-family: 'Courier New', monospace;
+  font-family: 'Courier New', monospace;  /* Fuente de máquina */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .ticket-header {
   text-align: center;
   font-weight: bold;
-  border-bottom: 2px dashed #000;
+  border-bottom: 2px dashed #000;  /* Línea punteada */
   padding-bottom: 12px;
   margin-bottom: 12px;
   font-size: 1.1rem;
 }
 
+/* Filas del ticket */
 .ticket-body p {
-  display: flex;
-  justify-content: space-between;
+  display: flex;              /* Flexbox: elementos en línea */
+  justify-content: space-between;  /* Espacio entre elementos */
   padding: 8px 0;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;  /* Línea punteada entre items */
 }
 
 .ticket-body p span:first-child {
-  font-weight: 500;
+  font-weight: 500;  /* Primera columna más gruesa */
 }
 
 .ticket-body .subtotal,
@@ -319,28 +437,31 @@ input::placeholder {
   font-weight: bold;
   font-size: 1.2rem;
   border-bottom: none;
-  border-top: 2px solid #000;
+  border-top: 2px solid #000;  /* Línea sólida arriba del total */
   padding-top: 12px;
   margin-top: 8px;
-  color: var(--accent-success);
+  color: var(--accent-success);  /* Verde */
 }
 
 .ticket-footer {
   text-align: center;
   margin-top: 12px;
   padding-top: 8px;
-  border-top: 2px dashed #000;
+  border-top: 2px dashed #000;  /* Línea punteada */
   font-size: 0.9rem;
   color: #666;
 }
 
 /* ============================================
-   COMPARISON (DEBUG PANEL)
-   ============================================ */
+   COMPARISON - Panel de comparación Python vs JS
+   ============================================
+
+   Conexión HTML: <div class="comparison">
+*/
 .comparison {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  display: grid;                /* Grid: layout tipo cuadrícula */
+  grid-template-columns: 1fr 1fr;  /* 2 columnas de igual tamaño */
+  gap: 16px;                    /* Espacio entre columnas */
   margin-top: 12px;
 }
 
@@ -353,13 +474,13 @@ input::placeholder {
 }
 
 .python-code h4 {
-  color: #fef08a;
+  color: #fef08a;  /* Amarillo (color de Python) */
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
 .js-code h4 {
-  color: var(--accent-primary);
+  color: var(--accent-primary);  /* Azul (color de JS) */
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
@@ -370,44 +491,52 @@ input::placeholder {
   font-family: monospace;
   font-size: 0.85rem;
   color: var(--text-secondary);
-  white-space: pre-wrap;
+  white-space: pre-wrap;  /* Mantiene formato pero adapta a ancho */
 }
 
 /* ============================================
    ANIMATIONS
-   ============================================ */
+   ============================================
+
+   Las animaciones se definen con @keyframes
+   y se aplican con la propiedad "animation"
+*/
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px);  /* Comienza 10px arriba */
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0);  /* Termina en posición */
   }
 }
 
 /* ============================================
-   RESPONSIVE
-   ============================================ */
+   RESPONSIVE - Adaptación a móviles
+   ============================================
+
+   @media query: aplica estilos solo cuando la condición es verdadera
+   En este caso: pantallas de menos de 600px de ancho (móviles)
+*/
 @media (max-width: 600px) {
   body {
-    padding: 12px;
+    padding: 12px;  /* Menos espacio en móviles */
   }
 
   .header h1 {
-    font-size: 1.4rem;
+    font-size: 1.4rem;  /* Título más pequeño */
   }
 
   .card {
-    padding: 16px;
+    padding: 16px;  /* Tarjetas más compactas */
   }
 
   .comparison {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  /* 1 columna en móviles */
   }
 
   .ticket-body p {
-    font-size: 0.9rem;
+    font-size: 0.9rem;  /* Texto más pequeño */
   }
 }

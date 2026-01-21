@@ -1,31 +1,101 @@
+<!--
+  =====================================================
+  S02: Variables y Tipos - PLANTILLA HTML
+  =====================================================
+
+  ¿QUÉ ES HTML?
+  -------------
+  HTML (HyperText Markup Language) define la ESTRUCTURA de la página.
+  Es como los ladrillos de una casa: define QUÉ cosas hay (títulos,
+  párrafos, botones, campos de texto), pero no CÓMO se ven.
+
+  ESTRUCTURA BÁSICA DE UN ARCHIVO HTML:
+  --------------------------------------
+  <!DOCTYPE html>      - Le dice al navegador que esto es HTML5
+  <html>               - Contenedor principal de toda la página
+  <head>               - Información que NO se ve (título, estilos, etc.)
+  <body>               - Contenido visible de la página
+
+  ETIQUETAS IMPORTANTES:
+  --------------------
+  <h1> a <h6>         - Títulos (h1 = más grande, h6 = más pequeño)
+  <p>                 - Párrafo de texto
+  <div>               - Caja o contenedor invisible (para agrupar cosas)
+  <button>            - Botón clickeable
+  <input>             - Campo donde el usuario escribe
+  <label>             - Etiqueta o texto descriptivo
+  <section>           - Sección temática de la página
+
+  ATRIBUTOS IMPORTANTES:
+  --------------------
+  id="nombre"         - Identificador ÚNICO (como un DNI, no se repite)
+  class="clase"       - Clase para CSS (puede usarse en varios elementos)
+  type="text"         - Tipo de input (text, number, email, password...)
+  placeholder="..."   - Texto de ejemplo que aparece en el input
+  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S02 - Variables y Tipos Interactivo</title>
+  <!-- Conectar el archivo CSS que da estilo a la página -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!--
+    MAIN: Contenido principal de la página
+    class="container" - Aplica estilos CSS definidos para .container
+  -->
   <main class="container">
+    <!--
+      HEADER: Cabecera con título de la página
+      Las clases CSS como "header" definen el estilo visual
+    -->
     <header class="header">
       <h1>🎓 Práctica S02: Variables y Tipos</h1>
       <p class="subtitle">Python + JavaScript: Aprendiendo en paralelo</p>
     </header>
 
-    <!-- Tarjeta 1: Calculadora de Edad -->
+    <!--
+      =====================================================
+      TARJETA 1: CALCULADORA DE EDAD
+      =====================================================
+
+      Conceptos clave:
+      - <section>: Agrupa contenido relacionado
+      - class="card": Aplica estilo de "tarjeta" visual
+      - id="anio": Identificador único para que JavaScript encuentre este input
+      - type="number": El navegador muestra solo números y flechas arriba/abajo
+      - onclick="calcularEdad()": Ejecuta la función calcularEdad() de JavaScript
+      - class="hidden": Oculta el elemento (definido en CSS)
+    -->
     <section class="card">
       <h2>📅 Calculadora de Edad</h2>
       <p class="hint">Igual que en Python, pedimos datos y calculamos</p>
       <div class="input-group">
+        <!-- for="anio" conecta la etiqueta con el input del mismo id -->
         <label for="anio">Año de nacimiento:</label>
+        <!-- id único es CRÍTICO para que JavaScript pueda leer este valor -->
         <input id="anio" type="number" placeholder="Ej: 2000" min="1900" max="2026" />
       </div>
+      <!-- Al hacer click, se ejecuta la función calcularEdad() definida en app.js -->
       <button class="btn primary" onclick="calcularEdad()">Calcular Edad</button>
+      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
       <div id="resultadoEdad" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 2: Perfil Personal -->
+    <!--
+      =====================================================
+      TARJETA 2: PERFIL PERSONAL
+      =====================================================
+
+      Practicamos con:
+      - Strings (texto): nombre, ciudad
+      - Números: edad
+      - Template literals en JavaScript (como f-strings en Python)
+    -->
     <section class="card">
       <h2>👤 Perfil Personal</h2>
       <p class="hint">Practicando con strings y números</p>
@@ -45,7 +115,15 @@
       <div id="resultadoPerfil" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 3: Verificador de Tipos -->
+    <!--
+      =====================================================
+      TARJETA 3: VERIFICADOR DE TIPOS
+      =====================================================
+
+      Conexión Python ↔ JavaScript:
+      - Python: type(x)      → JS: typeof x
+      - Python: isinstance(x, int) → JS: typeof x === "number"
+    -->
     <section class="card">
       <h2>🔍 Verificador de Tipos</h2>
       <p class="hint">Escribe algo y veremos su tipo (como isinstance en Python)</p>
@@ -57,7 +135,18 @@
       <div id="resultadoTipo" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 4: Ticket de Compra -->
+    <!--
+      =====================================================
+      TARJETA 4: TICKET DE COMPRA
+      =====================================================
+
+      Mini-proyecto completo que practica:
+      - Entrada de datos (inputs)
+      - Conversión de tipos (text → number)
+      - Cálculos matemáticos
+      - Formateo de salida
+      - Igual al ejercicio de Python del notebook
+    -->
     <section class="card highlight">
       <h2>🛒 Ticket de Compra</h2>
       <p class="hint">Igual al mini-proyecto de Python</p>
@@ -67,6 +156,7 @@
       </div>
       <div class="input-group">
         <label for="precio">Precio unitario:</label>
+        <!-- step="0.01" permite decimales (para precios) -->
         <input id="precio" type="number" placeholder="Ej: 2500000" min="0" step="0.01" />
       </div>
       <div class="input-group">
@@ -75,13 +165,22 @@
       </div>
       <div class="input-group">
         <label for="descuento">Descuento (%):</label>
+        <!-- value="0" establece un valor por defecto -->
         <input id="descuento" type="number" placeholder="Ej: 10" min="0" max="100" value="0" />
       </div>
       <button class="btn success" onclick="generarTicket()">Generar Ticket</button>
+      <!-- class="ticket" aplica estilos especiales de ticket -->
       <div id="resultadoTicket" class="ticket hidden"></div>
     </section>
 
-    <!-- Panel de Debug -->
+    <!--
+      =====================================================
+      PANEL DE DEBUG / COMPARACIÓN
+      =====================================================
+
+      Muestra las equivalencias entre Python y JavaScript
+      Útil para entender que la lógica es la misma, solo cambia sintaxis
+    -->
     <section class="card debug">
       <h2>🐞 Consola (Debug)</h2>
       <p class="hint">Presiona F12 para ver la consola del navegador</p>
@@ -100,6 +199,14 @@ typeof x === "number"</pre>
     </section>
   </main>
 
+  <!--
+    =====================================================
+    CONECTAR JAVASCRIPT
+    =====================================================
+
+    Esta línea conecta el archivo app.js que contiene todo el
+    comportamiento de la página. Siempre va al FINAL del body.
+  -->
   <script src="app.js"></script>
 </body>
 </html>

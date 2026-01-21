@@ -1,10 +1,76 @@
+/*
+  =====================================================
+  S02: Variables y Tipos - JAVASCRIPT
+  =====================================================
+
+  ¿QUÉ ES JAVASCRIPT?
+  -------------------
+  JavaScript es el lenguaje de programación de la web.
+  Hace las páginas INTERACTIVAS: responde a clicks, calcula,
+  muestra mensajes, modifica el contenido dinámicamente.
+
+  CONEXIÓN PYTHON ↔ JAVASCRIPT:
+  -----------------------------
+  Python                          JavaScript
+  ------                          -----------
+  x = 5                            let x = 5;
+  print(x)                         console.log(x);
+  f"Hola {x}"                      `Hola ${x}`
+  type(x)                          typeof x
+  isinstance(x, int)               typeof x === "number"
+  int(texto)                       Number(texto) o parseInt(texto)
+  str(numero)                      String(numero)
+
+  VARIABLES EN JAVASCRIPT:
+  ------------------------
+  let x = 5;      - Variable que puede cambiar (como var normal en Python)
+  const x = 5;     - Variable constante (no puede reasignarse)
+  var x = 5;       - Forma antigua (NO usar, usa let/const)
+
+  FUNCIONES EN JAVASCRIPT:
+  -----------------------
+  function miFuncion() {
+    // código aquí
+  }
+
+  const miFuncion = () => {
+    // Arrow function (forma moderna)
+  }
+
+  MANIPULACIÓN DEL DOM:
+  ---------------------
+  El DOM (Document Object Model) es cómo JavaScript representa
+  la página HTML. Podemos acceder y modificar elementos:
+
+  document.getElementById("id")       - Encuentra elemento por id
+  element.value                       - Valor de un input
+  element.innerHTML                   - Contenido HTML de un elemento
+  element.classList.add("clase")      - Agregar clase CSS
+  element.classList.remove("clase")   - Quitar clase CSS
+*/
+
 // S02: Variables y Tipos de Datos
 // Equivalente JavaScript de las prácticas de Python
 
 // ============================================
-// UTILIDADES
+// UTILIDADES - Funciones de ayuda reutilizables
 // ============================================
 
+/**
+ * mostrarResultado - Muestra un resultado en pantalla
+ * 
+ * Equivalente Python: print(resultado), pero en una interfaz gráfica
+ * 
+ * @param {string} elementId - El ID del elemento HTML donde mostrar el resultado
+ * @param {string} contenido - El contenido HTML a mostrar
+ * @param {boolean} esTicket - Si es true, no muestra en consola (opcional)
+ * 
+ * Conceptos clave:
+ * - document.getElementById() encuentra un elemento por su id
+ * - .innerHTML modifica el contenido HTML de un elemento
+ * - .classList.add/remove agrega/quita clases CSS
+ * - Las clases CSS controlan si el elemento se ve o no
+ */
 function mostrarResultado(elementId, contenido, esTicket = false) {
   const elemento = document.getElementById(elementId);
   elemento.innerHTML = contenido;
@@ -23,12 +89,37 @@ function limpiarResultado(elementId) {
   elemento.classList.remove("visible");
 }
 
+/**
+ * obtenerNumero - Obtiene un valor numérico de un input
+ * 
+ * Equivalente Python: int(input(...)) pero con validación
+ * 
+ * Conceptos clave:
+ * - Number() convierte texto a número
+ * - Number.isNaN() verifica si NO es un número válido
+ * - ?? es el "nullish coalescing operator" (retorna valor si es null/undefined)
+ * 
+ * @param {string} id - El ID del input HTML
+ * @returns {number|null} - El número o null si es inválido
+ */
 function obtenerNumero(id) {
   const valor = document.getElementById(id).value;
   const numero = Number(valor);
   return Number.isNaN(numero) ? null : numero;
 }
 
+/**
+ * obtenerTexto - Obtiene texto de un input
+ * 
+ * Equivalente Python: input(...).strip() o "(vacio)" si está vacío
+ * 
+ * Conceptos clave:
+ * - .trim() elimina espacios al inicio y final
+ * - || es el operador OR (retorna el primer valor verdadero)
+ * 
+ * @param {string} id - El ID del input HTML
+ * @returns {string} - El texto del input
+ */
 function obtenerTexto(id) {
   return document.getElementById(id).value.trim() || "(vacio)";
 }
