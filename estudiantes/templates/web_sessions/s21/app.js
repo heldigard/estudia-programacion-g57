@@ -396,6 +396,17 @@ function demoClear() {
 }
 
 // ============================================
+   HELPER FUNCTIONS
+   ============================================
+
+function mostrarResultado(elementId, html) {
+  const elemento = document.getElementById(elementId);
+  if (elemento) {
+    elemento.innerHTML = html;
+  }
+}
+
+// ============================================
    INICIALIZACIÓN
 // ============================================
 

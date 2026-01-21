@@ -3,16 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S24 - Clínica de bugs</title>
+  <title>S24 - Clínica de Bugs</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Clínica de bugs</h1>
-    <input id="n" type="number" placeholder="Número" />
-    <button id="btn">Duplicar</button>
-    <p id="salida">Resultado...</p>
+  <main class="container">
+    <header class="header">
+      <h1>🐛 Práctica S24: Clínica de Bugs</h1>
+      <p class="subtitle">Python + JavaScript: Identifica y corrige errores comunes</p>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div id="progresoFill" class="progress-fill" style="width: 0%">0/5</div>
+      </div>
+      <div class="progress-label" id="progresoLabel">0% completado</div>
+    </div>
+
+    <button class="btn option" onclick="reiniciarProgreso()">🔄 Reiniciar Progreso</button>
+
+    <!-- BUG 1: Concatenación vs Suma -->
+    <section id="bug1" class="card bug-card">
+      <div class="bug-header">
+        <h3>Bug #1: Concatenación vs Suma</h3>
+        <span class="bug-badge">🐛 BUG</span>
+      </div>
+      <p class="hint">El operador + tiene diferente comportamiento según los tipos</p>
+
+      <div class="input-group">
+        <label for="bug1Numero">Ingresa un número:</label>
+        <input id="bug1Numero" type="number" placeholder="Ej: 5" value="5" />
+      </div>
+
+      <button class="btn primary" onclick="probarBug1()">🔍 Identificar Bug</button>
+
+      <div id="bug1Resultado" class="result hidden"></div>
+    </section>
+
+    <!-- BUG 2: Comparación == vs === -->
+    <section id="bug2" class="card bug-card">
+      <div class="bug-header">
+        <h3>Bug #2: Comparación == vs ===</h3>
+        <span class="bug-badge">🐛 BUG</span>
+      </div>
+      <p class="hint">JavaScript tiene dos operadores de igualdad con comportamientos diferentes</p>
+
+      <div class="input-group">
+        <label for="bug2Valor">Ingresa un valor (string):</label>
+        <input id="bug2Valor" type="text" placeholder='Ej: "5" o "hola"' value="5" />
+      </div>
+
+      <button class="btn primary" onclick="probarBug2()">🔍 Identificar Bug</button>
+
+      <div id="bug2Resultado" class="result hidden"></div>
+    </section>
+
+    <!-- BUG 3: undefined vs null -->
+    <section id="bug3" class="card bug-card">
+      <div class="bug-header">
+        <h3>Bug #3: undefined vs null</h3>
+        <span class="bug-badge">🐛 BUG</span>
+      </div>
+      <p class="hint">Dos formas de representar "ausencia de valor" en JavaScript</p>
+
+      <div class="input-group">
+        <label>
+          <input id="bug3Check" type="checkbox" />
+          Marca para asignar un valor
+        </label>
+      </div>
+
+      <button class="btn primary" onclick="probarBug3()">🔍 Identificar Bug</button>
+
+      <div id="bug3Resultado" class="result hidden"></div>
+    </section>
+
+    <!-- BUG 4: Scope de variables -->
+    <section id="bug4" class="card bug-card">
+      <div class="bug-header">
+        <h3>Bug #4: Scope de variables (var vs let/const)</h3>
+        <span class="bug-badge">🐛 BUG</span>
+      </div>
+      <p class="hint">var tiene function scope, let/const tienen block scope</p>
+
+      <button class="btn primary" onclick="probarBug4()">🔍 Identificar Bug</button>
+
+      <div id="bug4Resultado" class="result hidden"></div>
+    </section>
+
+    <!-- BUG 5: Asincronía - Falta await -->
+    <section id="bug5" class="card bug-card">
+      <div class="bug-header">
+        <h3>Bug #5: Asincronía - Falta await</h3>
+        <span class="bug-badge">🐛 BUG</span>
+      </div>
+      <p class="hint">Sin await, las promesas no se resuelven correctamente</p>
+
+      <button class="btn primary" onclick="probarBug5()">🔍 Identificar Bug</button>
+
+      <div id="bug5Resultado" class="result hidden"></div>
+    </section>
+
+    <!-- Debug Panel - Comparación -->
+    <section class="card">
+      <h2>🐞 Debugging: Python vs JavaScript</h2>
+      <p class="hint">Errores comunes y cómo evitarlos</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Bugs comunes en Python
+
+# 1. Concatenación involuntaria
+n = input()  # "5"
+resultado = n + n  # "55" ❌
+
+# Solución
+n = int(input())  # 5
+resultado = n + n  # 10 ✅
+
+# 2. Comparación
+"5" == 5  # False (sin coerción)
+
+# 3. None vs (no existe undefined)
+valor = None
+if valor is None:
+    print("Vacío")
+
+# 4. Scope (solo function scope)
+def funcion():
+    if True:
+        x = 10
+    print(x)  # 10
+
+# 5. Async/await
+import asyncio
+async def obtener():
+    await asyncio.sleep(1)
+    return "datos"
+resultado = await obtener()</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Bugs comunes en JavaScript
+
+// 1. Concatenación involuntaria
+const n = input.value;  // "5"
+const resultado = n + n;  // "55" ❌
+
+// Solución
+const n = Number(input.value);  // 5
+const resultado = n + n;  // 10 ✅
+
+// 2. Comparación
+"5" == 5   // true ⚠️ (con coerción)
+"5" === 5  // false ✅ (estricto)
+
+// 3. undefined vs null
+let x;  // undefined
+const y = null;  // null
+if (!x) console.log("falsy");
+if (!y) console.log("falsy");
+
+// 4. Scope
+var x = 10;  // function scope
+let y = 20;  // block scope ✅
+
+// 5. Async/await
+async function obtener() {
+  await new Promise(r =>
+    setTimeout(r, 1000)
+  );
+  return "datos";
+}
+const resultado = await obtener();</pre>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>int(input())</code> → JS: <code>Number(input.value)</code><br>
+        2. Python: <code>==</code> (sin coerción) → JS: <code>===</code> (estricto), <code>==</code> (con coerción)<br>
+        3. Python: <code>None</code> → JS: <code>undefined</code> (no definido) o <code>null</code> (vacío intencional)<br>
+        4. Python: function scope → JS: var (function scope), let/const (block scope)<br>
+        5. Ambos usan <code>async/await</code> para manejar asincronía de forma similar
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

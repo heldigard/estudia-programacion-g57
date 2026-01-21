@@ -3,15 +3,356 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S21 - Debug</title>
+  <title>S21 - Debugging - Herramientas de Depuración</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Debug en navegador</h1>
-    <button id="btn">Probar</button>
-    <pre id="log"></pre>
+  <main class="container">
+    <header class="header">
+      <h1>🐛 Práctica S21: Debugging - Herramientas de Depuración</h1>
+      <p class="subtitle">Python + JavaScript: Herramientas para encontrar y corregir errores</p>
+    </header>
+
+    <!-- Consola Personalizada -->
+    <section class="card highlight">
+      <h2>💻 Consola de Depuración</h2>
+      <p class="hint">Abre las DevTools del navegador (F12) para ver los logs en la consola real</p>
+
+      <div id="consola" class="console-output">
+        <div class="console-line">
+          <span class="timestamp">[Sistema]</span>
+          <span class="info">Consola inicializada. Presiona F12 para ver más detalles.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Métodos Básicos de Console -->
+    <section class="card">
+      <h2>📝 Métodos Básicos de Console</h2>
+      <p class="hint">Python: print() → JavaScript: console.log()</p>
+
+      <div class="input-group">
+        <label for="logMensaje">Mensaje para log:</label>
+        <input id="logMensaje" type="text" placeholder="Escribe un mensaje..." />
+      </div>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoLog()">📋 Log</button>
+        <button class="btn option" onclick="demoInfo()">ℹ️ Info</button>
+        <button class="btn secondary" onclick="demoWarn()">⚠️ Warn</button>
+        <button class="btn danger" onclick="demoError()">❌ Error</button>
+      </div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>print("Mensaje")
+logging.info("Info")
+logging.warning("Warning")
+logging.error("Error")</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>console.log("Mensaje")
+console.info("Info")
+console.warn("Warning")
+console.error("Error")</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Console Table y Group -->
+    <section class="card">
+      <h2>📊 Table y Group</h2>
+      <p class="hint">Organiza la salida de console de forma estructurada</p>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoTable()">📋 Table</button>
+        <button class="btn secondary" onclick="demoGroup()">📦 Group</button>
+        <button class="btn option" onclick="demoGroupCollapsed()">📁 Group Collapsed</button>
+      </div>
+
+      <div id="resultadoConsola" class="result hidden"></div>
+    </section>
+
+    <!-- Try/Catch - Manejo de Errores -->
+    <section class="card">
+      <h2>🔧 Try/Catch - Manejo de Errores</h2>
+      <p class="hint">Python: try/except → JavaScript: try/catch</p>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="tryNumero">Número para elevar al cuadrado:</label>
+          <input id="tryNumero" type="number" placeholder="Ej: 5" />
+        </div>
+        <div class="input-group">
+          <label for="tryValor">Valor para validar tipo:</label>
+          <input id="tryValor" type="text" placeholder="Ej: 10 o hola" />
+        </div>
+      </div>
+
+      <div class="botones-grid">
+        <button class="btn success" onclick="demoTryCatch()">✅ Try/Catch Básico</button>
+        <button class="btn secondary" onclick="demoErrorDeTipo()">🔍 Error de Tipo</button>
+      </div>
+
+      <div id="tryResultado" class="result hidden"></div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>try:
+    n = int(input())
+    resultado = n ** 2
+except ValueError as e:
+    print(f"Error: {e}")
+except TypeError as e:
+    print(f"Tipo inválido")</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>try {
+  const n = Number(input.value);
+  if (isNaN(n)) {
+    throw new TypeError("No es número");
+  }
+  const result = n ** 2;
+} catch (error) {
+  if (error instanceof TypeError) {
+    console.error("Tipo inválido");
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assert - Verificaciones -->
+    <section class="card">
+      <h2>✅ Assert - Verificaciones</h2>
+      <p class="hint">Python: assert condition → JavaScript: console.assert(condition)</p>
+
+      <div class="input-group">
+        <label for="assertValor">Valor para verificar (debe ser > 0):</label>
+        <input id="assertValor" type="number" placeholder="Ej: 5 o -1" />
+      </div>
+
+      <button class="btn primary" onclick="demoAssert()">🔍 Verificar Assert</button>
+
+      <div id="assertResultado" class="result hidden"></div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>valor = 5
+assert valor > 0, "El valor debe ser positivo"
+print("Assert pasó")</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>const valor = 5;
+console.assert(valor > 0, "El valor debe ser positivo");
+if (valor > 0) {
+  console.log("Assert pasó");
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trace - Stack Trace -->
+    <section class="card">
+      <h2>📍 Trace - Seguimiento de Ejecución</h2>
+      <p class="hint">Muestra el stack trace de llamadas a funciones</p>
+
+      <button class="btn primary" onclick="demoTrace()">📍 Generar Trace</button>
+
+      <div id="traceResultado" class="result hidden"></div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>import traceback
+traceback.print_stack()</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>console.trace("Mensaje opcional")</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Time y Count - Medición -->
+    <section class="card">
+      <h2>⏱️ Time y Count - Medición</h2>
+      <p class="hint">Python: time.time() → JavaScript: console.time() / console.count()</p>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoTime()">⏱️ Time</button>
+        <button class="btn secondary" onclick="demoCount()">🔢 Count</button>
+      </div>
+
+      <div class="input-row">
+        <div id="timeResultado" class="result hidden"></div>
+        <div id="countResultado" class="result hidden"></div>
+      </div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>import time
+t0 = time.time()
+# ... código ...
+t1 = time.time()
+print(f"Tomó {t1-t0:.2f}s")
+
+contador = 0
+contador += 1
+print(f"Contador: {contador}")</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>const t0 = performance.now();
+// ... código ...
+const t1 = performance.now();
+console.log(`Tomó ${t1-t0}ms`);
+
+console.count("mi_contador");
+console.count("mi_contador");
+// "mi_contador: 2"</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dir - Inspección -->
+    <section class="card">
+      <h2>📂 Dir - Inspección de Objetos</h2>
+      <p class="hint">Python: vars(obj) o dir(obj) → JavaScript: console.dir(obj)</p>
+
+      <button class="btn primary" onclick="demoDir()">📂 Inspeccionar Objeto</button>
+
+      <div id="dirResultado" class="result hidden"></div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>estudiante = {
+  "nombre": "Ana",
+  "curso": "Python"
+}
+print(vars(estudiante))
+# o
+print(dir(estudiante))</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>const estudiante = {
+  nombre: "Ana",
+  curso: "Python"
+};
+console.dir(estudiante);</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clear - Limpiar Consola -->
+    <section class="card">
+      <h2>🧹 Clear - Limpiar Consola</h2>
+      <p class="hint">Limpia tanto la consola personalizada como la del navegador</p>
+
+      <button class="btn danger" onclick="demoClear()">🧹 Limpiar Consola</button>
+
+      <div id="clearResultado" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Debugging: Python vs JavaScript</h2>
+      <p class="hint">Herramientas equivalentes en ambos lenguajes</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Debugging en Python
+print("Variable:", variable)
+logging.warning("Advertencia")
+logging.error("Error")
+
+# Stack trace
+import traceback
+traceback.print_stack()
+
+# Verificar condición
+assert condicion, "Mensaje"
+
+# Medir tiempo
+import time
+t0 = time.time()
+# ... código ...
+print(f"Tiempo: {time.time() - t0}s")
+
+# Inspeccionar objeto
+print(vars(objeto))
+print(dir(objeto))
+
+# Manejo de errores
+try:
+    resultado = operacion()
+except ValueError as e:
+    print(f"Error: {e}")
+except Exception as e:
+    print(f"Error inesperado: {e}")</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Debugging en JavaScript
+console.log("Variable:", variable);
+console.warn("Advertencia");
+console.error("Error");
+
+// Stack trace
+console.trace("Stack actual");
+
+// Verificar condición
+console.assert(condicion, "Mensaje");
+
+// Medir tiempo
+const t0 = performance.now();
+// ... código ...
+console.log(`Tiempo: ${performance.now() - t0}ms`);
+// O: console.time("operacion");
+//    console.timeEnd("operacion");
+
+// Inspeccionar objeto
+console.dir(objeto);
+console.table(objeto);
+
+// Manejo de errores
+try {
+  const resultado = operacion();
+} catch (error) {
+  if (error instanceof TypeError) {
+    console.error("Tipo inválido:", error.message);
+  } else {
+    console.error("Error:", error.message);
+  }
+}
+
+// Contar ejecuciones
+console.count("mi_contador");</pre>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>print()</code> → JS: <code>console.log()</code> (mucho más versátil)<br>
+        2. Python: <code>logging</code> módulo → JS: <code>console</code> objeto global<br>
+        3. Python: <code>try/except Exception</code> → JS: <code>try/catch (error)</code><br>
+        4. Python: <code>traceback.print_stack()</code> → JS: <code>console.trace()</code><br>
+        5. JS tiene DevTools integrados en el navegador (F12) con debugging visual<br>
+        6. JS permite usar <code>debugger;</code> para poner breakpoints en código
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

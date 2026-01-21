@@ -3,16 +3,244 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S27 - Proyecto (Parte 2)</title>
+  <title>S27 - Persistencia con localStorage</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Gestor de tareas (Persistencia)</h1>
-    <input id="tarea" placeholder="Nueva tarea" />
-    <button id="btn">Agregar</button>
-    <ul id="lista"></ul>
+  <main class="container">
+    <header class="header">
+      <h1>💾 Práctica S27: Gestor de Tareas con Persistencia</h1>
+      <p class="subtitle">Python + JavaScript: Almacenamiento de datos local</p>
+    </header>
+
+    <!-- Storage Info -->
+    <div class="storage-info">
+      <div class="storage-status">
+        <span id="storageIndicator" class="status-indicator"></span>
+        <span>localStorage activo - Tus tareas se guardan automáticamente</span>
+      </div>
+      <button class="btn danger icon" onclick="limpiarStorage()">🗑️ Limpiar Todo</button>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statPendientes">0</div>
+        <div class="stat-label">Pendientes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statCompletadas">0</div>
+        <div class="stat-label">Completadas</div>
+      </div>
+    </div>
+
+    <!-- Formulario de Agregar -->
+    <section class="card">
+      <h2>➕ Nueva Tarea</h2>
+      <p class="hint">CREATE: Agrega una nueva tarea y se guarda automáticamente</p>
+
+      <div class="input-row">
+        <div class="input-group" style="margin-bottom: 0;">
+          <input id="tareaInput" type="text" placeholder="Escribe una tarea..." />
+        </div>
+        <div class="input-group" style="margin-bottom: 0; min-width: 100px;">
+          <select id="prioridadSelect">
+            <option value="baja">Baja</option>
+            <option value="media" selected>Media</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
+        <button class="btn primary" onclick="agregarTarea()">Agregar</button>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <div class="filtros-bar">
+      <span class="filtro-chip active" data-filtro="todos" onclick="setFiltro('todos')">Todas</span>
+      <span class="filtro-chip" data-filtro="pendientes" onclick="setFiltro('pendientes')">Pendientes</span>
+      <span class="filtro-chip" data-filtro="completadas" onclick="setFiltro('completadas')">Completadas</span>
+    </div>
+
+    <!-- Lista de Tareas -->
+    <section class="card">
+      <h2>📝 Lista de Tareas</h2>
+      <p class="hint">Las tareas persisten aunque cierres el navegador</p>
+
+      <ul id="tareaLista" class="task-list">
+        <!-- Se llena dinámicamente -->
+      </ul>
+    </section>
+
+    <!-- Panel de Debug - Comparación -->
+    <section class="card">
+      <h2>🐞 Persistencia: Python vs JavaScript</h2>
+      <p class="hint">Almacenamiento de datos en aplicaciones web</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Archivo JSON
+import json
+import os
+
+ARCHIVO = "tareas.json"
+
+# Guardar
+def guardar_tareas(tareas):
+  with open(ARCHIVO, "w") as f:
+    json.dump(tareas, f)
+
+# Cargar
+def cargar_tareas():
+  if os.path.exists(ARCHIVO):
+    with open(ARCHIVO, "r") as f:
+      return json.load(f)
+  return []
+
+# Eliminar
+def limpiar():
+  if os.path.exists(ARCHIVO):
+    os.remove(ARCHIVO)
+
+# Uso
+tareas = cargar_tareas()
+tareas.append({"texto": "Nueva"})
+guardar_tareas(tareas)</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript - localStorage</h4>
+          <pre>// localStorage API
+const KEY = "tareas-app";
+
+// Guardar
+function guardarTareas(tareas) {
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(tareas)
+  );
+}
+
+// Cargar
+function cargarTareas() {
+  const data = localStorage.getItem(KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+// Eliminar
+function limpiar() {
+  localStorage.removeItem(KEY);
+}
+
+// Uso
+let tareas = cargarTareas();
+tareas.push({texto: "Nueva"});
+guardarTareas(tareas);</pre>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python - Pickle (binario)</h4>
+          <pre>import pickle
+
+# Guardar objetos Python
+with open("data.pkl", "wb") as f:
+  pickle.dump(objeto, f)
+
+# Cargar objetos
+with open("data.pkl", "rb") as f:
+  objeto = pickle.load(f)
+
+# SQLite (base de datos)
+import sqlite3
+
+conn = sqlite3.connect("db.sqlite")
+cursor = conn.cursor()
+cursor.execute(
+  "CREATE TABLE tareas ..."
+)
+cursor.execute(
+  "INSERT INTO tareas VALUES (?)"
+  , (datos,)
+)</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript - Otras opciones</h4>
+          <pre>// sessionStorage (solo sesión)
+sessionStorage.setItem("temp", data);
+sessionStorage.getItem("temp");
+// Se pierde al cerrar pestaña
+
+// IndexedDB (base de datos)
+// Más complejo, asíncrono
+const request = indexedDB.open("DB", 1);
+
+request.onupgradeneeded = (e) => {
+  const db = e.target.result;
+  db.createObjectStore("tareas");
+};
+
+request.onsuccess = (e) => {
+  const db = e.target.result;
+  const tx = db.transaction("tareas");
+  const store = tx.objectStore("tareas");
+  store.add({texto: "Dato"});
+};</pre>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python - Flask con base de datos</h4>
+          <pre>from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+db = SQLAlchemy(app)
+
+class Tarea(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  texto = db.Column(db.String(200))
+  completada = db.Column(db.Boolean)
+
+@app.route('/agregar', methods=['POST'])
+def agregar():
+  tarea = Tarea(
+    texto=request.form['texto']
+  )
+  db.session.add(tarea)
+  db.session.commit()
+  return "OK"</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript - API con persistencia</h4>
+          <pre>// Guardar después de fetch
+async function agregarTarea(texto) {
+  const response = await fetch('/api/tareas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({texto})
+  });
+
+  if (response.ok) {
+    // Guardar en localStorage
+    // para acceso offline
+    const tareas = cargarTareas();
+    tareas.push({texto, completada: false});
+    guardarTareas(tareas);
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

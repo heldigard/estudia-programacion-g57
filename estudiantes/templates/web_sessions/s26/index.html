@@ -3,16 +3,258 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S26 - Proyecto (Parte 1)</title>
+  <title>S26 - Gestor de Tareas</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Gestor de tareas</h1>
-    <input id="tarea" placeholder="Nueva tarea" />
-    <button id="btn">Agregar</button>
-    <ul id="lista"></ul>
+  <main class="container">
+    <header class="header">
+      <h1>📋 Práctica S26: Gestor de Tareas</h1>
+      <p class="subtitle">Python + JavaScript: CRUD completo (Create, Read, Update, Delete)</p>
+    </header>
+
+    <!-- Estadísticas -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statPendientes">0</div>
+        <div class="stat-label">Pendientes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statCompletadas">0</div>
+        <div class="stat-label">Completadas</div>
+      </div>
+    </div>
+
+    <!-- Formulario de Agregar -->
+    <section class="card">
+      <h2>➕ Nueva Tarea</h2>
+      <p class="hint">CREATE: Agrega una nueva tarea a la lista</p>
+
+      <div class="input-row">
+        <div class="input-group" style="margin-bottom: 0;">
+          <input id="tareaInput" type="text" placeholder="Escribe una tarea..." />
+        </div>
+        <div class="input-group" style="margin-bottom: 0; min-width: 100px;">
+          <select id="prioridadSelect">
+            <option value="baja">Baja</option>
+            <option value="media" selected>Media</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
+        <button class="btn primary" onclick="agregarTarea()">Agregar</button>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <div class="filtros-bar">
+      <span class="filtro-chip active" data-filtro="todos" onclick="setFiltro('todos')">Todas</span>
+      <span class="filtro-chip" data-filtro="pendientes" onclick="setFiltro('pendientes')">Pendientes</span>
+      <span class="filtro-chip" data-filtro="completadas" onclick="setFiltro('completadas')">Completadas</span>
+    </div>
+
+    <!-- Lista de Tareas -->
+    <section class="card">
+      <h2>📝 Lista de Tareas</h2>
+      <p class="hint">READ, UPDATE, DELETE: Interactúa con cada tarea</p>
+
+      <ul id="tareaLista" class="task-list">
+        <!-- Se llena dinámicamente -->
+      </ul>
+    </section>
+
+    <!-- Panel de Debug - Comparación -->
+    <section class="card">
+      <h2>🐞 CRUD: Python vs JavaScript</h2>
+      <p class="hint">Operaciones básicas de manipulación de datos</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Estructura de datos
+tareas = [
+  {"texto": "Aprender", "hecha": False},
+  {"texto": "Practicar", "hecha": True}
+]
+
+# CREATE - Agregar
+def agregar_tarea(texto):
+  tareas.append({
+    "texto": texto,
+    "hecha": False
+  })
+
+# READ - Obtener
+def obtener_tareas():
+  return tareas
+
+# UPDATE - Actualizar
+def marcar_completada(id):
+  for t in tareas:
+    if t["id"] == id:
+      t["hecha"] = not t["hecha"]
+      break
+
+# DELETE - Eliminar
+def eliminar_tarea(id):
+  tareas[:] = [
+    t for t in tareas
+    if t["id"] != id
+  ]
+
+# Filtrar
+pendientes = [
+  t for t in tareas
+  if not t["hecha"]
+]
+
+# Buscar
+tarea = next(
+  (t for t in tareas
+   if t["id"] == id),
+  None
+)</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Estructura de datos
+const tareas = [
+  {texto: "Aprender", hecha: false},
+  {texto: "Practicar", hecha: true}
+];
+
+// CREATE - Agregar
+function agregarTarea(texto) {
+  tareas.push({
+    texto: texto,
+    hecha: false
+  });
+}
+
+// READ - Obtener
+function obtenerTareas() {
+  return tareas;
+}
+
+// UPDATE - Actualizar
+function marcarCompletada(id) {
+  const t = tareas.find(
+    t => t.id === id
+  );
+  if (t) {
+    t.hecha = !t.hecha;
+  }
+}
+
+// DELETE - Eliminar
+function eliminarTarea(id) {
+  tareas = tareas.filter(
+    t => t.id !== id
+  );
+}
+
+// Filtrar
+const pendientes = tareas.filter(
+  t => !t.hecha
+);
+
+// Buscar
+const tarea = tareas.find(
+  t => t.id === id
+);</pre>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python - HTML con Flask/Django</h4>
+          <pre>{# Plantilla Jinja2 #}
+&lt;ul&gt;
+{% for tarea in tareas %}
+  &lt;li&gt;
+    &lt;input type="checkbox"
+      {% if tarea.hecha %}
+        checked
+      {% endif %} /&gt;
+    {{ tarea.texto }}
+  &lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript - DOM manipulation</h4>
+          <pre>// Renderizado dinámico
+function render() {
+  lista.innerHTML = tareas.map(t =&gt; `
+    &lt;li class="${t.hecha ? 'done' : ''}"&gt;
+      &lt;input type="checkbox"
+        ${t.hecha ? 'checked' : ''}
+        onchange="toggle(${t.id})" /&gt;
+      ${t.texto}
+    &lt;/li&gt;
+  `).join("");
+}
+
+// Actualizar en tiempo real
+function toggle(id) {
+  const t = tareas.find(x =&gt; x.id === id);
+  t.hecha = !t.hecha;
+  render(); // Re-render
+}</pre>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python - Formularios</h4>
+          <pre># Manejo de formularios
+from flask import request, redirect
+
+@app.route('/agregar', methods=['POST'])
+def agregar():
+  texto = request.form['texto']
+  if texto:
+    agregar_tarea(texto)
+  return redirect('/')
+
+@app.route('/eliminar/&lt;int:id&gt;')
+def eliminar(id):
+  eliminar_tarea(id)
+  return redirect('/')</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript - Event handlers</h4>
+          <pre>// Manejo de eventos
+function agregarTarea() {
+  const input = document
+    .getElementById('tareaInput');
+  const texto = input.value.trim();
+
+  if (texto) {
+    tareas.push({
+      id: Date.now(),
+      texto: texto,
+      hecha: false
+    });
+    input.value = '';
+    render();
+  }
+}
+
+// Enter key
+input.addEventListener('keypress', (e) =&gt; {
+  if (e.key === 'Enter') {
+    agregarTarea();
+  }
+});</pre>
+        </div>
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
