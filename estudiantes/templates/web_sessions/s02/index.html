@@ -3,17 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S02 - Perfil interactivo</title>
+  <title>S02 - Variables y Tipos Interactivo</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Perfil</h1>
-    <input id="nombre" placeholder="Nombre" />
-    <input id="edad" type="number" placeholder="Edad" />
-    <button id="btn">Actualizar</button>
-    <p id="salida">Completa el formulario.</p>
+  <main class="container">
+    <header class="header">
+      <h1>🎓 Práctica S02: Variables y Tipos</h1>
+      <p class="subtitle">Python + JavaScript: Aprendiendo en paralelo</p>
+    </header>
+
+    <!-- Tarjeta 1: Calculadora de Edad -->
+    <section class="card">
+      <h2>📅 Calculadora de Edad</h2>
+      <p class="hint">Igual que en Python, pedimos datos y calculamos</p>
+      <div class="input-group">
+        <label for="anio">Año de nacimiento:</label>
+        <input id="anio" type="number" placeholder="Ej: 2000" min="1900" max="2026" />
+      </div>
+      <button class="btn primary" onclick="calcularEdad()">Calcular Edad</button>
+      <div id="resultadoEdad" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Perfil Personal -->
+    <section class="card">
+      <h2>👤 Perfil Personal</h2>
+      <p class="hint">Practicando con strings y números</p>
+      <div class="input-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text" placeholder="Tu nombre" />
+      </div>
+      <div class="input-group">
+        <label for="edad">Edad:</label>
+        <input id="edad" type="number" placeholder="Ej: 25" min="0" max="120" />
+      </div>
+      <div class="input-group">
+        <label for="ciudad">Ciudad:</label>
+        <input id="ciudad" type="text" placeholder="Tu ciudad" />
+      </div>
+      <button class="btn primary" onclick="mostrarPerfil()">Mostrar Perfil</button>
+      <div id="resultadoPerfil" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Verificador de Tipos -->
+    <section class="card">
+      <h2>🔍 Verificador de Tipos</h2>
+      <p class="hint">Escribe algo y veremos su tipo (como isinstance en Python)</p>
+      <div class="input-group">
+        <label for="valor">Escribe cualquier valor:</label>
+        <input id="valor" type="text" placeholder="Puede ser texto, número, true/false..." />
+      </div>
+      <button class="btn secondary" onclick="verificarTipo()">Verificar Tipo</button>
+      <div id="resultadoTipo" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Ticket de Compra -->
+    <section class="card highlight">
+      <h2>🛒 Ticket de Compra</h2>
+      <p class="hint">Igual al mini-proyecto de Python</p>
+      <div class="input-group">
+        <label for="producto">Producto:</label>
+        <input id="producto" type="text" placeholder="Ej: Laptop" />
+      </div>
+      <div class="input-group">
+        <label for="precio">Precio unitario:</label>
+        <input id="precio" type="number" placeholder="Ej: 2500000" min="0" step="0.01" />
+      </div>
+      <div class="input-group">
+        <label for="cantidad">Cantidad:</label>
+        <input id="cantidad" type="number" placeholder="Ej: 2" min="1" />
+      </div>
+      <div class="input-group">
+        <label for="descuento">Descuento (%):</label>
+        <input id="descuento" type="number" placeholder="Ej: 10" min="0" max="100" value="0" />
+      </div>
+      <button class="btn success" onclick="generarTicket()">Generar Ticket</button>
+      <div id="resultadoTicket" class="ticket hidden"></div>
+    </section>
+
+    <!-- Panel de Debug -->
+    <section class="card debug">
+      <h2>🐞 Consola (Debug)</h2>
+      <p class="hint">Presiona F12 para ver la consola del navegador</p>
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre>print(type(variable))
+isinstance(x, int)</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>console.log(typeof x)
+typeof x === "number"</pre>
+        </div>
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

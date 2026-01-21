@@ -3,17 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S03 - Calculadora</title>
+  <title>S03 - Operadores y Expresiones</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Calculadora</h1>
-    <input id="a" type="number" placeholder="A" />
-    <input id="b" type="number" placeholder="B" />
-    <button id="btn">Calcular</button>
-    <p id="res">Resultado...</p>
+  <main class="container">
+    <header class="header">
+      <h1>🧮 Práctica S03: Operadores y Expresiones</h1>
+      <p class="subtitle">Python + JavaScript: Operadores son casi idénticos</p>
+    </header>
+
+    <!-- Tarjeta 1: Calculadora Básica -->
+    <section class="card">
+      <h2>🔢 Calculadora Básica</h2>
+      <p class="hint">Practicando operadores aritméticos (+, -, *, /, %, **)</p>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="num1">Número 1:</label>
+          <input id="num1" type="number" placeholder="Ej: 10" />
+        </div>
+        <div class="input-group">
+          <label for="num2">Número 2:</label>
+          <input id="num2" type="number" placeholder="Ej: 3" />
+        </div>
+      </div>
+      <button class="btn primary" onclick="calcularOperaciones()">Calcular Todo</button>
+      <div id="resultadoCalc" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Par o Impar -->
+    <section class="card">
+      <h2>🎲 ¿Par o Impar?</h2>
+      <p class="hint">Usando el operador módulo (%)</p>
+      <div class="input-group">
+        <label for="numeroParImpar">Ingresa un número:</label>
+        <input id="numeroParImpar" type="number" placeholder="Ej: 7" />
+      </div>
+      <button class="btn secondary" onclick="verificarParImpar()">Verificar</button>
+      <div id="resultadoParImpar" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Comparaciones -->
+    <section class="card">
+      <h2>⚖️ Comparador de Números</h2>
+      <p class="hint">Operadores de comparación (>, <, >=, <=, ==, !=)</p>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="compA">Valor A:</label>
+          <input id="compA" type="number" placeholder="Ej: 10" />
+        </div>
+        <div class="input-group">
+          <label for="compB">Valor B:</label>
+          <input id="compB" type="number" placeholder="Ej: 5" />
+        </div>
+      </div>
+      <button class="btn secondary" onclick="compararNumeros()">Comparar</button>
+      <div id="resultadoComp" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Operadores Lógicos -->
+    <section class="card highlight">
+      <h2>🔣 Evaluador de Condiciones</h2>
+      <p class="hint">Operadores lógicos: AND (&&), OR (||), NOT (!)</p>
+      <div class="input-group">
+        <label for="edad">Edad:</label>
+        <input id="edad" type="number" placeholder="Ej: 25" min="0" max="120" />
+      </div>
+      <div class="input-group">
+        <label for="tieneLicencia">
+          <input type="checkbox" id="tieneLicencia" />
+          Tiene licencia de conducir
+        </label>
+      </div>
+      <div class="input-group">
+        <label for="esFinDeSemana">
+          <input type="checkbox" id="esFinDeSemana" />
+          Es fin de semana
+        </label>
+      </div>
+      <button class="btn success" onclick="evaluarCondiciones()">Evaluar</button>
+      <div id="resultadoLogicos" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: Conversor de Minutos -->
+    <section class="card">
+      <h2>⏱️ Conversor de Minutos a Horas</h2>
+      <p class="hint">Usando división entera (//) y módulo (%)</p>
+      <div class="input-group">
+        <label for="minutos">Minutos totales:</label>
+        <input id="minutos" type="number" placeholder="Ej: 135" min="0" />
+      </div>
+      <button class="btn primary" onclick="convertirMinutos()">Convertir</button>
+      <div id="resultadoMinutos" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Operadores: Python vs JavaScript</h2>
+      <p class="hint">¡Son casi idénticos! Solo cambia la sintaxis de operadores lógicos.</p>
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Aritméticos - IGUALES
+10 + 3   # 13
+10 % 3   # 1
+10 ** 2  # 100
+
+# Comparación - IGUALES
+10 == 10  # True
+10 != 5   # True
+
+# Lógicos - Diferente
+True and False   # False
+True or False    # True
+not True         # False</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Aritméticos - IGUALES
+10 + 3   // 13
+10 % 3   // 1
+10 ** 2  // 100
+
+// Comparación - IGUALES
+10 === 10  // true
+10 !== 5   // true
+
+// Lógicos - Diferente
+true && false   // false
+true || false   // true
+!true           // false</pre>
+        </div>
+      </div>
+      <div class="warning-box">
+        <strong>⚠️ IMPORTANTE:</strong> En JavaScript siempre usa <code>===</code> en lugar de <code>==</code> para comparación estricta.
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
