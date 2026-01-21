@@ -1,97 +1,191 @@
-/* S12: Módulos y Reuso - Estilos */
+/*
+  =====================================================
+  S12: Módulos y Reuso - PLANTILLA CSS
+  =====================================================
+
+  ¿QUÉ ES CSS?
+  -------------
+  CSS (Cascading Style Sheets) define el ESTILO de la página.
+  Es como la pintura y decoración de una casa: define CÓMO se ven
+  los elementos (colores, tamaños, posiciones, fuentes).
+
+  SINTAXIS BÁSICA DE CSS:
+  ----------------------
+  selector {
+    propiedad: valor;
+  }
+
+  Ejemplo:
+  h1 {
+    color: purple;  /* Texto en púrpura */
+    font-size: 32px;  /* Tamaño de 32 píxeles */
+  }
+
+  SELECTORES COMUNES:
+  ------------------
+  button          - Selecciona todas las etiquetas <button>
+  #miId           - Selecciona el elemento con id="miId"
+  .miClase        - Selecciona todos los elementos con class="miClase"
+  button.primary  - Selecciona botones con class="primary"
+
+  CONEXIÓN HTML ↔ CSS:
+  -------------------
+  HTML: <div id="resultado"> → CSS: #resultado { ... }
+  HTML: <div class="card"> → CSS: .card { ... }
+  HTML: <button class="btn primary"> → CSS: .btn.primary { ... }
+
+  UNIDADES COMUNES:
+  ----------------
+  px              - Píxeles (absoluto)
+  rem             - Relativo al tamaño base del documento
+  %               - Porcentaje relativo al padre
+  vh/vw           - Porcentaje de la altura/ancho de la pantalla
+*/
 
 /* ============================================
-   VARIABLES Y RESET
-   ============================================ */
+   VARIABLES CSS (CSS CUSTOM PROPERTIES)
+   ============================================
+
+   :root define variables globales que podemos reusar.
+   Es como crear constantes en Python para valores que se repiten.
+
+   Para usar una variable: var(--nombre-variable)
+
+   Ejemplo: color: var(--accent-primary);
+*/
 :root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --accent-primary: #84cc16;
-  --accent-secondary: #65a30d;
-  --accent-success: #22c55e;
-  --accent-warning: #f59e0b;
-  --accent-danger: #ef4444;
-  --border-color: #334155;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
+  /* Colores de fondo - Background colors */
+  --bg-primary: #0f172a;      /* Fondo principal (muy oscuro) */
+  --bg-secondary: #1e293b;    /* Fondo secundario (oscuro) */
+  --bg-card: #1e293b;         /* Fondo de tarjetas */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  /* Colores de texto - Text colors */
+  --text-primary: #f1f5f9;    /* Texto principal (blanco) */
+  --text-secondary: #94a3b8;  /* Texto secundario (gris claro) */
+
+  /* Colores de acento - Accent colors (para botones, resaltados) */
+  --accent-primary: #84cc16;    /* Lima verde - botón principal */
+  --accent-secondary: #65a30d;  /* Verde oscuro - botón secundario */
+  --accent-success: #22c55e;    /* Verde - éxito/confirmación */
+  --accent-warning: #f59e0b;    /* Amarillo - advertencia */
+  --accent-danger: #ef4444;     /* Rojo - error */
+
+  /* Otros valores reutilizables - Other reusable values */
+  --border-color: #334155;     /* Color de bordes */
+  --radius-md: 12px;           /* Bordes redondeados medianos */
+  --radius-sm: 8px;            /* Bordes redondeados pequeños */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);  /* Sombra suave */
 }
 
 /* ============================================
-   LAYOUT
-   ============================================ */
+   RESET - Configuración base
+   ============================================
+
+   El * es un comodín que selecciona TODOS los elementos.
+   Esto elimina los márgenes predeterminados del navegador.
+
+   box-sizing: border-box incluye padding y border en el tamaño total,
+   facilitando el cálculo de dimensiones.
+*/
+* {
+  box-sizing: border-box;  /* Incluye padding/border en el tamaño total */
+  margin: 0;               /* Elimina márgenes externos */
+  padding: 0;              /* Elimina márgenes internos */
+}
+
+/* ============================================
+   LAYOUT - Estructura general
+   ============================================
+
+   Conexión HTML: <body>, <main class="container">
+
+   body: Estilos para todo el documento
+   .container: Contenedor centrado con ancho máximo
+*/
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  min-height: 100vh;
-  padding: 20px;
+  /* Fuente del sistema: usa la fuente predeterminada del usuario */
+
+  background: var(--bg-primary);  /* Fondo oscuro */
+  color: var(--text-primary);     /* Texto blanco */
+  line-height: 1.6;               /* Espacio entre líneas (interlineado) */
+  min-height: 100vh;              /* Altura mínima = 100% de la ventana */
+  padding: 20px;                  /* Espacio alrededor del contenido */
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 800px;   /* Ancho máximo del contenedor */
+  margin: 0 auto;     /* Centrar horizontalmente (0 arriba/abajo, auto izq/der) */
 }
 
 /* ============================================
-   HEADER
-   ============================================ */
+   HEADER - Cabecera de la página
+   ============================================
+
+   Conexión HTML: <header class="header">
+
+   El header contiene el título y subtítulo de la página.
+*/
 .header {
-  text-align: center;
-  margin-bottom: 32px;
-  padding: 24px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
+  text-align: center;      /* Centrar texto */
+  margin-bottom: 32px;     /* Espacio debajo del header */
+  padding: 24px;           /* Espacio interno */
+  background: var(--bg-secondary);  /* Fondo */
+  border-radius: var(--radius-md);  /* Esquinas redondeadas */
+  border: 1px solid var(--border-color);  /* Borde */
 }
 
 .header h1 {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
-  color: var(--accent-primary);
+  font-size: 1.8rem;       /* Tamaño grande (rem es relativo) */
+  margin-bottom: 8px;      /* Espacio debajo */
+  color: var(--accent-primary);  /* Color verde lima */
 }
 
 .subtitle {
-  color: var(--text-secondary);
-  font-size: 1rem;
+  color: var(--text-secondary);  /* Gris claro */
+  font-size: 1rem;               /* Tamaño normal */
 }
 
 /* ============================================
-   CARDS
-   ============================================ */
+   CARDS - Tarjetas de ejercicios
+   ============================================
+
+   Conexión HTML: <section class="card">
+
+   Las tarjetas son contenedores visuales que agrupan
+   contenido relacionado (inputs, botones, resultados).
+
+   SELECTORES USADOS:
+   - .card: Todas las tarjetas
+   - .card.highlight: Tarjetas destacadas (bordes verdes)
+   - .card.debug: Tarjeta de debug (más opaca)
+*/
 .card {
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--bg-card);              /* Fondo */
+  border-radius: var(--radius-md);        /* Esquinas redondeadas */
+  padding: 24px;                           /* Espacio interno */
+  margin-bottom: 20px;                     /* Espacio debajo de cada tarjeta */
+  border: 1px solid var(--border-color);   /* Borde sutil */
+  box-shadow: var(--shadow);               /* Sombra */
+  transition: transform 0.2s, box-shadow 0.2s;  /* Animación suave */
 }
 
+/* Efecto al pasar el mouse (hover) */
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);  /* Mueve hacia arriba 2px */
+  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);  /* Sombra más grande */
 }
 
+/* Tarjeta destacada (ej: el ejercicio principal) */
 .card.highlight {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-primary);  /* Borde verde */
   background: linear-gradient(135deg, var(--bg-card) 0%, rgba(132, 204, 22, 0.1) 100%);
+  /* Degradado sutil */
 }
 
 .card.debug {
   background: var(--bg-secondary);
-  opacity: 0.9;
+  opacity: 0.9;  /* Ligeramente transparente */
 }
 
 .card h2 {
@@ -102,39 +196,50 @@ body {
 
 .hint {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.9rem;     /* Un poco más pequeño */
   margin-bottom: 16px;
-  font-style: italic;
+  font-style: italic;    /* Texto en cursiva */
 }
 
 /* ============================================
-   FORMS
-   ============================================ */
+   FORMS - Inputs y etiquetas
+   ============================================
+
+   Conexión HTML: <div class="input-group">, <input>, <label>
+
+   SELECTORES:
+   - .input-group: Contenedor de input + label
+   - .input-row: Varios inputs en una fila
+   - input[type="number"]: Inputs numéricos
+   - input[type="text"]: Inputs de texto
+*/
 .input-group {
-  margin-bottom: 16px;
+  margin-bottom: 16px;  /* Espacio entre grupos de inputs */
 }
 
 .input-group label {
-  display: block;
+  display: block;        /* Ocupa toda la línea (label arriba del input) */
   margin-bottom: 6px;
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: 500;      /* Texto medio grueso */
 }
 
+/* input-row: Tres inputs en una misma fila */
 .input-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
+  display: grid;                /* Grid: layout tipo cuadrícula */
+  grid-template-columns: 1fr 1fr 1fr;  /* 3 columnas de igual tamaño */
+  gap: 12px;                    /* Espacio entre columnas */
 }
 
 .input-row input {
-  width: 100%;
+  width: 100%;  /* Ocupa todo el ancho disponible */
 }
 
+/* Estilo de TODOS los inputs */
 input[type="number"],
 input[type="text"] {
-  width: 100%;
-  padding: 12px 16px;
+  width: 100%;           /* Ocupa todo el ancho disponible */
+  padding: 12px 16px;    /* Espacio interno */
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   background: var(--bg-primary);
@@ -143,66 +248,78 @@ input[type="text"] {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Estilo cuando el input está seleccionado */
 input[type="number"]:focus,
 input[type="text"]:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.2);
+  outline: none;  /* Quita el borde azul predeterminado del navegador */
+  border-color: var(--accent-primary);  /* Borde verde */
+  box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.2);  /* Resplandor verde */
 }
 
 input[type="number"]::placeholder,
 input[type="text"]::placeholder {
-  color: var(--text-secondary);
+  color: var(--text-secondary);  /* Texto de ejemplo gris */
 }
 
 /* ============================================
-   BUTTONS
-   ============================================ */
+   BUTTONS - Botones
+   ============================================
+
+   Conexión HTML: <button class="btn primary">
+
+   SELECTORES:
+   - .btn: Todos los botones
+   - .btn.primary: Botón principal (verde)
+   - .btn.secondary: Botón secundario (verde oscuro)
+   - .btn.success: Botón de éxito (verde brillante)
+   - .btn.option: Botón de opción (gris)
+*/
 .btn {
-  padding: 12px 24px;
-  border: none;
+  padding: 12px 24px;         /* Espacio interno */
+  border: none;                /* Sin borde */
   border-radius: var(--radius-sm);
   font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  width: 100%;
+  font-weight: 600;            /* Texto grueso */
+  cursor: pointer;             /* Cambia cursor al pasar el mouse */
+  transition: all 0.2s;        /* Animación suave */
+  width: 100%;                 /* Ancho completo */
 }
 
 .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);  /* Eleva 1px al pasar mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(0);    /* Vuelve a posición al hacer click */
 }
 
+/* Variantes de botones */
 .btn.primary {
-  background: var(--accent-primary);
+  background: var(--accent-primary);  /* Verde lima */
   color: var(--bg-primary);
 }
 
 .btn.primary:hover {
-  background: var(--accent-secondary);
+  background: var(--accent-secondary);  /* Verde más oscuro */
 }
 
 .btn.secondary {
-  background: var(--accent-secondary);
+  background: var(--accent-secondary);  /* Verde oscuro */
   color: var(--bg-primary);
 }
 
 .btn.secondary:hover {
-  background: #4d7c0f;
+  background: #4d7c0f;  /* Verde aún más oscuro */
 }
 
 .btn.success {
-  background: var(--accent-success);
+  background: var(--accent-success);  /* Verde brillante */
   color: var(--bg-primary);
 }
 
 .btn.success:hover {
-  background: #16a34a;
+  background: #16a34a;  /* Verde más oscuro */
 }
 
 .btn.option {
@@ -210,33 +327,51 @@ input[type="text"]::placeholder {
   color: var(--text-primary);
 }
 
+/* botones-grid: Cuadrícula de 3 columnas para botones */
 .botones-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  display: grid;                /* Grid: layout tipo cuadrícula */
+  grid-template-columns: repeat(3, 1fr);  /* 3 columnas de igual tamaño */
+  gap: 8px;                    /* Espacio entre botones */
   margin-bottom: 12px;
 }
 
 /* ============================================
-   RESULTS
-   ============================================ */
+   RESULTS - Cajas de resultado
+   ============================================
+
+   Conexión HTML: <div id="resultado" class="result hidden">
+
+   Estas clases controlan si se muestra u oculta el resultado.
+
+   CLASES DE ESTADO:
+   - .result.hidden: Oculto (no se ve)
+   - .result.visible: Visible (se muestra)
+
+   CLASES DE TIPO:
+   - .success-box: Caja verde (éxito)
+   - .info-box: Caja azul (información)
+   - .error-box: Caja roja (error)
+*/
 .result {
   margin-top: 16px;
   padding: 16px;
   border-radius: var(--radius-sm);
-  animation: fadeIn 0.3s ease-in;
+  animation: fadeIn 0.3s ease-in;  /* Animación de entrada */
 }
 
+/* Ocultar elemento */
 .result.hidden {
-  display: none;
+  display: none;  /* No se muestra ni ocupa espacio */
 }
 
+/* Mostrar elemento */
 .result.visible {
-  display: block;
+  display: block;  /* Se muestra como bloque */
 }
 
+/* Caja de resultado exitoso (verde) */
 .success-box {
-  background: rgba(34, 197, 94, 0.1);
+  background: rgba(34, 197, 94, 0.1);  /* Verde transparente */
   border: 1px solid var(--accent-success);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -247,8 +382,9 @@ input[type="text"]::placeholder {
   margin-bottom: 12px;
 }
 
+/* Caja informativa (verde oscuro) */
 .info-box {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(56, 189, 248, 0.1);  /* Azul transparente */
   border: 1px solid var(--accent-secondary);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -259,8 +395,9 @@ input[type="text"]::placeholder {
   margin-bottom: 12px;
 }
 
+/* Caja de error (rojo) */
 .error-box {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.1);  /* Rojo transparente */
   border: 1px solid var(--accent-danger);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -271,6 +408,7 @@ input[type="text"]::placeholder {
   margin-bottom: 12px;
 }
 
+/* Mensaje de error simple */
 .error {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid var(--accent-danger);
@@ -279,6 +417,7 @@ input[type="text"]::placeholder {
   color: var(--accent-danger);
 }
 
+/* Números grandes para resaltar resultados */
 .numero-grande {
   font-size: 2rem;
   font-weight: bold;
@@ -287,26 +426,32 @@ input[type="text"]::placeholder {
   margin: 12px 0;
 }
 
+/* Fórmula o código mostrado */
 .formula {
   margin-top: 12px;
   padding: 12px;
   background: var(--bg-primary);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
-  font-family: monospace;
+  font-family: monospace;  /* Fuente de código */
 }
 
 .formula code {
-  color: var(--accent-warning);
+  color: var(--accent-warning);  /* Amarillo */
 }
 
 /* ============================================
-   COMPARISON (DEBUG PANEL)
-   ============================================ */
+   COMPARISON - Panel de comparación Python vs JS
+   ============================================
+
+   Conexión HTML: <div class="comparison">
+
+   Muestra código Python y JavaScript lado a lado.
+*/
 .comparison {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;  /* 2 columnas de igual tamaño */
+  gap: 16px;                    /* Espacio entre columnas */
   margin-top: 12px;
 }
 
@@ -319,13 +464,13 @@ input[type="text"]::placeholder {
 }
 
 .python-code h4 {
-  color: #fef08a;
+  color: #fef08a;  /* Amarillo (color de Python) */
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
 .js-code h4 {
-  color: var(--accent-secondary);
+  color: var(--accent-secondary);  /* Verde (color de JS) */
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
@@ -336,10 +481,11 @@ input[type="text"]::placeholder {
   font-family: monospace;
   font-size: 0.75rem;
   color: var(--text-secondary);
-  white-space: pre-wrap;
+  white-space: pre-wrap;  /* Mantiene formato pero adapta a ancho */
   line-height: 1.4;
 }
 
+/* Caja de advertencias (diferencias clave) */
 .warning-box {
   margin-top: 12px;
   padding: 12px;
@@ -359,47 +505,58 @@ input[type="text"]::placeholder {
 
 /* ============================================
    ANIMATIONS
-   ============================================ */
+   ============================================
+
+   Las animaciones se definen con @keyframes
+   y se aplican con la propiedad "animation"
+*/
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px);  /* Comienza 10px arriba */
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0);  /* Termina en posición */
   }
 }
 
 /* ============================================
-   RESPONSIVE
-   ============================================ */
+   RESPONSIVE - Adaptación a móviles
+   ============================================
+
+   @media query: aplica estilos solo cuando la condición es verdadera
+   En este caso: pantallas de menos de 600px de ancho (móviles)
+
+   Esto se llama "responsive design" - adaptar el diseño
+   según el tamaño de la pantalla del usuario.
+*/
 @media (max-width: 600px) {
   body {
-    padding: 12px;
+    padding: 12px;  /* Menos espacio en móviles */
   }
 
   .header h1 {
-    font-size: 1.4rem;
+    font-size: 1.4rem;  /* Título más pequeño */
   }
 
   .card {
-    padding: 16px;
+    padding: 16px;  /* Tarjetas más compactas */
   }
 
   .botones-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  /* 1 columna en móviles */
   }
 
   .input-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  /* 1 columna en móviles */
   }
 
   .comparison {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  /* 1 columna en móviles */
   }
 
   .numero-grande {
-    font-size: 1.5rem;
+    font-size: 1.5rem;  /* Números más pequeños */
   }
 }

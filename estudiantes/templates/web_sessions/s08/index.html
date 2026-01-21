@@ -1,42 +1,114 @@
+<!--
+  =====================================================
+  S08: Funciones Básicas - PLANTILLA HTML
+  =====================================================
+
+  Esta página practica conceptos de Python funciones con JavaScript functions.
+
+  CONCEPTOS HTML UTILIZADOS:
+  -------------------------
+  <button> - Botón clickeable
+  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
+  <input> - Campo donde el usuario escribe datos
+  value="valor" - Valor por defecto del input
+
+  ATRIBUTOS IMPORTANTES PARA FUNCIONES:
+  ----------------------------------------
+  onclick="nombreFuncion()" - Conecta un botón con una función JavaScript
+  id="nombre" - Identificador ÚNICO para JavaScript encontrar elementos
+  placeholder="texto" - Texto de ejemplo en el input
+  value="valor" - Valor inicial del input
+
+  CONEXIÓN HTML ↔ JAVASCRIPT:
+  ------------------------------
+  1. HTML: <button onclick="saludar()">
+  2. JavaScript: function saludar() { ... }
+
+  La función JavaScript DEBE estar definida en app.js o en <script>
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Información de encabezado (metadatos) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S08 - Funciones Básicas</title>
+  <!-- Conectar el archivo CSS que da estilo a la página -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- main: Contenido principal de la página -->
   <main class="container">
+    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
       <h1>🔧 Práctica S08: Funciones Básicas</h1>
       <p class="subtitle">Python + JavaScript: Código reutilizable</p>
     </header>
 
-    <!-- Tarjeta 1: Función Simple -->
+    <!--
+      =====================================================
+      TARJETA 1: FUNCIÓN SIMPLE (SIN PARÁMETROS)
+      =====================================================
+
+      Conceptos clave:
+      - Una función es un bloque de código reutilizable
+      - Se define una vez, se puede llamar muchas veces
+      - onclick="ejecutarSaludo()" ejecuta la función en JavaScript
+      - Las funciones NO se ejecutan hasta que son LLAMADAS
+    -->
     <section class="card">
       <h2>👋 Función Simple (Sin Parámetros)</h2>
       <p class="hint">Una función que siempre hace lo mismo</p>
+
+      <!-- onclick="ejecutarSaludo()" - Cuando se hace click, se ejecuta la función -->
       <button class="btn primary" onclick="ejecutarSaludo()">Ejecutar saludo()</button>
+
+      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
       <div id="resultadoSaludo" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 2: Función con Parámetros -->
+    <!--
+      =====================================================
+      TARJETA 2: FUNCIÓN CON PARÁMETROS
+      =====================================================
+
+      Practicamos con:
+      - Definir función con parámetro: def saludar_persona(nombre)
+      - Llamar función con valor: saludar_persona("Ana")
+      - El parámetro toma el valor que le pasamos
+    -->
     <section class="card highlight">
       <h2>📝 Función con Parámetros</h2>
       <p class="hint">Pasa datos a la función para personalizar su comportamiento</p>
+
       <div class="input-group">
+        <!-- El usuario escribe el valor del parámetro "nombre" -->
         <label for="nombreParametro">Nombre:</label>
+        <!-- value="Ana" establece un valor por defecto -->
         <input id="nombreParametro" type="text" placeholder="Ej: Ana" value="Ana" />
       </div>
+
+      <!-- El botón llama a saludarPersona() que lee el input y llama a saludarPersonaFn() -->
       <button class="btn primary" onclick="saludarPersona()">saludar_persona(nombre)</button>
+
       <div id="resultadoPersona" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 3: Múltiples Parámetros -->
+    <!--
+      =====================================================
+      TARJETA 3: MÚLTIPLES PARÁMETROS
+      =====================================================
+
+      Practicamos con:
+      - Funciones con varios parámetros separados por coma
+      - El ORDEN de los parámetros es importante
+      - presentar("Juan", 25, "Bogotá") es diferente de presentar(25, "Juan", "Bogotá")
+    -->
     <section class="card">
       <h2>📋 Múltiples Parámetros</h2>
       <p class="hint">Funciones que reciben varios datos</p>
+
+      <!-- Tres inputs para tres parámetros diferentes -->
       <div class="input-row">
         <div class="input-group">
           <label for="presentarNombre">Nombre:</label>
@@ -51,50 +123,85 @@
         <label for="presentarCiudad">Ciudad:</label>
         <input id="presentarCiudad" type="text" placeholder="Ej: Bogotá" value="Bogotá" />
       </div>
+
       <button class="btn success" onclick="presentarPerfil()">presentar(nombre, edad, ciudad)</button>
       <div id="resultadoPresentar" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 4: Parámetros por Defecto -->
+    <!--
+      =====================================================
+      TARJETA 4: PARÁMETROS POR DEFECTO
+      =====================================================
+
+      Practicamos con:
+      - Parámetros con valores por defecto: def f(x=10)
+      - Si no pasas valor, usa el defecto
+      - Si pasas valor, usa tu valor
+    -->
     <section class="card highlight">
       <h2>🎛️ Parámetros por Defecto</h2>
       <p class="hint">Valores que se usan si no especificas otro</p>
+
       <div class="input-row">
         <div class="input-group">
           <label for="cuentaPropina">Monto cuenta:</label>
           <input id="cuentaPropina" type="number" placeholder="Ej: 50000" value="50000" />
         </div>
         <div class="input-group">
+          <!-- Si se deja vacío, JavaScript usa el valor por defecto (10%) -->
           <label for="porcentajePropina">% Propina (dejar vacío para 10%):</label>
           <input id="porcentajePropina" type="number" placeholder="10 por defecto" min="0" max="50" />
         </div>
       </div>
+
       <button class="btn primary" onclick="calcularPropina()">calcular_propina(cuenta, porcentaje=10)</button>
       <div id="resultadoPropina" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 5: Verificador de Edad -->
+    <!--
+      =====================================================
+      TARJETA 5: VERIFICADOR DE EDAD
+      =====================================================
+
+      Practicamos con:
+      - Funciones con parámetro y valor por defecto
+      - Condicionales dentro de funciones
+      - Retornar valores booleanos (true/false) o estructuras de datos
+    -->
     <section class="card">
       <h2>✅ Verificador de Edad</h2>
       <p class="hint">Función con parámetro y valor por defecto</p>
+
       <div class="input-row">
         <div class="input-group">
           <label for="verificarEdad">Tu edad:</label>
           <input id="verificarEdad" type="number" placeholder="Ej: 18" min="0" max="120" />
         </div>
         <div class="input-group">
+          <!-- Si se deja vacío, usa 18 por defecto -->
           <label for="edadMinima">Edad mínima (dejar vacío para 18):</label>
           <input id="edadMinima" type="number" placeholder="18 por defecto" min="0" max="100" />
         </div>
       </div>
+
       <button class="btn secondary" onclick="verificarEdadFuncion()">verificar_edad(edad, minima=18)</button>
       <div id="resultadoVerificar" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 6: Tabla de Multiplicar -->
+    <!--
+      =====================================================
+      TARJETA 6: TABLA DE MULTIPLICAR
+      =====================================================
+
+      Practicamos con:
+      - Funciones que generan HTML dinámicamente
+      - Bucles for dentro de funciones
+      - Parámetro por defecto (hasta=10)
+    -->
     <section class="card">
       <h2>✖️ Tabla de Multiplicar</h2>
       <p class="hint">Función que genera una tabla completa</p>
+
       <div class="input-group">
         <label for="tablaNumero">Número (1-12):</label>
         <input id="tablaNumero" type="number" placeholder="Ej: 7" min="1" max="12" value="7" />
@@ -103,27 +210,49 @@
         <label for="tablaHasta">Hasta (dejar vacío para 10):</label>
         <input id="tablaHasta" type="number" placeholder="10 por defecto" min="1" max="20" />
       </div>
+
       <button class="btn primary" onclick="generarTablaFuncion()">tabla_multiplicar(numero, hasta=10)</button>
       <div id="resultadoTabla" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 7: Generador de Reportes -->
+    <!--
+      =====================================================
+      TARJETA 7: GENERADOR DE REPORTES
+      =====================================================
+
+      Practicamos con:
+      - Múltiples funciones trabajando juntas
+      - Concepto de DIVIDE AND CONQUER: dividir problema grande
+        en funciones pequeñas, cada una con una tarea específica
+      - Funciones que reciben listas/arrays como parámetros
+    -->
     <section class="card highlight">
       <h2>📊 Generador de Reportes</h2>
       <p class="hint">Usa múltiples funciones para crear un reporte completo</p>
+
       <div class="input-group">
         <label for="tituloReporte">Título del reporte:</label>
         <input id="tituloReporte" type="text" placeholder="Ej: Matemáticas" value="Matemáticas" />
       </div>
+
       <p class="hint">Estudiantes pre-cargados: Ana(85), Carlos(72), María(90), Pedro(55), Lucía(78)</p>
       <button class="btn success" onclick="generarReporte()">generar_reporte()</button>
       <div id="resultadoReporte" class="result hidden"></div>
     </section>
 
-    <!-- Panel de Debug - Comparación Python vs JS -->
+    <!--
+      =====================================================
+      PANEL DE DEBUG / COMPARACIÓN
+      =====================================================
+
+      Muestra las equivalencias entre Python y JavaScript.
+      Útil para entender que la lógica es la misma, solo cambia sintaxis.
+    -->
     <section class="card debug">
       <h2>🐞 Funciones: Python vs JavaScript</h2>
       <p class="hint">La sintaxis es diferente pero el concepto es el mismo.</p>
+
+      <!-- comparison: Dos columnas comparando Python y JavaScript -->
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
@@ -150,7 +279,7 @@ presentar(edad=25, nombre="Juan", ciudad="Bogotá")</pre>
           <h4>JavaScript</h4>
           <pre>// Definir función
 function saludar(nombre) {
-    return `Hola, ${nombre}`;
+  return `Hola, ${nombre}`;
 }
 
 // Llamar función
@@ -158,20 +287,22 @@ const resultado = saludar("Ana");
 
 // Parámetros por defecto
 function saludar(nombre, saludo = "Hola") {
-    console.log(`${saludo}, ${nombre}`);
+  console.log(`${saludo}, ${nombre}`);
 }
 
 // Múltiples parámetros
 function presentar(nombre, edad, ciudad) {
-    console.log(`Me llamo ${nombre}`);
-    console.log(`Tengo ${edad} años`);
+  console.log(`Me llamo ${nombre}`);
+  console.log(`Tengo ${edad} años`);
 }
 
-// Parámetros por nombre
+// Parámetros por nombre (objeto)
 presentar({edad: 25, nombre: "Juan", ciudad: "Bogotá"});
 // JS moderno con destructuring</pre>
         </div>
       </div>
+
+      <!-- warning-box: Advertencias sobre diferencias clave -->
       <div class="warning-box">
         <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
         1. Python: <code>def nombre(param):</code> → JS: <code>function nombre(param) { }</code><br>
@@ -182,6 +313,14 @@ presentar({edad: 25, nombre: "Juan", ciudad: "Bogotá"});
     </section>
   </main>
 
+  <!--
+    =====================================================
+    CONECTAR JAVASCRIPT
+    =====================================================
+
+    Esta línea conecta el archivo app.js que contiene todo el
+    comportamiento de la página. Siempre va al FINAL del body.
+  -->
   <script src="app.js"></script>
 </body>
 </html>

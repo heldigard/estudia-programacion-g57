@@ -1,45 +1,119 @@
+<!--
+  =====================================================
+  S09: Funciones con Return - PLANTILLA HTML
+  =====================================================
+
+  Esta página practica el concepto de return en Python
+  con funciones que devuelven valores en JavaScript.
+
+  CONCEPTOS HTML UTILIZADOS:
+  -------------------------
+  <button> - Botón clickeable
+  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
+  <input> - Campo donde el usuario escribe datos
+  value="valor" - Valor por defecto del input
+  <div> - Contenedor genérico invisible (para agrupar elementos)
+  <section> - Agrupa contenido relacionado (cada tarjeta de ejercicio)
+  <p> - Párrafo de texto
+  <h2>, <h3> - Títulos de sección
+  <span> - Contenedor en línea (para texto dentro de párrafos)
+
+  ATRIBUTOS IMPORTANTES PARA RETURN:
+  ------------------------------------
+  onclick="funcion()" - Conecta un botón con una función JavaScript
+  id="nombre" - Identificador ÚNICO para JavaScript encontrar elementos
+  placeholder="texto" - Texto de ejemplo en el input
+  value="valor" - Valor inicial del input
+  class="clase" - Clase para CSS (puede repetirse)
+
+  CONEXIÓN HTML ↔ JAVASCRIPT:
+  ------------------------------
+  1. HTML: <button onclick="calcularCuadrado()">
+  2. JavaScript: function calcularCuadrado() { ... return resultado; }
+
+  La función JavaScript DEBE estar definida en app.js o en <script>
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Información de encabezado (metadatos) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S09 - Funciones con Return</title>
+  <!-- Conectar el archivo CSS que da estilo a la página -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- main: Contenido principal de la página -->
   <main class="container">
+    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
       <h1>🔁 Práctica S09: Funciones con Return</h1>
       <p class="subtitle">Python + JavaScript: Devolver valores</p>
     </header>
 
-    <!-- Tarjeta 1: print vs return -->
+    <!--
+      =====================================================
+      TARJETA 1: print() vs return()
+      =====================================================
+
+      Conceptos clave:
+      - print() muestra en pantalla, pero NO devuelve un valor útil
+      - return devuelve un valor que puedes guardar y usar después
+      - Python: print() → None, JavaScript: console.log() → undefined
+      - return en ambos lenguajes devuelve un valor usable
+
+      Esta tarjeta demuestra la diferencia fundamental entre
+      mostrar información y devolver valores.
+    -->
     <section class="card">
       <h2>📊 print() vs return()</h2>
       <p class="hint">La diferencia fundamental: print muestra, return devuelve</p>
+
+      <!-- comparison-demo: Dos cajas lado a lado para comparar -->
       <div class="comparison-demo">
         <div class="demo-box">
           <h4>con print()</h4>
+          <!-- Este p muestra el resultado (será actualizado por JavaScript) -->
           <p id="printResult">-</p>
           <button class="btn option" onclick="demoPrint()">Ejecutar</button>
         </div>
         <div class="demo-box">
           <h4>con return()</h4>
+          <!-- Este p muestra el resultado (será actualizado por JavaScript) -->
           <p id="returnResult">-</p>
           <button class="btn option" onclick="demoReturn()">Ejecutar</button>
         </div>
       </div>
+
       <button class="btn primary" onclick="probarDiferencia()">Probar Diferencia</button>
+
+      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
       <div id="resultadoPrintReturn" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 2: Return Único -->
+    <!--
+      =====================================================
+      TARJETA 2: DEVOLVER UN VALOR
+      =====================================================
+
+      Practicamos con:
+      - Funciones que devuelven un único valor
+      - Usar el valor retornado en cálculos
+      - cuadrado(n) y cubo(n) como ejemplos
+
+      El valor retornado se puede guardar en una variable,
+      usar en operaciones matemáticas, o pasar a otra función.
+    -->
     <section class="card highlight">
       <h2>➗ Devolver un Valor</h2>
       <p class="hint">Funciones matemáticas que devuelven un resultado</p>
+
+      <!-- input-row: Dos inputs en una misma fila (grid layout) -->
       <div class="input-row">
         <div class="input-group">
           <label for="cuadradoNum">Número:</label>
+          <!-- value="5" establece un valor por defecto -->
           <input id="cuadradoNum" type="number" placeholder="Ej: 5" value="5" />
         </div>
         <div class="input-group">
@@ -47,41 +121,93 @@
           <input id="cuboNum" type="number" placeholder="Ej: 3" value="3" />
         </div>
       </div>
+
       <div class="botones-grid">
         <button class="btn primary" onclick="calcularCuadrado()">cuadrado(n)</button>
         <button class="btn secondary" onclick="calcularCubo()">cubo(n)</button>
       </div>
+
       <div id="resultadoUnico" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 3: Return Múltiple -->
+    <!--
+      =====================================================
+      TARJETA 3: DEVOLVER MÚLTIPLES VALORES
+      =====================================================
+
+      Practicamos con:
+      - Python: return min, max, prom (tupla)
+      - JavaScript: return [min, max, prom] (array)
+      - Destructuring: const [min, max, prom] = funcion()
+
+      IMPORTANTE:
+      - Python puede devolver múltiples valores directamente
+      - JavaScript devuelve un array que se "destructura"
+      - Ambos usan sintaxis similar para capturar los valores
+    -->
     <section class="card">
       <h2>📦 Devolver Múltiples Valores</h2>
       <p class="hint">Una función puede devolver varios valores a la vez</p>
+
       <div class="input-group">
         <label for="notasInput">Notas (separadas por coma):</label>
+        <!-- El usuario escribe notas separadas por coma: 85,92,78,90,88 -->
         <input id="notasInput" type="text" placeholder="Ej: 85,92,78,90,88" value="85,92,78,90,88" />
       </div>
+
       <button class="btn success" onclick="calcularEstadisticas()">calcular_estadisticas(notas)</button>
       <div id="resultadoMultiple" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 4: Return Temprano -->
+    <!--
+      =====================================================
+      TARJETA 4: RETURN TEMPRANO
+      =====================================================
+
+      Practicamos con:
+      - Validación de inputs con return temprano
+      - Múltiples return statements en una función
+      - Código después de return NUNCA se ejecuta
+
+      CONCEPTO CLAVE:
+      Cuando return se ejecuta, la función TERMINA inmediatamente.
+      Esto es útil para validar y salir temprano si hay error.
+    -->
     <section class="card highlight">
       <h2>🚪 Return Temprano</h2>
       <p class="hint">return termina la función inmediatamente</p>
+
       <div class="input-group">
         <label for="edadVerificar">Edad:</label>
+        <!-- min y max limitan los valores aceptados -->
         <input id="edadVerificar" type="number" placeholder="-5 a 100" min="-5" max="100" />
       </div>
+
       <button class="btn primary" onclick="verificarEdadReturn()">verificar_edad(edad)</button>
       <div id="resultadoReturnEarly" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 5: Calculadora de Compras -->
+    <!--
+      =====================================================
+      TARJETA 5: CALCULADORA DE COMPRAS
+      =====================================================
+
+      Mini-proyecto completo que practica:
+      - Múltiples funciones que devuelven valores
+      - Concepto de DIVIDE AND CONQUER: dividir problema grande
+        en funciones pequeñas, cada una con una tarea específica
+      - El valor retornado de una función se usa en la siguiente
+
+      Flujo de datos:
+      calcular_subtotal() → valor subtotal
+      calcular_descuento(subtotal) → valor descuento
+      calcular_impuesto(base) → valor impuesto
+      calcular_total() → valor total
+    -->
     <section class="card">
       <h2>🛒 Calculadora de Compras</h2>
       <p class="hint">Usa funciones que devuelven valores para calcular el total</p>
+
       <div class="input-row">
         <div class="input-group">
           <label for="compraCantidad">Cantidad:</label>
@@ -92,34 +218,63 @@
           <input id="compraPrecio" type="number" placeholder="Ej: 50000" value="50000" />
         </div>
       </div>
+
       <div class="input-group">
         <label for="compraDescuento">% Descuento (opcional):</label>
+        <!-- Si se deja vacío, JavaScript usa 0 por defecto -->
         <input id="compraDescuento" type="number" placeholder="0" min="0" max="100" value="0" />
       </div>
+
       <button class="btn success" onclick="generarFactura()">generar_factura()</button>
       <div id="resultadoCompras" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 6: Arrow Functions (Lambda) -->
+    <!--
+      =====================================================
+      TARJETA 6: ARROW FUNCTIONS (LAMBDA)
+      =====================================================
+
+      Practicamos con:
+      - Arrow functions en JavaScript (equivalente a lambda en Python)
+      - map() - transformar cada elemento (como list comprehension)
+      - filter() - filtrar elementos (como list comprehension con if)
+      - reduce() - reducir a un solo valor (como sum())
+
+      Sintaxis:
+      Python: lambda x: x * 2
+      JavaScript: x => x * 2
+    -->
     <section class="card">
       <h2>➡️ Arrow Functions (Lambda)</h2>
       <p class="hint">Funciones anónimas de una sola línea</p>
+
       <div class="input-group">
         <label for="listaNumeros">Números (separados por coma):</label>
         <input id="listaNumeros" type="text" placeholder="Ej: 1,2,3,4,5" value="1,2,3,4,5" />
       </div>
+
       <div class="botones-grid">
         <button class="btn primary" onclick="procesarDobles()">map(x => x * 2)</button>
         <button class="btn secondary" onclick="procesarPares()">filter(x => x % 2 === 0)</button>
         <button class="btn success" onclick="procesarSuma()">reduce((a,b) => a+b)</button>
       </div>
+
       <div id="resultadoArrow" class="result hidden"></div>
     </section>
 
-    <!-- Panel de Debug - Comparación Python vs JS -->
+    <!--
+      =====================================================
+      PANEL DE DEBUG / COMPARACIÓN
+      =====================================================
+
+      Muestra las equivalencias entre Python y JavaScript.
+      Útil para entender que la lógica es la misma, solo cambia sintaxis.
+    -->
     <section class="card debug">
       <h2>🐞 Return: Python vs JavaScript</h2>
       <p class="hint">El concepto es el mismo, solo cambia la sintaxis.</p>
+
+      <!-- comparison: Dos columnas comparando Python y JavaScript -->
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
@@ -159,6 +314,8 @@ function mostrar(msg) {
 const doble = x => x * 2;</pre>
         </div>
       </div>
+
+      <!-- warning-box: Advertencias sobre diferencias clave -->
       <div class="warning-box">
         <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
         1. Python: <code>return a, b, c</code> → JS: <code>return [a, b, c]</code> (usar array)<br>
@@ -168,6 +325,14 @@ const doble = x => x * 2;</pre>
     </section>
   </main>
 
+  <!--
+    =====================================================
+    CONECTAR JAVASCRIPT
+    =====================================================
+
+    Esta línea conecta el archivo app.js que contiene todo el
+    comportamiento de la página. Siempre va al FINAL del body.
+  -->
   <script src="app.js"></script>
 </body>
 </html>

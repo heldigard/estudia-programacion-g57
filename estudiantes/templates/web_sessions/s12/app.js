@@ -1,59 +1,149 @@
-// S12: Módulos y Reuso
-// Demostración de import/export en JavaScript (ES6 modules)
-// Equivalente a: from utils import *, from math import *, etc.
+/*
+  =====================================================
+  S12: Módulos y Reuso - APP.JS
+  =====================================================
+
+  Este archivo (app.js) DEMUESTRA cómo IMPORTAR funciones
+  desde un módulo personalizado (utils.js).
+
+  PYTHON MÓDULOS ↔ JAVASCRIPT ES6 MODULES
+  -----------------------------------------
+
+  IMPORTAR MÓDULO:
+  -----------------
+  Python:
+    import math
+    from utils import saludar
+    from utils import *
+
+  JavaScript:
+    import * as math from "./math.js"
+    import { saludar } from "./utils.js"
+    import * as utils from "./utils.js"
+
+  DIFERENCIAS CLAVE:
+  ------------------
+  1. En Python, "import math" busca en librerías instaladas
+     En JavaScript, "./utils.js" busca un ARCHIVO en el mismo directorio
+
+  2. Python tiene math, random, datetime como módulos separados
+     JavaScript tiene Math (global), Date (global), Math.random()
+
+  3. En Python: from math import sqrt
+     En JS: import { sqrt } from "./math.js"
+     (o usa Math.sqrt() directamente - no requiere import!)
+
+  4. IMPORTANTE: Para usar import/export en JavaScript, el script
+     en HTML debe tener type="module":
+     <script type="module" src="app.js"></script>
+
+  MÓDULOS INTEGRADOS DE JS:
+  --------------------------
+  Math - NO requiere import (es global):
+    Math.PI, Math.sqrt(), Math.random(), Math.floor()
+
+  Date - NO requiere import (es un constructor):
+    new Date(), fecha.toISOString()
+
+  NO EXISTE módulo "random" en JavaScript:
+    Usa Math.random() en su lugar
+*/
 
 // ============================================
 // IMPORTAR DESDE UTILS.JS
-// Python: from utils import *
-// JS: import { ... } from "./utils.js"
+// Python: from utils import sqrt, potencia, redondear
+// JS: import { sqrt, potencia, redondear } from "./utils.js"
 // ============================================
 
+/*
+  EXPLICACIÓN DE import { ... } from "...":
+  ------------------------------------------
+
+  La llave { } indica "import nombrado" - importamos funciones ESPECÍFICAS
+  que fueron exportadas con "export" en utils.js:
+
+  En utils.js:
+    export function raizCuadrada(x) { ... }
+
+  En app.js:
+    import { raizCuadrada } from "./utils.js"
+
+  El "./utils.js" significa:
+    ./ = "en el mismo directorio"
+    utils.js = "nombre del archivo"
+    ¡Es OBLIGATORIO incluir la extensión .js!
+
+  COMPARACIÓN CON PYTHON:
+  -----------------------
+  Python: from utils import raiz_cuadrada
+  JS: import { raizCuadrada } from "./utils.js"
+
+  Diferencias:
+  - Python usa guiones bajos (raiz_cuadrada), JS usa camelCase (raizCuadrada)
+  - JS requiere "./" antes del nombre del archivo
+  - JS requiere la extensión .js
+  - En JS usamos llaves { } para importar específicos
+*/
 import {
-  // Math
-  CONSTANTES,
-  raizCuadrada,
-  potencia,
-  redondear,
-  valorAbsoluto,
-  maximo,
-  minimo,
-  // Random
-  enteroAleatorio,
-  decimalAleatorio,
-  elegir,
-  lanzarDado,
-  lanzarMoneda,
-  generarListaAleatoria,
-  // DateTime
-  fechaHoraActual,
-  formatearFecha,
-  diferenciaFechas,
-  crearFecha,
-  sumarDias,
-  // String
-  capitalizar,
-  esPalindromo,
-  contarPalabras,
-  contarVocales,
-  // Validación
-  validarEmail,
-  esPositivo,
-  enRango,
-  // Negocio
-  calcularTotalFactura,
-  formatearMoneda,
-  // Array
-  sumarLista,
-  promedioLista,
-  filtrarPares,
-  mapearCuadrado,
-  ordenarNumeros
+  // Math - Funciones matemáticas (Python: import math)
+  CONSTANTES,           // math.pi, math.e, etc.
+  raizCuadrada,         // math.sqrt()
+  potencia,            // math.pow()
+  redondear,           // round(), math.ceil(), math.floor()
+  valorAbsoluto,       // abs()
+  maximo,              // max()
+  minimo,              // min()
+
+  // Random - Generación de números aleatorios (Python: import random)
+  enteroAleatorio,     // random.randint()
+  decimalAleatorio,    // random.uniform()
+  elegir,              // random.choice()
+  lanzarDado,          // random.randint(1, 6)
+  lanzarMoneda,        // random.choice(["cara", "sello"])
+  generarListaAleatoria, // [random.randint() for _ in range(n)]
+
+  // DateTime - Manejo de fechas (Python: from datetime import datetime)
+  fechaHoraActual,     // datetime.now()
+  formatearFecha,      // fecha.strftime()
+  diferenciaFechas,    // (fecha2 - fecha1).days
+  crearFecha,          // datetime(año, mes, dia)
+  sumarDias,           // fecha + timedelta(days=dias)
+
+  // String - Manipulación de texto
+  capitalizar,         // str.capitalize()
+  esPalindromo,        // texto == texto[::-1]
+  contarPalabras,      // len(texto.split())
+  contarVocales,       // Contar vocales en texto
+
+  // Validación - Validaciones de datos
+  validarEmail,        // Validar formato de email
+  esPositivo,          // x > 0
+  enRango,             // min <= x <= max
+
+  // Negocio - Cálculos de factura
+  calcularTotalFactura, // Calcular subtotal, IVA, total
+  formatearMoneda,     // Formatear como moneda ($1.000,00)
+
+  // Array - Operaciones de lista (Python: list operations)
+  sumarLista,          // sum(lista)
+  promedioLista,       // sum(lista) / len(lista)
+  filtrarPares,        // [x for x in lista if x % 2 == 0]
+  mapearCuadrado,      // [x ** 2 for x in lista]
+  ordenarNumeros       // sorted(lista)
 } from "./utils.js";
 
 // ============================================
-// UTILIDADES DE UI
+// UTILIDADES DE UI - Funciones de ayuda
 // ============================================
 
+/**
+ * mostrarResultado - Muestra contenido en pantalla
+ * Equivalente Python: print(resultado), pero en interfaz gráfica
+ *
+ * getElementById: Busca un elemento HTML por su atributo id
+ * innerHTML: Establece el contenido HTML del elemento
+ * classList.remove/add: Agrega/quita clases CSS
+ */
 function mostrarResultado(elementId, contenido) {
   const elemento = document.getElementById(elementId);
   elemento.innerHTML = contenido;
@@ -61,24 +151,44 @@ function mostrarResultado(elementId, contenido) {
   elemento.classList.add("visible");
 }
 
+/**
+ * obtenerNumero - Convierte input a número
+ * Equivalente Python: int(input(...)) con validación
+ *
+ * Number() convierte string a número
+ * Number.isNaN() verifica si NO es un número válido
+ */
 function obtenerNumero(id) {
   const valor = document.getElementById(id).value;
   const numero = Number(valor);
   return Number.isNaN(numero) ? null : numero;
 }
 
+/**
+ * obtenerTexto - Obtiene texto de input
+ * Equivalente Python: input(...).strip()
+ *
+ * trim() elimina espacios al inicio y final
+ * || null devuelve null si el string está vacío
+ */
 function obtenerTexto(id) {
   const valor = document.getElementById(id).value;
   return valor.trim() || null;
 }
 
 // ============================================
-// MÓDULO MATH - DEMOS
+// MÓDULO MATH - DEMOSTRACIONES
+// Python: import math
+// JS: Math es un objeto global (no requiere import)
 // ============================================
 
 /**
  * Demo: Constantes Matemáticas
  * Python: import math; math.pi, math.e
+ * JS: Math.PI, Math.E (disponibles globalmente)
+ *
+ * IMPORTANTE: En JavaScript NO necesitas importar Math.
+ * Es un objeto integrado que siempre está disponible.
  */
 function demoConstantes() {
   const html = `
@@ -99,7 +209,8 @@ function demoConstantes() {
 
 /**
  * Raíz Cuadrada
- * Python: math.sqrt(16)
+ * Python: import math; math.sqrt(16)
+ * JS: Math.sqrt(16) (no requiere import)
  */
 function demoRaiz() {
   const numero = obtenerNumero("raizNumero");
@@ -108,6 +219,7 @@ function demoRaiz() {
     return;
   }
 
+  // Llamamos a la función importada de utils.js
   const resultado = raizCuadrada(numero);
 
   let html;
@@ -119,8 +231,8 @@ function demoRaiz() {
         <h3>√ Raíz de ${numero}</h3>
         <p class="numero-grande">${resultado.resultado.toFixed(4)}</p>
         <p class="formula">
-          Python: <code>math.sqrt(${numero})</code><br>
-          JS: <code>Math.sqrt(${numero})</code>
+          Python: <code>import math; math.sqrt(${numero})</code><br>
+          JS: <code>Math.sqrt(${numero})</code> (global, no requiere import)
         </p>
       </div>
     `;
@@ -130,7 +242,8 @@ function demoRaiz() {
 
 /**
  * Potencia
- * Python: math.pow(2, 8)
+ * Python: math.pow(2, 8) o 2 ** 8
+ * JS: Math.pow(2, 8) o 2 ** 8
  */
 function demoPotencia() {
   const base = obtenerNumero("potenciaBase");
@@ -159,6 +272,7 @@ function demoPotencia() {
 /**
  * Redondeo
  * Python: round(3.7), math.ceil(3.2), math.floor(3.9)
+ * JS: Math.round(3.7), Math.ceil(3.2), Math.floor(3.9)
  */
 function demoRedondeo() {
   const numero = obtenerNumero("redondeoNum");
@@ -185,6 +299,7 @@ function demoRedondeo() {
 /**
  * Valor Absoluto
  * Python: abs(-5)
+ * JS: Math.abs(-5)
  */
 function demoAbsoluto() {
   const numero = obtenerNumero("absolutoNum");
@@ -211,9 +326,13 @@ function demoAbsoluto() {
 /**
  * Max y Min
  * Python: max(1,5,3), min(1,5,3)
+ * JS: Math.max(...arr), Math.min(...arr)
+ *
+ * El operador ... (spread) expande el array en elementos individuales
  */
 function demoMaxMin() {
   const nums = [1, 5, 3, 9, 2, 7];
+  // ...nums expande el array: Math.max(1, 5, 3, 9, 2, 7)
   const max = maximo(...nums);
   const min = minimo(...nums);
 
@@ -233,12 +352,18 @@ function demoMaxMin() {
 }
 
 // ============================================
-// MÓDULO RANDOM - DEMOS
+// MÓDULO RANDOM - DEMOSTRACIONES
+// Python: import random
+// JS: Math.random() (NO existe módulo "random")
 // ============================================
 
 /**
  * Lanzar Dado
- * Python: random.randint(1, 6)
+ * Python: import random; random.randint(1, 6)
+ * JS: enteroAleatorio(1, 6) - usa Math.random() internamente
+ *
+ * IMPORTANTE: JavaScript NO tiene un módulo "random" como Python.
+ * Usa el objeto Math con Math.random() para generar números aleatorios.
  */
 function demoDado() {
   const caras = obtenerNumero("dadoCaras") || 6;
@@ -249,7 +374,7 @@ function demoDado() {
       <h3>🎲 Dado de ${caras} caras</h3>
       <p class="numero-grande">${resultado}</p>
       <p class="formula">
-        Python: <code>random.randint(1, ${caras})</code><br>
+        Python: <code>import random; random.randint(1, ${caras})</code><br>
         JS: <code>Math.floor(Math.random() * ${caras}) + 1</code>
       </p>
     </div>
@@ -260,6 +385,7 @@ function demoDado() {
 /**
  * Lanzar Moneda
  * Python: "cara" if random.random() > 0.5 else "sello"
+ * JS: Math.random() > 0.5 ? "cara" : "sello"
  */
 function demoMoneda() {
   const resultado = lanzarMoneda();
@@ -281,6 +407,7 @@ function demoMoneda() {
 /**
  * Entero Aleatorio en Rango
  * Python: random.randint(min, max)
+ * JS: Math.floor(Math.random() * (max - min + 1)) + min
  */
 function demoEnteroAleatorio() {
   const min = obtenerNumero("aleatorioMin");
@@ -309,6 +436,7 @@ function demoEnteroAleatorio() {
 /**
  * Generar Lista Aleatoria
  * Python: [random.randint(min, max) for _ in range(n)]
+ * JS: Array.from({length: n}, () => enteroAleatorio(min, max))
  */
 function demoListaAleatoria() {
   const cantidad = obtenerNumero("listaCantidad") || 5;
@@ -337,6 +465,7 @@ function demoListaAleatoria() {
 /**
  * Elegir Elemento Aleatorio
  * Python: random.choice(lista)
+ * JS: lista[Math.floor(Math.random() * lista.length)]
  */
 function demoChoice() {
   const frutas = ["🍎 manzana", "🍌 banana", "🍊 naranja", "🍇 uva", "🍓 fresa"];
@@ -357,12 +486,18 @@ function demoChoice() {
 }
 
 // ============================================
-// MÓDULO DATETIME - DEMOS
+// MÓDULO DATETIME - DEMOSTRACIONES
+// Python: from datetime import datetime, date, time
+// JS: new Date() (constructor global)
 // ============================================
 
 /**
  * Fecha y Hora Actual
- * Python: datetime.now()
+ * Python: from datetime import datetime; datetime.now()
+ * JS: new Date()
+ *
+ * IMPORTANTE: En JavaScript, Date es un CONSTRUCTOR.
+ * Siempre se usa con "new": new Date()
  */
 function demoFechaAhora() {
   const ahora = fechaHoraActual();
@@ -375,8 +510,8 @@ function demoFechaAhora() {
       <p><strong>Completo:</strong> ${ahora.fechaHora}</p>
       <p><strong>Timestamp:</strong> ${ahora.timestamp}</p>
       <p class="formula">
-        Python: <code>datetime.now()</code><br>
-        JS: <code>new Date()</code>
+        Python: <code>from datetime import datetime; datetime.now()</code><br>
+        JS: <code>new Date()</code> (constructor global)
       </p>
     </div>
   `;
@@ -385,7 +520,11 @@ function demoFechaAhora() {
 
 /**
  * Formatear Fecha
- * Python: datetime.strftime("%Y-%m-%d")
+ * Python: fecha.strftime("%Y-%m-%d")
+ * JS: fecha.toLocaleDateString("es-CO", options)
+ *
+ * JavaScript usa el sistema de "locale" (configuración regional)
+ * para formatear fechas según el país.
  */
 function demoFormatearFecha() {
   const fecha = new Date();
@@ -411,6 +550,10 @@ function demoFormatearFecha() {
 /**
  * Diferencia de Fechas
  * Python: (fecha2 - fecha1).days
+ * JS: Math.floor((fecha2 - fecha1) / (1000 * 60 * 60 * 24))
+ *
+ * En JavaScript, restar fechas devuelve MILISEGUNDOS.
+ * Para obtener días, dividimos por (1000 * 60 * 60 * 24)
  */
 function demoDiferenciaFechas() {
   const fecha1 = new Date();
@@ -439,6 +582,10 @@ function demoDiferenciaFechas() {
 /**
  * Sumar Días
  * Python: fecha + datetime.timedelta(days=7)
+ * JS: fecha.setDate(fecha.getDate() + 7)
+ *
+ * IMPORTANTE: setDate() MODIFICA la fecha original.
+ * Por eso creamos una copia con new Date(fecha) primero.
  */
 function demoSumarDias() {
   const dias = obtenerNumero("sumarDias") || 7;
@@ -460,12 +607,18 @@ function demoSumarDias() {
 }
 
 // ============================================
-// MÓDULO STRING - DEMOS
+// MÓDULO STRING - DEMOSTRACIONES
+// Python: str methods (texto.capitalize(), texto.lower(), etc.)
+// JS: string methods (texto.charAt(), texto.toLowerCase(), etc.)
 // ============================================
 
 /**
  * Capitalizar
  * Python: texto.capitalize()
+ * JS: texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase()
+ *
+ * JavaScript no tiene capitalize() directamente.
+ * Construimos el resultado combinando varios métodos.
  */
 function demoCapitalizar() {
   const texto = obtenerTexto("capitalizarInput");
@@ -493,6 +646,12 @@ function demoCapitalizar() {
 /**
  * Palíndromo
  * Python: texto == texto[::-1]
+ * JS: texto.toLowerCase() === texto.toLowerCase().split("").reverse().join("")
+ *
+ * Para invertir un string en JavaScript:
+ * 1. split("") - convierte a array de caracteres
+ * 2. reverse() - invierte el array
+ * 3. join("") - vuelve a unir el array
  */
 function demoPalindromo() {
   const texto = obtenerTexto("palindromoInput");
@@ -520,6 +679,11 @@ function demoPalindromo() {
 /**
  * Contar Palabras
  * Python: len(texto.split())
+ * JS: texto.trim().split(/\s+/).filter(p => p.length > 0).length
+ *
+ * /\s+/ es una expresión regular (regex) que significa:
+ * \s = cualquier espacio (espacio, tab, newline)
+ * + = uno o más
  */
 function demoContarPalabras() {
   const texto = obtenerTexto("palabrasInput");
@@ -547,11 +711,22 @@ function demoContarPalabras() {
 }
 
 // ============================================
-// MÓDULO VALIDACIÓN - DEMOS
+// MÓDULO VALIDACIÓN - DEMOSTRACIONES
+// Python: isinstance(), type(), condiciones
+// JS: typeof, expresiones regulares
 // ============================================
 
 /**
  * Validar Email
+ * Python: re.match(r"[^@]+@[^@]+\.[^@]+", email)
+ * JS: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+ *
+ * /^[^\s@]+@[^\s@]+\.[^\s@]+$/ es una expresión regular (regex):
+ * ^ - inicio del string
+ * [^\s@]+ - uno o más caracteres que NO son espacio ni @
+ * @ - el símbolo @ obligatorio
+ * \. - un punto literal
+ * $ - final del string
  */
 function demoValidarEmail() {
   const email = obtenerTexto("emailInput");
@@ -579,6 +754,9 @@ function demoValidarEmail() {
 /**
  * Validar Rango
  * Python: valor >= min and valor <= max
+ * JS: valor >= min && valor <= max
+ *
+ * && es el operador AND lógico en JavaScript
  */
 function demoValidarRango() {
   const valor = obtenerNumero("rangoValor");
@@ -609,6 +787,10 @@ function demoValidarRango() {
 
 /**
  * Validar Positivo
+ * Python: isinstance(x, (int, float)) and x > 0
+ * JS: typeof x === "number" && x > 0
+ *
+ * typeof devuelve el tipo de dato en JavaScript
  */
 function demoValidarPositivo() {
   const numero = obtenerNumero("positivoNum");
@@ -625,7 +807,7 @@ function demoValidarPositivo() {
       <p><strong>Número:</strong> ${numero}</p>
       <p><strong>Resultado:</strong> ${pos ? "ES POSITIVO" : "NO ES POSITIVO"}</p>
       <p class="formula">
-        Python: <code>isinstance(x, number) and x > 0</code><br>
+        Python: <code>isinstance(x, (int, float)) and x > 0</code><br>
         JS: <code>typeof x === "number" && x > 0</code>
       </p>
     </div>
@@ -635,8 +817,16 @@ function demoValidarPositivo() {
 
 // ============================================
 // CÁLCULO DE FACTURA - Integración de módulos
+// Python: from calculos import calcular_factura
+// JS: import { calcularTotalFactura } from "./utils.js"
 // ============================================
 
+/**
+ * Demo de Factura
+ * Integra múltiples funciones del módulo de cálculos:
+ * - calcularTotalFactura: subtotal, descuento, IVA, total
+ * - formatearMoneda: formato $1.000,00
+ */
 function demoFactura() {
   const cantidad = obtenerNumero("facturaCantidad");
   const precio = obtenerNumero("facturaPrecio");
@@ -675,8 +865,19 @@ function demoFactura() {
 
 // ============================================
 // ARRAY UTILS - Demo de funciones de lista
+// Python: sum(), len(), sorted(), filter(), map()
+// JS: reduce(), length, sort(), filter(), map()
 // ============================================
 
+/**
+ * Demo de Arrays
+ * Muestra múltiples operaciones de lista:
+ * - sumarLista: equivalente a sum()
+ * - promedioLista: promedio de elementos
+ * - filtrarPares: filter para números pares
+ * - mapearCuadrado: map aplicando x**2
+ * - ordenarNumeros: sorted()
+ */
 function demoArrays() {
   const input = obtenerTexto("arrayInput");
   if (!input) {
@@ -684,7 +885,10 @@ function demoArrays() {
     return;
   }
 
-  const lista = input.split(",").map(n => parseFloat(n.trim())).filter(n => !Number.isNaN(n));
+  // Convertir string "1,2,3" en array [1, 2, 3]
+  const lista = input.split(",")
+    .map(n => parseFloat(n.trim()))
+    .filter(n => !Number.isNaN(n));
 
   if (lista.length === 0) {
     mostrarResultado("resultadoArrays", "<p class='error'>Ingresa números válidos.</p>");
@@ -721,7 +925,7 @@ function demoArrays() {
 }
 
 // ============================================
-// INICIALIZACIÓN
+// INICIALIZACIÓN - Código que se ejecuta al cargar
 // ============================================
 
 console.log("%cS12: Módulos y Reuso", "color: #84cc16; font-size: 20px; font-weight: bold;");
@@ -732,6 +936,12 @@ console.log("import math (Python) → Math object (JS, global)");
 console.log("import random (Python) → Math.random() (JS)");
 console.log("from datetime import datetime (Python) → new Date() (JS)");
 
+/*
+  PERMITIR ENTER PARA SUBMIT
+  ---------------------------
+  Cuando el usuario presiona Enter en un input,
+  automáticamente hace click en el botón de la tarjeta.
+*/
 document.addEventListener("DOMContentLoaded", () => {
   const inputs = document.querySelectorAll("input");
   inputs.forEach(input => {

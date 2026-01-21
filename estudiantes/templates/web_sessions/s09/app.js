@@ -1,26 +1,187 @@
+/*
+  =====================================================
+  S09: Funciones con Return - JAVASCRIPT
+  =====================================================
+
+  PYTHON RETURN ↔ JAVASCRIPT RETURN
+  ----------------------------------
+  El concepto de return es casi idéntico en ambos lenguajes.
+  La principal diferencia es sintáctica.
+
+  DEVOLVER UN VALOR:
+  ----------------
+  Python:
+    def cuadrado(n):
+        return n ** 2
+
+  JavaScript:
+    function cuadrado(n) {
+      return n ** 2;
+    }
+
+  IMPORTANTE: En JavaScript se usa punto y coma (;) al final
+  de cada statement, aunque es opcional.
+
+  SIN RETURN (VALOR POR DEFECTO):
+  -------------------------------
+  Python: Si no hay return, la función devuelve None
+  JavaScript: Si no hay return, la función devuelve undefined
+
+  Ejemplo:
+    Python:
+      def solo_print():
+          print("hola")  # Devuelve None
+
+    JavaScript:
+      function soloConsoleLog() {
+          console.log("hola");  // Devuelve undefined
+      }
+
+  MÚLTIPLES VALORES DE RETORNO:
+  -----------------------------
+  Python puede devolver múltiples valores directamente:
+
+    def estadisticas(lista):
+        return min(lista), max(lista), promedio(lista)
+    # Devuelve una tupla: (min, max, prom)
+
+  JavaScript devuelve un array (arreglo):
+
+    function estadisticas(lista) {
+      return [Math.min(...lista), Math.max(...lista), promedio(lista)];
+      // Devuelve un array: [min, max, prom]
+    }
+
+  Para capturar los valores, ambos usan "destructuring":
+
+    Python:
+      minimo, maximo, prom = estadisticas([10, 20, 30])
+
+    JavaScript:
+      const [minimo, maximo, prom] = estadisticas([10, 20, 30]);
+
+  RETURN TEMPRANO (EARLY RETURN):
+  -------------------------------
+  Cuando se ejecuta return, la función termina INMEDIATAMENTE.
+  El código después del return NUNCA se ejecuta.
+
+  Esto es igual en Python y JavaScript:
+
+    Python:
+      def verificar(edad):
+          if edad < 0:
+              return "Error"  # ← Termina aquí
+          if edad < 18:
+              return "Menor"  # ← O aquí
+          return "Mayor"     # ← O aquí
+
+    JavaScript:
+      function verificar(edad) {
+        if (edad < 0) {
+          return "Error";  // ← Termina aquí
+        }
+        if (edad < 18) {
+          return "Menor";  // ← O aquí
+        }
+        return "Mayor";    // ← O aquí
+      }
+
+  ARROW FUNCTIONS (LAMBDA):
+  -----------------------
+  Python lambda vs JavaScript arrow:
+
+    Python:
+      doble = lambda x: x * 2
+
+    JavaScript:
+      const doble = x => x * 2;
+
+  Sintaxis de arrow functions:
+    x => x * 2              # Un parámetro, una línea
+    (x, y) => x + y         # Dos parámetros
+    () => 42                # Sin parámetros
+    x => {                  # Múltiples líneas
+      const r = x * 2;
+      return r;
+    }
+
+  IMPORTANTE: Los paréntesis son opcionales con un solo parámetro,
+  pero REQUERIDOS con cero o múltiples parámetros.
+
+  COMPARACIÓN console.log vs return:
+  ----------------------------------
+  Python:
+    print(x)  → Muestra en pantalla, devuelve None
+    return x → Devuelve el valor para usarlo
+
+  JavaScript:
+    console.log(x)  → Muestra en consola, devuelve undefined
+    return x → Devuelve el valor para usarlo
+
+  DOCUMENTACIÓN:
+  -------------
+  Python: """docstring"""
+  JavaScript: /** JSDoc */
+
+  Ejemplo:
+    /**
+     * Calcula el cuadrado de un número
+     * @param {number} n - El número a elevar al cuadrado
+     * @returns {number} El cuadrado de n
+     */
+    function cuadrado(n) {
+      return n ** 2;
+    }
+*/
+
 // S09: Funciones con Return
 // Equivalente JavaScript de las prácticas de Python
 
 // ============================================
-// UTILIDADES
+// UTILIDADES - Funciones de ayuda reutilizables
 // ============================================
 
+/**
+ * mostrarResultado - Muestra un resultado en pantalla
+ * Equivalente Python: print(resultado), pero en interfaz gráfica
+ *
+ * IMPORTANTE: Esta función modifica el DOM (Document Object Model)
+ * que es la representación en JavaScript de la página HTML.
+ */
 function mostrarResultado(elementId, contenido) {
+  // getElementById: Busca un elemento HTML por su atributo id
   const elemento = document.getElementById(elementId);
+
+  // innerHTML: Contenido HTML dentro del elemento
   elemento.innerHTML = contenido;
-  elemento.classList.remove("hidden");
-  elemento.classList.add("visible");
+
+  // classList: Lista de clases CSS del elemento
+  elemento.classList.remove("hidden");   // Remover clase "oculto"
+  elemento.classList.add("visible");     // Agregar clase "visible"
 }
 
+/**
+ * obtenerNumero - Obtiene un valor numérico de un input
+ * Equivalente Python: int(input(...)) con validación
+ *
+ * En JavaScript, los inputs siempre devuelven strings (texto).
+ * Number() intenta convertir a número.
+ */
 function obtenerNumero(id) {
   const valor = document.getElementById(id).value;
   const numero = Number(valor);
+  // isNaN: "is Not a Number" - true si no es un número válido
   return Number.isNaN(numero) ? null : numero;
 }
 
+/**
+ * obtenerTexto - Obtiene texto de un input
+ * Equivalente Python: input(...).strip()
+ * trim() elimina espacios al inicio y final
+ */
 function obtenerTexto(id) {
   const valor = document.getElementById(id).value;
-  return valor.trim() || null;
+  return valor.trim() || null;  // || es el operador "or" de JS
 }
 
 // ============================================
@@ -31,12 +192,16 @@ function obtenerTexto(id) {
  * Demo: print() vs return()
  * Python: print() muestra, return() devuelve
  * JS: console.log() muestra, return devuelve
+ *
+ * CONCEPTO CLAVE:
+ * - console.log/print: Solo muestran información
+ * - return: Devuelve un valor que se puede USAR
  */
 
 // Python: def sumar_print(a, b): print(a + b)
 function sumarPrint(a, b) {
   console.log(a + b);
-  // Sin return → devuelve undefined
+  // Sin return → devuelve undefined (equivalente a None)
 }
 
 // Python: def sumar_return(a, b): return a + b
@@ -44,13 +209,22 @@ function sumarReturn(a, b) {
   return a + b;
 }
 
+/**
+ * demoPrint - Ejecuta la función sin return
+ * Muestra que el resultado es undefined (no se puede usar)
+ */
 function demoPrint() {
   const resultado = sumarPrint(5, 3);
+  // Template literal: `texto ${variable}` es como f-strings en Python
   document.getElementById("printResult").innerHTML = `
-    <span style="color: var(--text-secondary)">Resultado: undefined</span>
+    <span style="color: var(--text-secondary)">Resultado: ${resultado}</span>
   `;
 }
 
+/**
+ * demoReturn - Ejecuta la función con return
+ * Muestra que el resultado es un valor usable
+ */
 function demoReturn() {
   const resultado = sumarReturn(5, 3);
   document.getElementById("returnResult").innerHTML = `
@@ -58,6 +232,10 @@ function demoReturn() {
   `;
 }
 
+/**
+ * probarDiferencia - Demostración completa de print vs return
+ * Muestra cómo return permite usar el valor en cálculos
+ */
 function probarDiferencia() {
   const printResult = sumarPrint(5, 3);
   const returnResult = sumarReturn(5, 3);
@@ -65,11 +243,11 @@ function probarDiferencia() {
   // Intentar usar los resultados
   let html = `<div class="success-box">
     <h3>📊 Diferencia Clave</h3>
-    <p><strong>print() devuelve:</strong> ${printResult} (no se puede usar)</p>
+    <p><strong>console.log() devuelve:</strong> ${printResult} (no se puede usar)</p>
     <p><strong>return() devuelve:</strong> ${returnResult} (se puede usar)</p>
   `;
 
-  // Demostrar que podemos usar el return
+  // Demostrar que podemos usar el return en cálculos
   const total = returnResult + 10;
   html += `<p><strong>returnResult + 10 =</strong> ${total}</p>`;
   html += `<p class="formula">
@@ -84,6 +262,8 @@ function probarDiferencia() {
  * Funciones que devuelven un valor
  * Python: def cuadrado(n): return n ** 2
  * JS: function cuadrado(n) { return n ** 2; }
+ *
+ * IMPORTANTE: El operador ** (exponente) funciona igual en ambos
  */
 
 function cuadradoFn(n) {
@@ -140,6 +320,10 @@ function calcularCubo() {
  * Devolver múltiples valores
  * Python: return min, max, prom
  * JS: return [min, max, prom] (array)
+ *
+ * CONCEPTO CLAVE:
+ * Python puede devolver múltiples valores directamente (crea una tupla).
+ * JavaScript devuelve un array que luego se "destructura".
  */
 
 // Python: def calcular_estadisticas(lista): return min(lista), max(lista), sum(lista)/len(lista)
@@ -147,7 +331,7 @@ function calcularEstadisticasFn(lista) {
   const minimo = Math.min(...lista);
   const maximo = Math.max(...lista);
   const promedio = lista.reduce((a, b) => a + b, 0) / lista.length;
-  return [minimo, maximo, promedio];
+  return [minimo, maximo, promedio];  // Array con 3 valores
 }
 
 function calcularEstadisticas() {
@@ -157,6 +341,9 @@ function calcularEstadisticas() {
     return;
   }
 
+  // split(",") divide el string por comas, como split() en Python
+  // map() aplica una función a cada elemento
+  // filter() elimina elementos que no cumplen la condición
   const notas = input.split(",").map(n => parseFloat(n.trim())).filter(n => !Number.isNaN(n));
 
   if (notas.length === 0) {
@@ -164,6 +351,9 @@ function calcularEstadisticas() {
     return;
   }
 
+  // DESTRUCTURING: Asignar múltiples valores desde un array
+  // Python: minimo, maximo, promedio = calcular_estadisticas(notas)
+  // JS: const [minimo, maximo, promedio] = calcularEstadisticas(notas)
   const [minimo, maximo, promedio] = calcularEstadisticasFn(notas);
 
   const html = `
@@ -186,16 +376,25 @@ function calcularEstadisticas() {
  * Return temprano (early return)
  * Python: if condicion: return valor
  * JS: if (condicion) { return valor; }
+ *
+ * CONCEPTO CLAVE:
+ * Cuando return se ejecuta, la función TERMINA inmediatamente.
+ * Nada después de return se ejecuta nunca.
+ *
+ * Esto es útil para validar inputs y salir temprano si hay error.
  */
 
 // Python: def verificar_edad(edad): if edad < 0: return "Error"; ...
 function verificarEdadFn(edad) {
+  // Primer return temprano: validación
   if (edad < 0) {
     return { tipo: "error", mensaje: "Error: edad no puede ser negativa" };
   }
+  // Segundo return temprano: caso menor
   if (edad < 18) {
     return { tipo: "menor", mensaje: "Menor de edad" };
   }
+  // Return final: caso mayor
   return { tipo: "mayor", mensaje: "Mayor de edad" };
 }
 
@@ -226,6 +425,12 @@ function verificarEdadReturn() {
 
 /**
  * Calculadora de Compras - Múltiples funciones que devuelven
+ *
+ * CONCEPTO CLAVE: DIVIDE AND CONQUER
+ * Dividir un problema grande en funciones pequeñas,
+ * cada una con una tarea específica.
+ *
+ * Cada función devuelve un valor que la siguiente usa.
  */
 
 // Python: def calcular_subtotal(cantidad, precio): return cantidad * precio
@@ -260,7 +465,7 @@ function generarFactura() {
 
   if (descuentoPct === null) descuentoPct = 0;
 
-  // Usar todas las funciones
+  // Usar TODAS las funciones en orden
   const subtotal = calcularSubtotal(cantidad, precio);
   const descuento = calcularDescuento(subtotal, descuentoPct);
   const base = subtotal - descuento;
@@ -293,6 +498,18 @@ function generarFactura() {
  * Arrow Functions (Lambda)
  * Python: lambda x: x * 2
  * JS: x => x * 2
+ *
+ * CONCEPTO CLAVE:
+ * Las arrow functions son una forma compacta de escribir funciones.
+ * Son el equivalente más cercano a las lambdas de Python.
+ *
+ * SINTAXIS:
+ * x => x * 2              # Un parámetro, return implícito
+ * (x, y) => x + y         # Dos parámetros
+ * () => 42                # Sin parámetros
+ * x => { return x * 2; }  # Con return explícito (llaves)
+ *
+ * IMPORTANTE: Con llaves {}, el return NO es implícito.
  */
 
 // Lambda: doble = lambda x: x * 2
@@ -311,7 +528,8 @@ function procesarDobles() {
   const numeros = input.split(",").map(n => parseFloat(n.trim())).filter(n => !Number.isNaN(n));
 
   // Python: list(map(lambda x: x * 2, numeros))
-  // JS: numeros.map(x => x * 2)
+  // Python: [x * 2 for x in numeros]  (list comprehension)
+  // JS: numeros.map(x => x * 2) o numeros.map(doble)
   const dobles = numeros.map(doble);
 
   const html = `
@@ -338,7 +556,8 @@ function procesarPares() {
   const numeros = input.split(",").map(n => parseFloat(n.trim())).filter(n => !Number.isNaN(n));
 
   // Python: list(filter(lambda x: x % 2 == 0, numeros))
-  // JS: numeros.filter(x => x % 2 === 0)
+  // Python: [x for x in numeros if x % 2 == 0]  (list comprehension)
+  // JS: numeros.filter(x => x % 2 === 0) o numeros.filter(esPar)
   const pares = numeros.filter(esPar);
 
   const html = `
@@ -364,7 +583,7 @@ function procesarSuma() {
 
   const numeros = input.split(",").map(n => parseFloat(n.trim())).filter(n => !Number.isNaN(n));
 
-  // Python: reduce(lambda a, b: a + b, numeros)
+  // Python: reduce(lambda a, b: a + b, numeros) o sum(numeros)
   // JS: numeros.reduce((a, b) => a + b, 0)
   const suma = numeros.reduce((a, b) => a + b, 0);
 
@@ -393,11 +612,17 @@ console.log("return valor (Python) → return valor (JS)");
 console.log("return a, b (Python) → return [a, b] (JS)");
 console.log("lambda x: x*2 (Python) → x => x*2 (JS)");
 
+/**
+ * DOMContentLoaded - Evento que se dispara cuando el HTML está cargado
+ * Equivalente a if __name__ == "__main__" en Python para código de inicio
+ */
 document.addEventListener("DOMContentLoaded", () => {
+  // Agregar evento Enter a todos los inputs
   const inputs = document.querySelectorAll("input");
   inputs.forEach(input => {
     input.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
+        // Buscar el botón principal en la tarjeta actual
         const button = input.closest(".card")?.querySelector("button:not(.option)");
         if (button && button.onclick) button.click();
       }

@@ -1,10 +1,110 @@
+/*
+  =====================================================
+  S08: Funciones Básicas - JAVASCRIPT
+  =====================================================
+
+  PYTHON FUNCIONES ↔ JAVASCRIPT FUNCIONES
+  -----------------------------------------
+  Las funciones en JavaScript son muy similares a Python,
+  pero con diferencias de sintaxis importantes.
+
+  DEFINIR UNA FUNCIÓN:
+  --------------------
+  Python:
+    def mi_funcion(parametro):
+        # código aquí
+        return resultado
+
+  JavaScript (forma tradicional):
+    function miFuncion(parametro) {
+      // código aquí
+      return resultado;
+    }
+
+  JavaScript (forma moderna - arrow function):
+    const miFuncion = (parametro) => {
+      // código aquí
+      return resultado;
+    };
+
+  LLAMAR UNA FUNCIÓN:
+  -------------------
+  Ambos son iguales:
+    resultado = miFuncion(valor)
+
+  PARÁMETROS POR DEFECTO:
+  -----------------------
+  Python:
+    def saludar(nombre, saludo="Hola"):
+        print(f"{saludo}, {nombre}")
+
+  JavaScript:
+    function saludar(nombre, saludo = "Hola") {
+      console.log(`${saludo}, ${nombre}`);
+    }
+
+  IMPORTANTE: En JavaScript, los parámetros con valor por
+  defecto deben ir AL FINAL de la lista de parámetros,
+  igual que en Python.
+
+  ARROW FUNCTIONS (→):
+  -------------------
+  Es una forma más compacta de escribir funciones en JavaScript.
+  Se introdujo en ES6 (ECMAScript 2015).
+
+  Python lambda vs JavaScript arrow:
+    duplicar = lambda x: x * 2    # Python
+    const duplicar = x => x * 2;    # JavaScript
+
+  Diferencias clave:
+  - Si hay un solo parámetro, los paréntesis son opcionales
+  - Si hay una sola línea de código, las llaves {} son opcionales
+  - Si se omite {}, el return es implícito
+
+  Ejemplos:
+    // Sin parámetros
+    const saludar = () => console.log("Hola");
+
+    // Un parámetro (paréntesis opcionales)
+    const duplicar = x => x * 2;
+
+    // Múltiples parámetros (paréntesis requeridos)
+    const sumar = (a, b) => a + b;
+
+    // Múltiples líneas (llaves requeridas)
+    const complejo = (x, y) => {
+      const temp = x + y;
+      return temp * 2;
+    };
+
+  DOCUMENTACIÓN:
+  -------------
+  Python: """docstring"""
+  JavaScript: /** JSDoc */
+
+  Ejemplo:
+    /**
+     * Calcula el área de un rectángulo
+     * @param {number} base - El ancho del rectángulo
+     * @param {number} altura - La altura del rectángulo
+     * @returns {number} El área calculada
+     */
+    function calcularArea(base, altura) {
+      return base * altura;
+    }
+*/
+
 // S08: Funciones Básicas
 // Equivalente JavaScript de las prácticas de Python
 
 // ============================================
-// UTILIDADES
+// UTILIDADES - Funciones de ayuda reutilizables
 // ============================================
 
+/**
+ * mostrarResultado - Muestra un resultado en pantalla
+ * Equivalente Python: print(resultado), pero en interfaz gráfica
+ */
 function mostrarResultado(elementId, contenido) {
   const elemento = document.getElementById(elementId);
   elemento.innerHTML = contenido;
@@ -12,12 +112,20 @@ function mostrarResultado(elementId, contenido) {
   elemento.classList.add("visible");
 }
 
+/**
+ * obtenerNumero - Obtiene un valor numérico de un input
+ * Equivalente Python: int(input(...)) con validación
+ */
 function obtenerNumero(id) {
   const valor = document.getElementById(id).value;
   const numero = Number(valor);
   return Number.isNaN(numero) ? null : numero;
 }
 
+/**
+ * obtenerTexto - Obtiene texto de un input
+ * Equivalente Python: input(...).strip()
+ */
 function obtenerTexto(id) {
   const valor = document.getElementById(id).value;
   return valor.trim() || null;
@@ -29,20 +137,30 @@ function obtenerTexto(id) {
 
 /**
  * Función Simple (Sin Parámetros)
- * Python: def saludar(): ...
- * JS: function saludar() { ... }
+ * Python: def saludar(): print("¡Hola!")
+ * JS: function saludar() { return "¡Hola!"; }
+ *
+ * NOTA: Las funciones pueden ejecutar código directamente
+ * o retornar un valor para ser usado después.
  */
 
-// Python: def saludar():
-//         print("¡Hola!")
-//         print("Bienvenido al curso")
+// Python:
+// def saludar():
+//     print("¡Hola!")
+//     print("Bienvenido al curso")
 function saludar() {
   return "¡Hola!\nBienvenido al curso de Python";
 }
 
+/**
+ * ejecutarSaludo - Llama a la función saludar() y muestra el resultado
+ *
+ * Concepto clave: Las funciones no se ejecutan solas.
+ * Deben ser LLAMADAS para que su código corra.
+ */
 function ejecutarSaludo() {
-  // Python: saludar()
-  // JS: saludar()
+  // Python: resultado = saludar()
+  // JS: const resultado = saludar()
   const mensaje = saludar();
 
   const html = `
@@ -61,12 +179,17 @@ function ejecutarSaludo() {
 
 /**
  * Función con Parámetros
- * Python: def saludar_persona(nombre): ...
- * JS: function saludarPersona(nombre) { ... }
+ * Python: def saludar_persona(nombre): print(f"¡Hola, {nombre}!")
+ * JS: function saludarPersona(nombre) { return \`¡Hola, ${nombre}!\`; }
+ *
+ * Los PARÁMETROS son variables que la función recibe.
+ * Cada vez que llamas la función con diferentes valores,
+ * el parámetro toma ese valor.
  */
 
-// Python: def saludar_persona(nombre):
-//         print(f"¡Hola, {nombre}!")
+// Python:
+// def saludar_persona(nombre):
+//     print(f"¡Hola, {nombre}!")
 function saludarPersonaFn(nombre) {
   return `¡Hola, ${nombre}!\nBienvenido/a al curso de Python`;
 }
@@ -79,8 +202,8 @@ function saludarPersona() {
     return;
   }
 
-  // Python: saludar_persona("Ana")
-  // JS: saludarPersonaFn("Ana")
+  // Python: resultado = saludar_persona("Ana")
+  // JS: const resultado = saludarPersonaFn("Ana")
   const resultado = saludarPersonaFn(nombre);
 
   const html = `
@@ -101,12 +224,16 @@ function saludarPersona() {
  * Múltiples Parámetros
  * Python: def presentar(nombre, edad, ciudad): ...
  * JS: function presentar(nombre, edad, ciudad) { ... }
+ *
+ * Las funciones pueden tener múltiples parámetros separados por coma.
+ * El ORDEN de los parámetros es importante cuando llamas la función.
  */
 
-// Python: def presentar(nombre, edad, ciudad):
-//         print(f"Me llamo {nombre}")
-//         print(f"Tengo {edad} años")
-//         print(f"Vivo en {ciudad}")
+// Python:
+// def presentar(nombre, edad, ciudad):
+//     print(f"Me llamo {nombre}")
+//     print(f"Tengo {edad} años")
+//     print(f"Vivo en {ciudad}")
 function presentarFn(nombre, edad, ciudad) {
   return `Me llamo ${nombre}\nTengo ${edad} años\nVivo en ${ciudad}`;
 }
@@ -143,17 +270,23 @@ function presentarPerfil() {
  * Parámetros por Defecto
  * Python: def calcular_propina(cuenta, porcentaje=10): ...
  * JS: function calcularPropina(cuenta, porcentaje = 10) { ... }
+ *
+ * Los valores por defecto se usan si NO proporcionas un valor
+ * para ese parámetro al llamar la función.
+ *
+ * IMPORTANTE: En JavaScript (como en Python), los parámetros con
+ * valor por defecto deben ir AL FINAL de la lista.
  */
 
-// Python: def calcular_propina(cuenta, porcentaje=10):
-//         propina = cuenta * porcentaje / 100
-//         total = cuenta + propina
-//         print(f"Cuenta: ${cuenta:,}")
-//         print(f"Propina: ${propina:,}")
-//         print(f"Total: ${total:,}")
+// Python:
+// def calcular_propina(cuenta, porcentaje=10):
+//     propina = cuenta * porcentaje / 100
+//     total = cuenta + propina
+//     return {"cuenta": cuenta, "propina": propina, "total": total}
 function calcularPropinaFn(cuenta, porcentaje = 10) {
   const propina = cuenta * porcentaje / 100;
   const total = cuenta + propina;
+  // En JavaScript, retornamos un objeto (similar a diccionario en Python)
   return {
     cuenta: cuenta,
     propina: propina,
@@ -172,6 +305,8 @@ function calcularPropina() {
   }
 
   // Si no se especifica porcentaje, usa 10 por defecto
+  // Esta lógica está en el wrapper porque el usuario podría
+  // dejar el input vacío (null)
   if (porcentaje === null) {
     porcentaje = 10;
   }
@@ -202,11 +337,12 @@ function calcularPropina() {
  * JS: function verificarEdadFn(edad, edadMinima = 18) { ... }
  */
 
-// Python: def verificar_edad(edad, edad_minima=18):
-//         if edad >= edad_minima:
-//             print("✅ Acceso permitido")
-//         else:
-//             print("❌ Acceso denegado")
+// Python:
+// def verificar_edad(edad, edad_minima=18):
+//     if edad >= edad_minima:
+//         return {"permitido": True, "mensaje": "✅ Acceso permitido"}
+//     else:
+//         return {"permitido": False, "mensaje": "❌ Acceso denegado"}
 function verificarEdadFn(edad, edadMinima = 18) {
   if (edad >= edadMinima) {
     return {
@@ -257,17 +393,24 @@ function verificarEdadFuncion() {
  * Tabla de Multiplicar con Parámetro por Defecto
  * Python: def tabla_multiplicar(numero, hasta=10): ...
  * JS: function tablaMultiplicar(numero, hasta = 10) { ... }
+ *
+ * Esta función usa un bucle for para generar una tabla HTML.
+ * El bucle for en JavaScript es similar al de Python.
  */
 
-// Python: def tabla_multiplicar(numero, hasta=10):
-//         print(f"=== Tabla del {numero} ===")
-//         for i in range(1, hasta + 1):
-//             print(f"{numero} x {i} = {numero * i}")
+// Python:
+// def tabla_multiplicar(numero, hasta=10):
+//     tabla = f"<h4>=== Tabla del {numero} ===</h4>"
+//     for i in range(1, hasta + 1):
+//         tabla += f"{numero} x {i} = {numero * i}<br>"
+//     return tabla
 function tablaMultiplicarFn(numero, hasta = 10) {
   let tabla = `<h4>=== Tabla del ${numero} ===</h4>`;
   tabla += "<div class='tabla-container'><table>";
   tabla += "<tr><th>×</th><th>" + numero + "</th><th>=</th></tr>";
 
+  // Python: for i in range(1, hasta + 1):
+  // JS: for (let i = 1; i <= hasta; i++)
   for (let i = 1; i <= hasta; i++) {
     tabla += `<tr><td>${numero}</td><td>${i}</td><td><strong>${numero * i}</strong></td></tr>`;
   }
@@ -312,9 +455,13 @@ function generarTablaFuncion() {
  * Generador de Reportes - Múltiples Funciones
  * Python: Varias funciones que trabajan juntas
  * JS: Varias funciones que trabajan juntas
+ *
+ * Concepto clave: DIVIDE AND CONQUER
+ * Divide un problema grande en funciones pequeñas,
+ * cada una hace una tarea específica.
  */
 
-// Datos de prueba
+// Datos de prueba (similares a listas en Python)
 const estudiantes = ["Ana", "Carlos", "María", "Pedro", "Lucía"];
 const calificaciones = [85, 72, 90, 55, 78];
 
@@ -334,6 +481,8 @@ function imprimirSeparador() {
 
 // Python: def mostrar_nota(estudiante, nota): ...
 function mostrarNota(estudiante, nota) {
+  // Operador ternario de JavaScript: condicion ? valor_si_true : valor_si_false
+  // Python: estado = "Aprobado" if nota >= 60 else "Reprobado"
   const estado = nota >= 60 ? "✅ Aprobado" : "❌ Reprobado";
   const color = nota >= 60 ? "var(--accent-success)" : "var(--accent-danger)";
   return `<p style="margin: 4px 0;">&nbsp;&nbsp;${estudiante}: <strong>${nota}</strong> - <span style="color:${color}">${estado}</span></p>`;
@@ -343,12 +492,16 @@ function mostrarNota(estudiante, nota) {
 function generarReporteFn(titulo, listaEstudiantes, listaNotas) {
   let html = imprimirEncabezado(titulo);
 
+  // Python: for i in range(len(estudiantes)):
+  // JS: for (let i = 0; i < listaEstudiantes.length; i++)
   for (let i = 0; i < listaEstudiantes.length; i++) {
     html += mostrarNota(listaEstudiantes[i], listaNotas[i]);
   }
 
   html += imprimirSeparador();
 
+  // Python: promedio = sum(notas) / len(notas)
+  // JS: const promedio = listaNotas.reduce((a, b) => a + b, 0) / listaNotas.length
   const promedio = listaNotas.reduce((a, b) => a + b, 0) / listaNotas.length;
   const maximo = Math.max(...listaNotas);
   const minimo = Math.min(...listaNotas);
