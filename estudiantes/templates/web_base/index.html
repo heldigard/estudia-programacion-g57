@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plantilla Web Estud-IA</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container">
+    <h1>Plantilla Web Estud-IA</h1>
+    <p>Base para prácticas HTML/CSS/JS conectadas con Python.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Entrada</h2>
+      <div class="row">
+        <label for="inputA">Valor A</label>
+        <input id="inputA" type="text" placeholder="Ej: Ana" />
+      </div>
+      <div class="row">
+        <label for="inputB">Valor B</label>
+        <input id="inputB" type="text" placeholder="Ej: 25" />
+      </div>
+      <button id="actionBtn">Ejecutar</button>
+    </section>
+
+    <section class="card">
+      <h2>Salida</h2>
+      <p id="output">Aquí verás el resultado.</p>
+      <ul id="list"></ul>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>Tip: abre la consola (F12) para ver logs.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
