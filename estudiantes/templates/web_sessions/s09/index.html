@@ -3,16 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S09 - Return</title>
+  <title>S09 - Funciones con Return</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Conversor °C → °F</h1>
-    <input id="c" type="number" placeholder="°C" />
-    <button id="btn">Convertir</button>
-    <p id="salida">Resultado...</p>
+  <main class="container">
+    <header class="header">
+      <h1>🔁 Práctica S09: Funciones con Return</h1>
+      <p class="subtitle">Python + JavaScript: Devolver valores</p>
+    </header>
+
+    <!-- Tarjeta 1: print vs return -->
+    <section class="card">
+      <h2>📊 print() vs return()</h2>
+      <p class="hint">La diferencia fundamental: print muestra, return devuelve</p>
+      <div class="comparison-demo">
+        <div class="demo-box">
+          <h4>con print()</h4>
+          <p id="printResult">-</p>
+          <button class="btn option" onclick="demoPrint()">Ejecutar</button>
+        </div>
+        <div class="demo-box">
+          <h4>con return()</h4>
+          <p id="returnResult">-</p>
+          <button class="btn option" onclick="demoReturn()">Ejecutar</button>
+        </div>
+      </div>
+      <button class="btn primary" onclick="probarDiferencia()">Probar Diferencia</button>
+      <div id="resultadoPrintReturn" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Return Único -->
+    <section class="card highlight">
+      <h2>➗ Devolver un Valor</h2>
+      <p class="hint">Funciones matemáticas que devuelven un resultado</p>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="cuadradoNum">Número:</label>
+          <input id="cuadradoNum" type="number" placeholder="Ej: 5" value="5" />
+        </div>
+        <div class="input-group">
+          <label for="cuboNum">Número:</label>
+          <input id="cuboNum" type="number" placeholder="Ej: 3" value="3" />
+        </div>
+      </div>
+      <div class="botones-grid">
+        <button class="btn primary" onclick="calcularCuadrado()">cuadrado(n)</button>
+        <button class="btn secondary" onclick="calcularCubo()">cubo(n)</button>
+      </div>
+      <div id="resultadoUnico" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Return Múltiple -->
+    <section class="card">
+      <h2>📦 Devolver Múltiples Valores</h2>
+      <p class="hint">Una función puede devolver varios valores a la vez</p>
+      <div class="input-group">
+        <label for="notasInput">Notas (separadas por coma):</label>
+        <input id="notasInput" type="text" placeholder="Ej: 85,92,78,90,88" value="85,92,78,90,88" />
+      </div>
+      <button class="btn success" onclick="calcularEstadisticas()">calcular_estadisticas(notas)</button>
+      <div id="resultadoMultiple" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Return Temprano -->
+    <section class="card highlight">
+      <h2>🚪 Return Temprano</h2>
+      <p class="hint">return termina la función inmediatamente</p>
+      <div class="input-group">
+        <label for="edadVerificar">Edad:</label>
+        <input id="edadVerificar" type="number" placeholder="-5 a 100" min="-5" max="100" />
+      </div>
+      <button class="btn primary" onclick="verificarEdadReturn()">verificar_edad(edad)</button>
+      <div id="resultadoReturnEarly" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: Calculadora de Compras -->
+    <section class="card">
+      <h2>🛒 Calculadora de Compras</h2>
+      <p class="hint">Usa funciones que devuelven valores para calcular el total</p>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="compraCantidad">Cantidad:</label>
+          <input id="compraCantidad" type="number" placeholder="Ej: 2" min="1" value="2" />
+        </div>
+        <div class="input-group">
+          <label for="compraPrecio">Precio unitario:</label>
+          <input id="compraPrecio" type="number" placeholder="Ej: 50000" value="50000" />
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="compraDescuento">% Descuento (opcional):</label>
+        <input id="compraDescuento" type="number" placeholder="0" min="0" max="100" value="0" />
+      </div>
+      <button class="btn success" onclick="generarFactura()">generar_factura()</button>
+      <div id="resultadoCompras" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 6: Arrow Functions (Lambda) -->
+    <section class="card">
+      <h2>➡️ Arrow Functions (Lambda)</h2>
+      <p class="hint">Funciones anónimas de una sola línea</p>
+      <div class="input-group">
+        <label for="listaNumeros">Números (separados por coma):</label>
+        <input id="listaNumeros" type="text" placeholder="Ej: 1,2,3,4,5" value="1,2,3,4,5" />
+      </div>
+      <div class="botones-grid">
+        <button class="btn primary" onclick="procesarDobles()">map(x => x * 2)</button>
+        <button class="btn secondary" onclick="procesarPares()">filter(x => x % 2 === 0)</button>
+        <button class="btn success" onclick="procesarSuma()">reduce((a,b) => a+b)</button>
+      </div>
+      <div id="resultadoArrow" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Return: Python vs JavaScript</h2>
+      <p class="hint">El concepto es el mismo, solo cambia la sintaxis.</p>
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Función que devuelve valor
+def cuadrado(n):
+    return n ** 2
+
+# Múltiples valores
+def estadisticas(lista):
+    return min(lista), max(lista)
+
+# Sin return (devuelve None)
+def mostrar(msg):
+    print(msg)
+
+# Lambda
+doble = lambda x: x * 2</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Función que devuelve valor
+function cuadrado(n) {
+    return n ** 2;
+}
+
+// Múltiples valores (array)
+function estadisticas(lista) {
+    return [Math.min(...lista), Math.max(...lista)];
+}
+
+// Sin return (devuelve undefined)
+function mostrar(msg) {
+    console.log(msg);
+}
+
+// Arrow function
+const doble = x => x * 2;</pre>
+        </div>
+      </div>
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>return a, b, c</code> → JS: <code>return [a, b, c]</code> (usar array)<br>
+        2. Python: <code>lambda x: x * 2</code> → JS: <code>x => x * 2</code><br>
+        3. Python sin return → None, JS sin return → undefined
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

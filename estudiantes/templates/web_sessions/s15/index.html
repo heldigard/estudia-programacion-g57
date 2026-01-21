@@ -3,15 +3,269 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S15 - Fetch</title>
+  <title>S15 - Fetch API</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Usuario (API)</h1>
-    <button id="btn">Cargar</button>
-    <div id="usuario">—</div>
+  <main class="container">
+    <header class="header">
+      <h1>🌐 Práctica S15: Fetch API</h1>
+      <p class="subtitle">Python + JavaScript: Peticiones HTTP</p>
+    </header>
+
+    <!-- Tarjeta 1: GET Simple -->
+    <section class="card highlight">
+      <h2>📥 GET - Obtener un Recurso</h2>
+      <p class="hint">Obtener datos de un servidor (como requests.get en Python)</p>
+      <button class="btn primary" onclick="obtenerUsuario()">GET /users/1</button>
+      <div id="resultadoGet" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: GET Lista -->
+    <section class="card">
+      <h2>👥 GET - Lista de Recursos</h2>
+      <p class="hint">Obtener múltiples elementos</p>
+      <button class="btn secondary" onclick="obtenerUsuarios()">GET /users (lista)</button>
+      <div id="resultadoGetLista" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: GET con Parámetros -->
+    <section class="card">
+      <h2>🔍 GET con Query Params</h2>
+      <p class="hint">Filtrar resultados con parámetros URL</p>
+      <div class="input-group">
+        <label for="postsUserId">ID del Usuario:</label>
+        <input id="postsUserId" type="number" placeholder="1" value="1" min="1" max="10" />
+      </div>
+      <button class="btn primary" onclick="obtenerPosts()">GET /posts?userId=X</button>
+      <div id="resultadoQueryParams" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: POST - Crear -->
+    <section class="card highlight">
+      <h2>➕ POST - Crear Recurso</h2>
+      <p class="hint">Enviar nuevos datos al servidor</p>
+      <div class="input-group">
+        <label for="postTitulo">Título:</label>
+        <input id="postTitulo" type="text" placeholder="Mi Nuevo Post" value="Mi Nuevo Post" />
+      </div>
+      <div class="input-group">
+        <label for="postCuerpo">Contenido:</label>
+        <input id="postCuerpo" type="text" placeholder="Contenido del post" value="Contenido del post" />
+      </div>
+      <button class="btn success" onclick="crearPost()">POST /posts</button>
+      <div id="resultadoPost" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: PUT - Actualizar -->
+    <section class="card">
+      <h2>✏️ PUT - Actualizar Recurso</h2>
+      <p class="hint">Reemplazar completamente un recurso</p>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="putPostId">ID del Post:</label>
+          <input id="putPostId" type="number" placeholder="1" value="1" min="1" />
+        </div>
+        <div class="input-group">
+          <label for="putTitulo">Nuevo Título:</label>
+          <input id="putTitulo" type="text" placeholder="Título Actualizado" value="Título Actualizado" />
+        </div>
+      </div>
+      <button class="btn secondary" onclick="actualizarPost()">PUT /posts/:id</button>
+      <div id="resultadoPut" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 6: DELETE - Eliminar -->
+    <section class="card">
+      <h2>🗑️ DELETE - Eliminar Recurso</h2>
+      <p class="hint">Borrar un recurso del servidor</p>
+      <div class="input-group">
+        <label for="deletePostId">ID del Post a eliminar:</label>
+        <input id="deletePostId" type="number" placeholder="1" value="1" min="1" />
+      </div>
+      <button class="btn primary" style="background: var(--accent-danger);" onclick="eliminarPost()">DELETE /posts/:id</button>
+      <div id="resultadoDelete" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 7: Headers Personalizados -->
+    <section class="card">
+      <h2>📋 Headers Personalizados</h2>
+      <p class="hint">Agregar encabezados a la petición</p>
+      <button class="btn option" onclick="consultarConHeaders()">Consultar con Headers</button>
+      <div id="resultadoHeaders" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 8: Manejo de Errores -->
+    <section class="card">
+      <h2>⚠️ Manejo de Errores HTTP</h2>
+      <p class="hint">Cómo manejar respuestas de error (404, 500, etc)</p>
+      <div class="botones-grid">
+        <button class="btn option" onclick="demoError404()">Error 404</button>
+        <button class="btn option" onclick="demoError500()">Error 500</button>
+      </div>
+      <div id="resultadoErrores" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 9: Promise Chaining vs Async/Await -->
+    <section class="card highlight">
+      <h2>⛓️ vs ⏹️ Promise Chaining vs Async/Await</h2>
+      <p class="hint">Dos formas de manejar peticiones asíncronas</p>
+      <div class="botones-grid">
+        <button class="btn secondary" onclick="demoThenCatch()">.then().catch()</button>
+        <button class="btn primary" onclick="demoAsyncAwait()">async/await</button>
+      </div>
+      <div id="resultadoComparacion" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 10: Timeout -->
+    <section class="card">
+      <h2>⏱️ Timeout</h2>
+      <p class="hint">Cancelar petición si toma demasiado tiempo</p>
+      <button class="btn option" onclick="demoTimeout()">Demo Timeout (100ms)</button>
+      <div id="resultadoTimeout" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 HTTP: Python vs JavaScript</h2>
+      <p class="hint">Fetch API es nativo en JS (no requiere import)</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python (requests)</h4>
+          <pre>import requests
+
+# GET simple
+response = requests.get(url)
+data = response.json()
+
+# POST con JSON
+nuevo_post = {
+    "title": "Mi Post",
+    "body": "Contenido"
+}
+response = requests.post(
+    url,
+    json=nuevo_post
+)
+
+# PUT - Actualizar
+response = requests.put(
+    f"{url}/{id}",
+    json=datos_actualizados
+)
+
+# DELETE
+response = requests.delete(
+    f"{url}/{id}"
+)
+
+# Con parámetros
+response = requests.get(
+    url,
+    params={"userId": 1}
+)
+
+# Con headers
+response = requests.get(
+    url,
+    headers={
+        "Authorization": "Bearer token"
+    }
+)
+
+# Con timeout
+response = requests.get(
+    url,
+    timeout=5
+)
+
+# Manejo de errores
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+except requests.HTTPError as e:
+    print(f"Error: {e}")</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript (fetch)</h4>
+          <pre>// GET simple
+const response = await fetch(url);
+const data = await response.json();
+
+// POST con JSON
+const nuevoPost = {
+    title: "Mi Post",
+    body: "Contenido"
+};
+const response = await fetch(url, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(nuevoPost)
+});
+
+// PUT - Actualizar
+const response = await fetch(
+    `${url}/${id}`,
+    {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    }
+);
+
+// DELETE
+const response = await fetch(
+    `${url}/${id}`,
+    { method: "DELETE" }
+);
+
+// Con parámetros
+const response = await fetch(
+    `${url}?userId=1`
+);
+
+// Con headers
+const response = await fetch(url, {
+    headers: {
+        "Authorization": "Bearer token"
+    }
+});
+
+// Con timeout (AbortController)
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 5000);
+const response = await fetch(url, {
+    signal: controller.signal
+});
+
+// Manejo de errores
+try {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+    }
+    const data = await response.json();
+} catch (error) {
+    console.error(error);
+}</pre>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>import requests</code> → JS: <code>fetch</code> (built-in, no import)<br>
+        2. Python: <code>json=data</code> → JS: <code>body: JSON.stringify(data)</code><br>
+        3. Python: <code>params=dict</code> → JS: Query string en URL<br>
+        4. JS <code>fetch</code> NO lanza error en 4xx, verificar <code>response.ok</code>
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

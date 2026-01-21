@@ -3,16 +3,307 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S12 - Módulos</title>
+  <title>S12 - Módulos y Reuso</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Impuesto</h1>
-    <input id="valor" type="number" placeholder="Valor" />
-    <button id="btn">Calcular</button>
-    <p id="salida">Total...</p>
+  <main class="container">
+    <header class="header">
+      <h1>📦 Práctica S12: Módulos y Reuso</h1>
+      <p class="subtitle">Python + JavaScript: Import/Export y Librerías</p>
+    </header>
+
+    <!-- Tarjeta 1: Módulo Math -->
+    <section class="card highlight">
+      <h2>📐 Módulo Math</h2>
+      <p class="hint">Funciones matemáticas integradas (como math en Python)</p>
+
+      <div class="botones-grid">
+        <button class="btn option" onclick="demoConstantes()">Constantes</button>
+        <button class="btn option" onclick="demoMaxMin()">Max/Min</button>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="raizNumero">Raíz de:</label>
+          <input id="raizNumero" type="number" placeholder="Ej: 16" value="16" />
+        </div>
+        <div class="input-group">
+          <label for="absolutoNum">Absoluto de:</label>
+          <input id="absolutoNum" type="number" placeholder="Ej: -5" value="-5" />
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="potenciaBase">Base:</label>
+          <input id="potenciaBase" type="number" placeholder="2" value="2" />
+        </div>
+        <div class="input-group">
+          <label for="potenciaExp">Exponente:</label>
+          <input id="potenciaExp" type="number" placeholder="8" value="8" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="redondeoNum">Redondear:</label>
+        <input id="redondeoNum" type="number" placeholder="3.7" value="3.7" step="0.1" />
+      </div>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoRaiz()">√ Raíz</button>
+        <button class="btn secondary" onclick="demoAbsoluto()">|x| Abs</button>
+        <button class="btn success" onclick="demoPotencia()">^ Potencia</button>
+        <button class="btn primary" onclick="demoRedondeo()">≈ Redondear</button>
+      </div>
+
+      <div id="resultadoMath" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Módulo Random -->
+    <section class="card">
+      <h2>🎲 Módulo Random</h2>
+      <p class="hint">Generación de números aleatorios</p>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoDado()">🎲 Dado</button>
+        <button class="btn secondary" onclick="demoMoneda()">🪙 Moneda</button>
+        <button class="btn success" onclick="demoChoice()">🎰 Choice</button>
+      </div>
+
+      <div class="input-group">
+        <label for="dadoCaras">Caras del dado:</label>
+        <input id="dadoCaras" type="number" placeholder="6" value="6" min="2" max="20" />
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="aleatorioMin">Mínimo:</label>
+          <input id="aleatorioMin" type="number" placeholder="1" value="1" />
+        </div>
+        <div class="input-group">
+          <label for="aleatorioMax">Máximo:</label>
+          <input id="aleatorioMax" type="number" placeholder="100" value="100" />
+        </div>
+      </div>
+
+      <button class="btn primary" onclick="demoEnteroAleatorio()">randint(min, max)</button>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="listaCantidad">Cantidad:</label>
+          <input id="listaCantidad" type="number" placeholder="5" value="5" min="1" max="20" />
+        </div>
+        <div class="input-group">
+          <label for="listaMin">Min:</label>
+          <input id="listaMin" type="number" placeholder="1" value="1" />
+        </div>
+        <div class="input-group">
+          <label for="listaMax">Max:</label>
+          <input id="listaMax" type="number" placeholder="100" value="100" />
+        </div>
+      </div>
+
+      <button class="btn success" onclick="demoListaAleatoria()">Generar Lista</button>
+
+      <div id="resultadoRandom" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Módulo DateTime -->
+    <section class="card highlight">
+      <h2>📅 Módulo DateTime</h2>
+      <p class="hint">Trabajo con fechas y horas</p>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoFechaAhora()">Ahora</button>
+        <button class="btn secondary" onclick="demoFormatearFecha()">Formatear</button>
+        <button class="btn success" onclick="demoDiferenciaFechas()">Diferencia</button>
+      </div>
+
+      <div class="input-group">
+        <label for="sumarDias">Sumar días a hoy:</label>
+        <input id="sumarDias" type="number" placeholder="7" value="7" />
+      </div>
+
+      <button class="btn primary" onclick="demoSumarDias()">Sumar Días</button>
+
+      <div id="resultadoFecha" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Módulo String -->
+    <section class="card">
+      <h2>🔤 Módulo String</h2>
+      <p class="hint">Utilidades para manipular texto</p>
+
+      <div class="input-group">
+        <label for="capitalizarInput">Texto para capitalizar:</label>
+        <input id="capitalizarInput" type="text" placeholder="hola mundo" value="hola mundo" />
+      </div>
+
+      <div class="input-group">
+        <label for="palindromoInput">Verificar palíndromo:</label>
+        <input id="palindromoInput" type="text" placeholder="radar" value="radar" />
+      </div>
+
+      <div class="input-group">
+        <label for="palabrasInput">Contar palabras:</label>
+        <input id="palabrasInput" type="text" placeholder="Hola mundo, cómo estás?" value="Hola mundo, cómo estás?" />
+      </div>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoCapitalizar()">Aa Capitalizar</button>
+        <button class="btn secondary" onclick="demoPalindromo()">🔄 Palíndromo</button>
+        <button class="btn success" onclick="demoContarPalabras()">📝 Contar</button>
+      </div>
+
+      <div id="resultadoString" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: Módulo Validación -->
+    <section class="card">
+      <h2>✅ Módulo Validación</h2>
+      <p class="hint">Funciones para validar datos</p>
+
+      <div class="input-group">
+        <label for="emailInput">Email:</label>
+        <input id="emailInput" type="text" placeholder="usuario@ejemplo.com" value="usuario@ejemplo.com" />
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="rangoValor">Valor:</label>
+          <input id="rangoValor" type="number" placeholder="50" value="50" />
+        </div>
+        <div class="input-group">
+          <label for="rangoMin">Mínimo:</label>
+          <input id="rangoMin" type="number" placeholder="0" value="0" />
+        </div>
+        <div class="input-group">
+          <label for="rangoMax">Máximo:</label>
+          <input id="rangoMax" type="number" placeholder="100" value="100" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="positivoNum">Número positivo:</label>
+        <input id="positivoNum" type="number" placeholder="5" value="5" />
+      </div>
+
+      <div class="botones-grid">
+        <button class="btn primary" onclick="demoValidarEmail()">📧 Email</button>
+        <button class="btn secondary" onclick="demoValidarRango()">📊 Rango</button>
+        <button class="btn success" onclick="demoValidarPositivo()">➕ Positivo</button>
+      </div>
+
+      <div id="resultadoValidacion" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 6: Factura - Integración de módulos -->
+    <section class="card highlight">
+      <h2>🧾 Factura - Integración</h2>
+      <p class="hint">Usa funciones de múltiples módulos</p>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="facturaCantidad">Cantidad:</label>
+          <input id="facturaCantidad" type="number" placeholder="2" min="1" value="2" />
+        </div>
+        <div class="input-group">
+          <label for="facturaPrecio">Precio unitario:</label>
+          <input id="facturaPrecio" type="number" placeholder="50000" value="50000" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="facturaDescuento">% Descuento:</label>
+        <input id="facturaDescuento" type="number" placeholder="0" min="0" max="100" value="0" />
+      </div>
+
+      <button class="btn success" onclick="demoFactura()">calcular_total_factura()</button>
+
+      <div id="resultadoFactura" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 7: Array Utils -->
+    <section class="card">
+      <h2>📊 Array Utils</h2>
+      <p class="hint">Funciones de lista reutilizables</p>
+
+      <div class="input-group">
+        <label for="arrayInput">Números (separados por coma):</label>
+        <input id="arrayInput" type="text" placeholder="3,7,2,9,1,5" value="3,7,2,9,1,5" />
+      </div>
+
+      <button class="btn primary" onclick="demoArrays()">procesar_lista()</button>
+
+      <div id="resultadoArrays" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Módulos: Python vs JavaScript</h2>
+      <p class="hint">En JS los módulos se importan con ES6 syntax.</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Importar todo
+from utils import *
+
+# Importar específico
+from math import pi, sqrt, pow
+import random
+from datetime import datetime
+
+# Usar funciones
+resultado = sqrt(16)
+numero = random.randint(1, 10)
+ahora = datetime.now()
+
+# Crear módulo propio
+# mi_modulo.py
+def saludar():
+    return "Hola"
+
+export function saludar() {
+  return "Hola";
+}</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Importar específico (named)
+import { sqrt, pow } from "./utils.js";
+
+// Importar todo
+import * as utils from "./utils.js";
+
+// Math está disponible globalmente
+const resultado = Math.sqrt(16);
+
+// Random es Math.random()
+const numero = Math.floor(Math.random() * 10) + 1;
+
+// Date es un constructor
+const ahora = new Date();
+
+// Crear módulo propio
+// utils.js
+export function saludar() {
+  return "Hola";
+}</pre>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>import math</code> → JS: <code>Math</code> (objeto global)<br>
+        2. Python: <code>import random</code> → JS: <code>Math.random()</code><br>
+        3. Python: <code>from datetime import datetime</code> → JS: <code>new Date()</code><br>
+        4. JS requiere <code>type="module"</code> en el script tag
+      </div>
+    </section>
   </main>
+
   <script type="module" src="app.js"></script>
 </body>
 </html>

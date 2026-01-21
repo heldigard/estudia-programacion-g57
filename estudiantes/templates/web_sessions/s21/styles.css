@@ -1,5 +1,503 @@
-* { box-sizing: border-box; font-family: system-ui, Arial, sans-serif; }
-body { margin: 0; background: #0f172a; color: #e5e7eb; display: grid; place-items: center; min-height: 100vh; }
-.card { background: #111827; padding: 24px; border-radius: 12px; border: 1px solid #1f2937; width: min(520px, 92vw); }
-button { padding: 10px 14px; border: 0; border-radius: 8px; background: #38bdf8; color: #0b1220; font-weight: 700; width: 100%; }
-pre { background: #0b1220; padding: 12px; border-radius: 8px; margin-top: 12px; color: #94a3b8; }
+/* S21: Debugging - Estilos */
+
+/* ============================================
+   VARIABLES Y RESET
+   ============================================ */
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent-primary: #ec4899;
+  --accent-secondary: #db2777;
+  --accent-success: #22c55e;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --border-color: #334155;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  color: var(--accent-primary);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);
+}
+
+.card.highlight {
+  border-color: var(--accent-primary);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(236, 72, 153, 0.1) 100%);
+}
+
+.card.debug {
+  background: var(--bg-secondary);
+  opacity: 0.9;
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: var(--accent-primary);
+}
+
+.hint {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+}
+
+input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.primary {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: var(--accent-secondary);
+}
+
+.btn.secondary {
+  background: var(--accent-secondary);
+  color: white;
+}
+
+.btn.secondary:hover {
+  background: #be185d;
+}
+
+.btn.success {
+  background: var(--accent-success);
+  color: var(--bg-primary);
+}
+
+.btn.success:hover {
+  background: #16a34a;
+}
+
+.btn.option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.btn.danger {
+  background: var(--accent-danger);
+  color: white;
+}
+
+.btn.danger:hover {
+  background: #dc2626;
+}
+
+.botones-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* ============================================
+   CODE DISPLAY
+   ============================================ */
+.code-block {
+  background: var(--bg-primary);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  margin: 12px 0;
+}
+
+.code-block pre {
+  margin: 0;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  overflow-x: auto;
+}
+
+.console-output {
+  background: #000;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border-color);
+  font-family: 'Monaco', 'Menlo', 'Consolas', 'monospace';
+  font-size: 0.85rem;
+  min-height: 100px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.console-line {
+  margin: 4px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.console-line .timestamp {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  min-width: 80px;
+}
+
+.console-line .log {
+  color: var(--text-primary);
+}
+
+.console-line .warn {
+  color: var(--accent-warning);
+}
+
+.console-line .error {
+  color: var(--accent-danger);
+}
+
+.console-line .info {
+  color: var(--accent-secondary);
+}
+
+/* ============================================
+   DEBUG PANELS
+   ============================================ */
+.debug-panel {
+  background: var(--bg-primary);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  margin-top: 12px;
+}
+
+.debug-panel h4 {
+  color: var(--accent-primary);
+  margin-bottom: 8px;
+}
+
+.debug-panel pre {
+  margin: 0;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ============================================
+   BREAKPOINT
+   ============================================ */
+.breakpoint-box {
+  background: var(--bg-secondary);
+  border: 2px dashed var(--accent-warning);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  margin: 12px 0;
+}
+
+.breakpoint-box h4 {
+  color: var(--accent-warning);
+  margin-bottom: 8px;
+}
+
+.breakpoint-info {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.breakpoint-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  font-size: 0.85rem;
+}
+
+.breakpoint-number {
+  color: var(--accent-warning);
+  font-weight: bold;
+  min-width: 40px;
+}
+
+.breakpoint-code {
+  background: var(--bg-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--accent-primary);
+}
+
+/* ============================================
+   RESULTS
+   ============================================ */
+.result {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  animation: fadeIn 0.3s ease-in;
+}
+
+.result.hidden {
+  display: none;
+}
+
+.result.visible {
+  display: block;
+}
+
+.success-box {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid var(--accent-success);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.success-box h3 {
+  color: var(--accent-success);
+  margin-bottom: 12px;
+}
+
+.info-box {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid var(--accent-secondary);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.info-box h3 {
+  color: var(--accent-secondary);
+  margin-bottom: 12px;
+}
+
+.error-box {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--accent-danger);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.error-box h3 {
+  color: var(--accent-danger);
+  margin-bottom: 12px;
+}
+
+.warning-box {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid var(--accent-warning);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.warning-box code {
+  background: var(--bg-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--accent-warning);
+}
+
+/* ============================================
+   COMPARISON (DEBUG PANEL)
+   ============================================ */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.python-code,
+.js-code {
+  background: var(--bg-primary);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.python-code h4 {
+  color: #fef08a;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.js-code h4 {
+  color: var(--accent-secondary);
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.python-code pre,
+.js-code pre {
+  margin: 0;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  .header h1 {
+    font-size: 1.4rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .botones-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,19 +3,172 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S18 - Tabla y filtro</title>
+  <title>S18 - Tablas y Filtrado</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Contactos</h1>
-    <input id="filtro" placeholder="Buscar" />
-    <button id="btn">Filtrar</button>
-    <table>
-      <thead><tr><th>Nombre</th><th>Email</th></tr></thead>
-      <tbody id="tabla"></tbody>
-    </table>
+  <main class="container">
+    <header class="header">
+      <h1>📊 Práctica S18: Tablas y Filtrado</h1>
+      <p class="subtitle">Python + JavaScript: Mostrar y filtrar datos</p>
+    </header>
+
+    <!-- Tarjeta 1: Tabla de Estudiantes -->
+    <section class="card highlight">
+      <h2>📋 Tabla de Estudiantes</h2>
+      <p class="hint">Datos estructurados con búsqueda, filtrado y ordenamiento</p>
+
+      <!-- Búsqueda -->
+      <div class="search-box">
+        <input id="busquedaInput" type="search" placeholder="Buscar por nombre o email..." />
+      </div>
+
+      <!-- Filtros por curso -->
+      <div class="filter-row">
+        <span class="filter-chip active" data-curso="todos" onclick="filtrarPorCurso('todos')">Todos</span>
+        <span class="filter-chip" data-curso="Python" onclick="filtrarPorCurso('Python')">Python</span>
+        <span class="filter-chip" data-curso="JavaScript" onclick="filtrarPorCurso('JavaScript')">JavaScript</span>
+      </div>
+
+      <!-- Select de filtro -->
+      <div class="input-group">
+        <label for="filtroCurso">Filtrar por curso:</label>
+        <select id="filtroCurso">
+          <option value="todos">Todos los cursos</option>
+          <option value="Python">Python</option>
+          <option value="JavaScript">JavaScript</option>
+        </select>
+      </div>
+
+      <!-- Botón limpiar -->
+      <button class="btn option" onclick="limpiarFiltros()">🔄 Limpiar Filtros</button>
+
+      <!-- Info de resultados -->
+      <div id="resultsInfo" class="results-info"></div>
+
+      <!-- Tabla -->
+      <div class="tabla-container">
+        <table>
+          <thead>
+            <tr>
+              <th class="sortable" data-columna="nombre" onclick="ordenarPor('nombre')">Nombre</th>
+              <th class="sortable" data-columna="email" onclick="ordenarPor('email')">Email</th>
+              <th class="sortable" data-columna="edad" onclick="ordenarPor('edad')">Edad</th>
+              <th class="sortable" data-columna="curso" onclick="ordenarPor('curso')">Curso</th>
+              <th class="sortable" data-columna="nota" onclick="ordenarPor('nota')">Nota</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBody">
+            <!-- Se llena dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div id="pagination" class="pagination"></div>
+
+      <!-- Botón cargar desde API -->
+      <button class="btn secondary" onclick="cargarDatosAPI()">🌐 Cargar Datos desde API</button>
+    </section>
+
+    <!-- Tarjeta 2: Estadísticas -->
+    <section class="card">
+      <h2>📈 Estadísticas</h2>
+      <p class="hint">Resumen de los datos mostrados</p>
+
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="statPromedio">0</div>
+          <div class="stat-label">Promedio</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="statMax">0</div>
+          <div class="stat-label">Nota Máx</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="statMin">0</div>
+          <div class="stat-label">Nota Mín</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Tablas: Python vs JavaScript</h2>
+      <p class="hint">Manipulación de datos en tablas</p>
+
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Lista de diccionarios
+estudiantes = [
+    {"nombre": "Ana", "nota": 95},
+    {"nombre": "Benito", "nota": 87}
+]
+
+# Filtrar
+filtrados = [
+    e for e in estudiantes
+    if e["nota"] > 80
+]
+
+# Ordenar
+ordenados = sorted(
+    estudiantes,
+    key=lambda x: x["nota"]
+)
+
+# Slice (paginación)
+pagina = ordenados[0:5]
+
+# Pandas DataFrame
+import pandas as pd
+df = pd.DataFrame(estudiantes)
+filtrados = df[df["nota"] > 80]</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Array de objetos
+const estudiantes = [
+  {nombre: "Ana", nota: 95},
+  {nombre: "Benito", nota: 87}
+];
+
+// Filtrar
+const filtrados = estudiantes
+  .filter(e => e.nota > 80);
+
+// Ordenar
+const ordenados = [...estudiantes]
+  .sort((a, b) => a.nota - b.nota);
+
+// Slice (paginación)
+const pagina = ordenados.slice(0, 5);
+
+// Tabla HTML dinámica
+tbody.innerHTML = pagina.map(est => `
+  <tr>
+    <td>${est.nombre}</td>
+    <td>${est.nota}</td>
+  </tr>
+`).join("");</pre>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>dict["campo"]</code> → JS: <code>objeto.campo</code><br>
+        2. Python: <code>sorted(lista, key=lambda x: x.campo)</code> → JS: <code>lista.sort((a,b) => a.campo - b.campo)</code><br>
+        3. Python: <code>lista[start:end]</code> → JS: <code>lista.slice(start, end)</code><br>
+        4. JS usa DOM para crear tabla HTML dinámicamente
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
