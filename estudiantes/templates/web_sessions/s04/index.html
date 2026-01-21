@@ -3,16 +3,163 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S04 - Condicionales</title>
+  <title>S04 - Condicionales (if/elif/else)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Evaluar nota</h1>
-    <input id="nota" type="number" placeholder="Nota" />
-    <button id="btn">Evaluar</button>
-    <p id="mensaje" class="estado">Resultado...</p>
+  <main class="container">
+    <header class="header">
+      <h1>🚦 Práctica S04: Condicionales</h1>
+      <p class="subtitle">Python + JavaScript: if/elif/else → if/else if/else</p>
+    </header>
+
+    <!-- Tarjeta 1: Verificador de Edad -->
+    <section class="card">
+      <h2>🎂 Verificador de Edad</h2>
+      <p class="hint">Usando if/else para verificar mayoría de edad</p>
+      <div class="input-group">
+        <label for="edad">Ingresa tu edad:</label>
+        <input id="edad" type="number" placeholder="Ej: 18" min="0" max="120" />
+      </div>
+      <button class="btn primary" onclick="verificarEdad()">Verificar</button>
+      <div id="resultadoEdad" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Clasificador de Notas -->
+    <section class="card highlight">
+      <h2>📊 Clasificador de Notas</h2>
+      <p class="hint">Usando if/elif/else para múltiples condiciones</p>
+      <div class="input-group">
+        <label for="nota">Ingresa tu nota (0-100):</label>
+        <input id="nota" type="number" placeholder="Ej: 85" min="0" max="100" />
+      </div>
+      <button class="btn success" onclick="clasificarNota()">Clasificar</button>
+      <div id="resultadoNota" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Verificador de Fin de Semana -->
+    <section class="card">
+      <h2>🎉 ¿Es Fin de Semana?</h2>
+      <p class="hint">Usando OR para verificar múltiples condiciones</p>
+      <div class="input-group">
+        <label for="dia">¿Qué día es hoy?</label>
+        <select id="dia">
+          <option value="">Selecciona un día...</option>
+          <option value="lunes">Lunes</option>
+          <option value="martes">Martes</option>
+          <option value="miercoles">Miércoles</option>
+          <option value="jueves">Jueves</option>
+          <option value="viernes">Viernes</option>
+          <option value="sabado">Sábado</option>
+          <option value="domingo">Domingo</option>
+        </select>
+      </div>
+      <button class="btn secondary" onclick="verificarFinSemana()">Verificar</button>
+      <div id="resultadoFinSemana" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Cajero Automático -->
+    <section class="card highlight">
+      <h2>🏧 Cajero Automático</h2>
+      <p class="hint">Condicionales anidados para múltiples operaciones</p>
+      <div class="input-group">
+        <label>Saldo actual: <span id="saldoDisplay">$500,000</span></label>
+      </div>
+      <div class="opciones-cajero">
+        <button class="btn-option" onclick="operacionCajero('consultar')">1. Consultar Saldo</button>
+        <button class="btn-option" onclick="operacionCajero('retirar')">2. Retirar Dinero</button>
+        <button class="btn-option" onclick="operacionCajero('depositar')">3. Depositar Dinero</button>
+      </div>
+      <div id="panelRetiro" class="panel-operacion hidden">
+        <input id="montoRetiro" type="number" placeholder="Monto a retirar" />
+        <button class="btn primary" onclick="ejecutarRetiro()">Retirar</button>
+      </div>
+      <div id="panelDeposito" class="panel-operacion hidden">
+        <input id="montoDeposito" type="number" placeholder="Monto a depositar" />
+        <button class="btn success" onclick="ejecutarDeposito()">Depositar</button>
+      </div>
+      <div id="resultadoCajero" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: Sistema de Descuentos -->
+    <section class="card">
+      <h2>💰 Calculadora de Descuentos</h2>
+      <p class="hint">Descuentos escalonados por edad</p>
+      <div class="input-group">
+        <label for="precio">Precio del producto:</label>
+        <input id="precio" type="number" placeholder="Ej: 100000" min="0" />
+      </div>
+      <div class="input-group">
+        <label for="edadDescuento">Edad del cliente:</label>
+        <input id="edadDescuento" type="number" placeholder="Ej: 25" min="0" max="120" />
+      </div>
+      <button class="btn primary" onclick="calcularDescuento()">Calcular</button>
+      <div id="resultadoDescuento" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 6: Verificador de Contraseña -->
+    <section class="card">
+      <h2>🔐 Verificador de Contraseña</h2>
+      <p class="hint">Contraseña correcta: "python123"</p>
+      <div class="input-group">
+        <label for="contrasena">Ingresa la contraseña:</label>
+        <input id="contrasena" type="password" placeholder="••••••••" />
+      </div>
+      <button class="btn secondary" onclick="verificarContrasena()">Verificar</button>
+      <div id="resultadoContrasena" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Condicionales: Python vs JavaScript</h2>
+      <p class="hint">¡Casi idénticos! Solo cambia <code>elif</code> por <code>else if</code>.</p>
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Sintaxis básica
+if edad >= 18:
+    print("Mayor")
+elif edad >= 13:
+    print("Adolescente")
+else:
+    print("Niño")
+
+# Operadores lógicos
+if edad >= 18 and tiene_licencia:
+    print("Puede conducir")
+
+# Operador ternario
+resultado = "Aprobó" if nota >= 60 else "Reprobó"</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Sintaxis básica
+if (edad >= 18) {
+    console.log("Mayor");
+} else if (edad >= 13) {
+    console.log("Adolescente");
+} else {
+    console.log("Niño");
+}
+
+// Operadores lógicos
+if (edad >= 18 && tieneLicencia) {
+    console.log("Puede conducir");
+}
+
+// Operador ternario
+const resultado = nota >= 60 ? "Aprobó" : "Reprobó";</pre>
+        </div>
+      </div>
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python usa <code>elif</code>, JavaScript usa <code>else if</code><br>
+        2. Python requiere indentación, JavaScript usa llaves <code>{}</code><br>
+        3. JavaScript usa paréntesis <code>()</code> en la condición (opcional en Python)
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

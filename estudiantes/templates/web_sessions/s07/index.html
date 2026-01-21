@@ -3,16 +3,227 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S07 - Listas</title>
+  <title>S07 - Listas y Bucles</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Buscar contactos</h1>
-    <input id="busqueda" placeholder="Buscar" />
-    <button id="btn">Buscar</button>
-    <ul id="lista"></ul>
+  <main class="container">
+    <header class="header">
+      <h1>📋 Práctica S07: Listas y Bucles</h1>
+      <p class="subtitle">Python + JavaScript: Colecciones de datos</p>
+    </header>
+
+    <!-- Tarjeta 1: Explorador de Índices -->
+    <section class="card">
+      <h2>🔍 Explorador de Índices</h2>
+      <p class="hint">Accede a elementos por índice positivo y negativo</p>
+      <div class="lista-visual" id="listaVisual">
+        <!-- Se genera con JS -->
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="indicePositivo">Índice positivo (0-4):</label>
+          <input id="indicePositivo" type="number" placeholder="Ej: 0" min="0" max="4" value="0" />
+        </div>
+        <div class="input-group">
+          <label for="indiceNegativo">Índice negativo (-1 a -5):</label>
+          <input id="indiceNegativo" type="number" placeholder="Ej: -1" min="-5" max="-1" value="-1" />
+        </div>
+      </div>
+      <button class="btn primary" onclick="explorarIndice()">Explorar Índices</button>
+      <div id="resultadoIndice" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Métodos de Lista -->
+    <section class="card highlight">
+      <h2>🛠️ Métodos de Lista</h2>
+      <p class="hint">Prueba append, remove, pop, insert</p>
+      <div class="metodos-container">
+        <div class="lista-display" id="listaMetodos">
+          <span class="lista-item">🍎 manzana</span>
+          <span class="lista-item">🍌 banana</span>
+          <span class="lista-item">🍊 naranja</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="nuevoElemento">Elemento a agregar:</label>
+        <input id="nuevoElemento" type="text" placeholder="Ej: 🍇 uva" />
+      </div>
+      <div class="botones-grid">
+        <button class="btn success" onclick="agregarElemento()">append()</button>
+        <button class="btn secondary" onclick="eliminarUltimo()">pop()</button>
+        <button class="btn option" onclick="eliminarPrimero()">shift()</button>
+      </div>
+      <div class="input-row" style="margin-top: 12px;">
+        <div class="input-group">
+          <label for="indiceInsert">Posición:</label>
+          <input id="indiceInsert" type="number" placeholder="0-2" min="0" max="2" value="1" />
+        </div>
+        <div class="input-group">
+          <label for="elementoInsert">Elemento:</label>
+          <input id="elementoInsert" type="text" placeholder="Ej: kiwi" />
+        </div>
+      </div>
+      <button class="btn primary" onclick="insertarElemento()">insert()</button>
+      <div id="resultadoMetodos" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Estadísticas -->
+    <section class="card">
+      <h2>📊 Estadísticas de Lista</h2>
+      <p class="hint">Usa len(), min(), max(), sum()</p>
+      <div class="estadisticas-display" id="listaEstadisticas">
+        <!-- Se genera con JS -->
+      </div>
+      <button class="btn primary" onclick="calcularEstadisticas()">Calcular Estadísticas</button>
+      <div id="resultadoEstadisticas" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Filtrado de Números -->
+    <section class="card highlight">
+      <h2>🔢 Filtrado de Números</h2>
+      <p class="hint">Filtra números mayores a un valor (list comprehension)</p>
+      <div class="numeros-display" id="numerosFiltrar">
+        <!-- Se genera con JS -->
+      </div>
+      <div class="input-group">
+        <label for="umbralFiltro">Filtrar números mayores a:</label>
+        <input id="umbralFiltro" type="number" placeholder="Ej: 50" min="0" max="100" value="50" />
+      </div>
+      <button class="btn success" onclick="filtrarNumeros()">Filtrar</button>
+      <div id="resultadoFiltro" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: Gestor de Tareas -->
+    <section class="card">
+      <h2>📋 Gestor de Tareas</h2>
+      <p class="hint">Agrega, ve y elimina tareas de tu lista</p>
+      <div class="input-group">
+        <label for="nuevaTarea">Nueva tarea:</label>
+        <input id="nuevaTarea" type="text" placeholder="Ej: Estudiar para el examen" />
+      </div>
+      <div class="botones-grid">
+        <button class="btn success" onclick="agregarTarea()">Agregar Tarea</button>
+        <button class="btn secondary" onclick="verTareas()">Ver Tareas</button>
+      </div>
+      <div id="listaTareas" class="result hidden">
+        <ul id="ulTareas"></ul>
+      </div>
+      <div class="input-group" style="margin-top: 12px;">
+        <label for="numeroEliminar">Número de tarea a eliminar:</label>
+        <input id="numeroEliminar" type="number" placeholder="Ej: 1" min="1" />
+      </div>
+      <button class="btn option" onclick="eliminarTarea()">Eliminar Tarea</button>
+      <div id="resultadoTareas" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 6: Ordenamiento -->
+    <section class="card">
+      <h2>🔀 Ordenamiento</h2>
+      <p class="hint">sorted() vs .sort() - Nueva lista vs modificar original</p>
+      <div class="comparacion-ordenamiento">
+        <div class="lista-box">
+          <h4>Original (no cambia)</h4>
+          <div id="listaOriginal" class="numeros-chips"></div>
+        </div>
+        <div class="lista-box">
+          <h4>Ordenada (sorted)</h4>
+          <div id="listaOrdenada" class="numeros-chips"></div>
+        </div>
+      </div>
+      <button class="btn primary" onclick="demostrarOrdenamiento()">Demostrar sorted()</button>
+      <button class="btn secondary" onclick="ordenarInPlace()">Demostrar .sort()</button>
+      <div id="resultadoOrdenamiento" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Listas: Python vs JavaScript</h2>
+      <p class="hint">Los arrays en JS son muy similares a las listas en Python.</p>
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Crear lista
+frutas = ["manzana", "banana"]
+
+# Agregar al final
+frutas.append("naranja")
+
+# Eliminar último
+eliminado = frutas.pop()
+
+# Eliminar por valor
+frutas.remove("manzana")
+
+# Insertar en posición
+frutas.insert(1, "uva")
+
+# Longitud
+len(frutas)
+
+# Mínimo, máximo, suma
+min(numeros)
+max(numeros)
+sum(numeros)
+
+# Verificar si existe
+"manzana" in frutas
+
+# Iterar
+for fruta in frutas:
+    print(fruta)
+
+# List comprehension
+pares = [x for x in range(10) if x % 2 == 0]</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Crear array
+const frutas = ["manzana", "banana"];
+
+// Agregar al final
+frutas.push("naranja");
+
+// Eliminar último
+const eliminado = frutas.pop();
+
+// Eliminar por índice (no por valor)
+frutas.splice(0, 1); // Elimina índice 0
+
+// Insertar en posición
+frutas.splice(1, 0, "uva");
+
+// Longitud
+frutas.length;
+
+// Mínimo, máximo, suma
+Math.min(...numeros);
+Math.max(...numeros);
+numeros.reduce((a, b) => a + b, 0);
+
+// Verificar si existe
+frutas.includes("manzana");
+
+// Iterar
+for (const fruta of frutas) {
+    console.log(fruta);
+}
+
+// Array filter (como list comprehension)
+const pares = [...Array(10).keys()]
+    .filter(x => x % 2 === 0);</pre>
+        </div>
+      </div>
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>remove(valor)</code> → JS: <code>splice(indice, 1)</code><br>
+        2. Python: <code>in</code> → JS: <code>includes()</code><br>
+        3. Python: <code>len(lista)</code> → JS: <code>array.length</code> (es propiedad, no función)<br>
+        4. Python: <code>append()</code> → JS: <code>push()</code>
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

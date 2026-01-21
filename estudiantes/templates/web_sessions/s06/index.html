@@ -3,16 +3,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S06 - Bucles</title>
+  <title>S06 - Bucles (for y while)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Lista de compras</h1>
-    <input id="item" placeholder="Producto" />
-    <button id="btn">Agregar</button>
-    <ul id="lista"></ul>
+  <main class="container">
+    <header class="header">
+      <h1>🔄 Práctica S06: Bucles (for y while)</h1>
+      <p class="subtitle">Python + JavaScript: Repeticiones automáticas</p>
+    </header>
+
+    <!-- Tarjeta 1: Contador Simple -->
+    <section class="card">
+      <h2>🔢 Contador con For</h2>
+      <p class="hint">Bucle for: repite un número conocido de veces</p>
+      <div class="input-group">
+        <label for="contadorFinal">Contar hasta:</label>
+        <input id="contadorFinal" type="number" placeholder="Ej: 10" min="1" max="50" value="10" />
+      </div>
+      <button class="btn primary" onclick="ejecutarFor()">Ejecutar For</button>
+      <div id="resultadoFor" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 2: Tabla de Multiplicar -->
+    <section class="card highlight">
+      <h2>✖️ Tabla de Multiplicar</h2>
+      <p class="hint">Usando for para generar una tabla completa</p>
+      <div class="input-group">
+        <label for="tablaNumero">Número:</label>
+        <input id="tablaNumero" type="number" placeholder="Ej: 7" min="1" max="12" value="7" />
+      </div>
+      <button class="btn success" onclick="generarTabla()">Generar Tabla</button>
+      <div id="resultadoTabla" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 3: Suma de Números -->
+    <section class="card">
+      <h2>➕ Suma de Rango</h2>
+      <p class="hint">Suma todos los números entre dos valores</p>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="sumaInicio">Desde:</label>
+          <input id="sumaInicio" type="number" placeholder="Ej: 1" min="1" value="1" />
+        </div>
+        <div class="input-group">
+          <label for="sumaFin">Hasta:</label>
+          <input id="sumaFin" type="number" placeholder="Ej: 10" min="1" value="10" />
+        </div>
+      </div>
+      <button class="btn secondary" onclick="sumarRango()">Sumar</button>
+      <div id="resultadoSuma" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 4: Lista de Compras -->
+    <section class="card highlight">
+      <h2>🛒 Lista de Compras</h2>
+      <p class="hint">Usando un array (lista) con for...of</p>
+      <div class="input-group">
+        <label for="nuevoItem">Producto:</label>
+        <input id="nuevoItem" type="text" placeholder="Ej: Manzanas" />
+      </div>
+      <button class="btn primary" onclick="agregarItem()">Agregar</button>
+      <button class="btn secondary" onclick="limpiarLista()">Limpiar Lista</button>
+      <div id="resultadoLista" class="result hidden">
+        <ul id="listaCompras"></ul>
+      </div>
+      <div id="resumenLista" class="resumen hidden"></div>
+    </section>
+
+    <!-- Tarjeta 5: Adivina el Número (While) -->
+    <section class="card">
+      <h2>🎮 Adivina el Número</h2>
+      <p class="hint">Usando while para intentar hasta acertar</p>
+      <div class="input-group">
+        <label for="advinanza">Tu intento (1-10):</label>
+        <input id="advinanza" type="number" placeholder="1-10" min="1" max="10" />
+      </div>
+      <button class="btn secondary" onclick="adivinar()">Intentar</button>
+      <button class="btn option" onclick="reiniciarJuego()">Reiniciar</button>
+      <div id="resultadoAdivina" class="result hidden"></div>
+    </section>
+
+    <!-- Tarjeta 6: Contador Regresivo -->
+    <section class="card">
+      <h2>⏳ Cuenta Regresiva</h2>
+      <p class="hint">Usando while con condición inversa</p>
+      <div class="input-group">
+        <label for="cuentaInicio">Comenzar desde:</label>
+        <input id="cuentaInicio" type="number" placeholder="Ej: 10" min="1" max="20" value="10" />
+      </div>
+      <button class="btn primary" onclick="ejecutarCuentaRegresiva()">Iniciar Cuenta</button>
+      <div id="resultadoCuenta" class="result hidden"></div>
+    </section>
+
+    <!-- Panel de Debug - Comparación Python vs JS -->
+    <section class="card debug">
+      <h2>🐞 Bucles: Python vs JavaScript</h2>
+      <p class="hint">¡Muy similares! Solo cambia la sintaxis del bucle.</p>
+      <div class="comparison">
+        <div class="python-code">
+          <h4>Python</h4>
+          <pre># Bucle for con range
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# Bucle for con lista
+frutas = ["manzana", "banana"]
+for fruta in frutas:
+    print(fruta)
+
+# Bucle while
+contador = 0
+while contador < 5:
+    print(contador)
+    contador += 1</pre>
+        </div>
+        <div class="js-code">
+          <h4>JavaScript</h4>
+          <pre>// Bucle for con rango
+for (let i = 0; i < 5; i++) {
+    console.log(i);  // 0, 1, 2, 3, 4
+}
+
+// Bucle for...of con array
+const frutas = ["manzana", "banana"];
+for (const fruta of frutas) {
+    console.log(fruta);
+}
+
+// Bucle while
+let contador = 0;
+while (contador < 5) {
+    console.log(contador);
+    contador++;
+}</pre>
+        </div>
+      </div>
+      <div class="warning-box">
+        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
+        1. Python: <code>for i in range(5)</code> → JS: <code>for (let i = 0; i < 5; i++)</code><br>
+        2. Python: <code>for item in lista</code> → JS: <code>for (const item of lista)</code><br>
+        3. Python no necesita paréntesis en la condición del while
+      </div>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
