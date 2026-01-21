@@ -1,8 +1,66 @@
+/*
+  =====================================================
+  S07: Listas y Bucles - JAVASCRIPT
+  =====================================================
+
+  PYTHON LISTAS ↔ JAVASCRIPT ARRAYS
+  ----------------------------------
+  En JavaScript, las "listas" se llaman "arrays". Son muy
+  similares a las listas de Python, pero con diferencias clave.
+
+  CREACIÓN DE ARRAYS:
+  ------------------
+  // Sintaxis idéntica a Python
+  const frutas = ["manzana", "banana", "naranja"];
+
+  // Arrays pueden contener diferentes tipos
+  const mixto = ["texto", 42, true, null];
+
+  LONGITUD Y ACCESO:
+  ------------------
+  Python: len(lista)          → JS: array.length
+  Python: lista[0]            → JS: array[0]
+  Python: lista[-1]           → JS: array[array.length - 1]
+                                (¡JavaScript NO tiene índices negativos!)
+
+  MÉTODOS PARA AGREGAR/ELIMINAR:
+  -----------------------------
+  Python                          JavaScript
+  ------                          -----------
+  lista.append(x)                 array.push(x)         // Agrega al final
+  lista.pop()                     array.pop()           // Quita del final
+  lista.insert(0, x)              array.unshift(x)      // Inserta al inicio
+  del lista[0]                    array.shift()         // Quita del inicio
+  lista.remove(x)                 array.splice(indice, 1)  // Eliminar por índice
+
+  FILTRADO Y TRANSFORMACIÓN:
+  -------------------------
+  Python: [x for x in lista if x > 5]   (list comprehension)
+  JS: lista.filter(x => x > 5)          (array method)
+
+  Python: [x * 2 for x in lista]
+  JS: lista.map(x => x * 2)
+
+  ITERACIÓN:
+  ---------
+  Python: for item in lista:
+  JS: for (const item of array) { ... }
+  JS: array.forEach(item => { ... })
+
+  ESTADÍSTICAS:
+  ------------
+  Python: len(lista), min(lista), max(lista), sum(lista)
+  JS: array.length, Math.min(...array), Math.max(...array), array.reduce((a,b)=>a+b,0)
+
+  NOTA IMPORTANTE: El operador ... (spread) expande el array
+  Math.min(...arr) es como Math.min(arr[0], arr[1], arr[2], ...)
+*/
+
 // S07: Listas y Bucles
 // Equivalente JavaScript de las prácticas de Python
 
 // ============================================
-// ESTADO GLOBAL
+// ESTADO GLOBAL - Datos de ejemplo
 // ============================================
 let frutas = ["🍎 manzana", "🍌 banana", "🍊 naranja"];
 let tareas = [];
@@ -12,9 +70,13 @@ let numerosOrdenar = [5, 2, 8, 1, 9, 3, 7, 4, 6];
 const listaIndice = ["🍕 Pizza", "🍔 Hamburguesa", "🌭 Hot Dog", "🍟 Papas", "🌮 Taco"];
 
 // ============================================
-// UTILIDADES
+// UTILIDADES - Funciones de ayuda reutilizables
 // ============================================
 
+/**
+ * mostrarResultado - Muestra un resultado en pantalla
+ * Equivalente Python: print(resultado), pero en interfaz gráfica
+ */
 function mostrarResultado(elementId, contenido) {
   const elemento = document.getElementById(elementId);
   elemento.innerHTML = contenido;
@@ -22,6 +84,10 @@ function mostrarResultado(elementId, contenido) {
   elemento.classList.add("visible");
 }
 
+/**
+ * obtenerNumero - Obtiene un valor numérico de un input
+ * Equivalente Python: int(input(...)) con validación
+ */
 function obtenerNumero(id) {
   const valor = document.getElementById(id).value;
   const numero = Number(valor);
@@ -36,6 +102,9 @@ function obtenerNumero(id) {
  * Explorador de Índices
  * Python: lista[0], lista[-1]
  * JS: lista[0], lista[lista.length - 1]
+ *
+ * IMPORTANTE: JavaScript NO soporta índices negativos directamente.
+ * Para simular lista[-1], usamos lista[lista.length - 1]
  */
 function explorarIndice() {
   const pos = obtenerNumero("indicePositivo");
@@ -46,17 +115,19 @@ function explorarIndice() {
     return;
   }
 
-  // Python: lista[pos] vs JS: lista[pos]
-  // Python: lista[neg] vs JS: lista[lista.length + neg]
   let resultado = "";
   let error = "";
 
+  // Índice positivo - igual que Python
   if (pos >= 0 && pos < listaIndice.length) {
     resultado += `<p><strong>Índice ${pos}:</strong> ${listaIndice[pos]}</p>`;
   } else {
     error += `Índice ${pos} fuera de rango. `;
   }
 
+  // Índice negativo - JavaScript necesita conversión
+  // Python: lista[-1]  →  JS: lista[lista.length - 1]
+  // Python: lista[-2]  →  JS: lista[lista.length - 2]
   const negIndex = listaIndice.length + neg;
   if (neg >= -listaIndice.length && neg < 0) {
     resultado += `<p><strong>Índice ${neg}:</strong> ${listaIndice[negIndex]}</p>`;
@@ -82,8 +153,16 @@ function explorarIndice() {
  * Métodos de Lista
  * Python: append(), pop(), remove(), insert()
  * JS: push(), pop(), shift(), splice()
+ *
+ * Diferencias clave:
+ * - append() → push() (agregar al final)
+ * - pop() funciona igual en ambos
+ * - del lista[0] → shift() (eliminar primero)
+ * - remove(valor) → splice(indice, 1) (eliminar por posición)
+ * - insert(pos, valor) → splice(pos, 0, valor)
  */
 function renderizarListaMetodos() {
+  // map() transforma cada elemento en HTML
   const display = document.getElementById("listaMetodos");
   display.innerHTML = frutas.map(f => `<span class="lista-item">${f}</span>`).join("");
 }
@@ -138,7 +217,7 @@ function eliminarPrimero() {
     return;
   }
 
-  // Python: lista.pop(0) o del lista[0]
+  // Python: del lista[0] o lista.pop(0)
   // JS: lista.shift()
   const eliminado = frutas.shift();
 
@@ -169,6 +248,7 @@ function insertarElemento() {
 
   // Python: lista.insert(pos, elem)
   // JS: lista.splice(pos, 0, elem)
+  // splice significa: en posición 'pos', elimina 0 elementos, inserta 'elem'
   frutas.splice(pos, 0, elem);
   document.getElementById("elementoInsert").value = "";
 
@@ -187,6 +267,10 @@ function insertarElemento() {
  * Estadísticas de Lista
  * Python: len(), min(), max(), sum()
  * JS: .length, Math.min(), Math.max(), reduce()
+ *
+ * NOTA: Math.min() y Math.max() en JavaScript requieren el
+ * operador spread (...) para expandir el array:
+ * Math.min(...arr) es como Math.min(arr[0], arr[1], arr[2], ...)
  */
 function renderizarListaEstadisticas() {
   const display = document.getElementById("listaEstadisticas");
@@ -224,8 +308,11 @@ function calcularEstadisticas() {
 
 /**
  * Filtrado de Números
- * Python: [x for x in lista if x > 50]
- * JS: lista.filter(x => x > 50)
+ * Python: [x for x in lista if x > 50]  (list comprehension)
+ * JS: lista.filter(x => x > 50)          (array method)
+ *
+ * filter() crea un NUEVO array con los elementos que cumplen
+ * la condición (la función retorna true).
  */
 function renderizarNumerosFiltrar() {
   const display = document.getElementById("numerosFiltrar");
@@ -242,6 +329,8 @@ function filtrarNumeros() {
 
   // Python: [x for x in numeros if x > umbral]
   // JS: numeros.filter(x => x > umbral)
+  // filter() llama a la función para cada elemento, y si retorna
+  // true, el elemento se incluye en el nuevo array.
   const filtrados = numerosFiltrado.filter(n => n > umbral);
   const rechazados = numerosFiltrado.filter(n => n <= umbral);
 
@@ -264,6 +353,9 @@ function filtrarNumeros() {
  * Gestor de Tareas
  * Python: append(), remove(), len(), enumerate()
  * JS: push(), splice(), .length, forEach()
+ *
+ * forEach() ejecuta una función para cada elemento del array.
+ * Es como "for tarea in tareas:" en Python.
  */
 function agregarTarea() {
   const input = document.getElementById("nuevaTarea");
@@ -302,6 +394,7 @@ function verTareas() {
 
   // Python: for i, tarea in enumerate(tareas): print(f"{i+1}. {tarea}")
   // JS: tareas.forEach((tarea, i) => { ... })
+  // forEach recibe una función con (elemento, indice)
   tareas.forEach((tarea, i) => {
     const li = document.createElement("li");
     li.textContent = `${i + 1}. ${tarea}`;
@@ -327,6 +420,8 @@ function eliminarTarea() {
 
   // Python: eliminada = tareas.pop(numero - 1)
   // JS: const eliminada = tareas.splice(numero - 1, 1)[0]
+  // splice retorna un array con los elementos eliminados,
+  // por eso tomamos [0] para obtener el primer (y único) elemento.
   const eliminada = tareas.splice(num - 1, 1)[0];
 
   verTareas();
@@ -343,6 +438,10 @@ function eliminarTarea() {
  * Ordenamiento
  * Python: sorted(lista) vs lista.sort()
  * JS: [...lista].sort() vs lista.sort()
+ *
+ * Diferencia IMPORTANTE en JavaScript:
+ * - sort() sin argumentos ordena como STRINGS (alfabéticamente)
+ * - Para números, SIEMPRE usa: array.sort((a, b) => a - b)
  */
 function renderizarListasOrdenamiento() {
   const original = document.getElementById("listaOriginal");
@@ -355,6 +454,7 @@ function renderizarListasOrdenamiento() {
 function demostrarOrdenamiento() {
   // Python: ordenada = sorted(numeros) - original no cambia
   // JS: const ordenada = [...numeros].sort() - crea copia y ordena
+  // [...numeros] crea una copia (spread operator)
   const ordenada = [...numerosOrdenar].sort((a, b) => a - b);
 
   document.getElementById("listaOrdenada").innerHTML =
