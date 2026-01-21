@@ -1,56 +1,155 @@
+<!--
+  =====================================================
+  S18: Tablas y Filtrado - PLANTILLA HTML
+  =====================================================
+
+  Esta página practica el concepto de TABLAS Y FILTRADO en JavaScript,
+  que es equivalente a usar pandas y listas en Python.
+
+  CONCEPTOS HTML UTILIZADOS:
+  -------------------------
+  <table> - Tabla HTML para datos estructurados
+  <thead> - Cabecera de la tabla (títulos de columnas)
+  <tbody> - Cuerpo de la tabla (datos)
+  <tr> - Fila de la tabla (table row)
+  <th> - Celda de encabezado (table header)
+  <td> - Celda de datos (table data)
+  <input type="search"> - Campo de búsqueda
+  <select> - Lista desplegable
+  <option> - Opción dentro de un select
+  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
+  data-atributo - Atributo personalizado para JavaScript
+
+  CONEXIÓN HTML ↔ JAVASCRIPT PARA TABLAS:
+  -----------------------------------------------
+  1. HTML: <input id="busquedaInput" type="search">
+  2. JavaScript: document.getElementById("busquedaInput").value
+  3. La función filtra los datos y actualiza la tabla
+
+  CONCEPTOS DE TABLAS:
+  ---------------------
+  - <table>: Contenedor principal de la tabla
+  - <thead>: Cabecera (títulos de columnas)
+  - <tbody>: Cuerpo (filas de datos)
+  - <tr>: Row (fila) de la tabla
+  - <th>: Header cell (celda de título)
+  - <td>: Data cell (celda de dato)
+
+  FILTRADO Y ORDENAMIENTO:
+  ------------------------
+  - Filtrado: Mostrar solo elementos que cumplen condición
+  - Ordenamiento: Organizar elementos por un campo
+  - Paginación: Dividir datos en páginas
+
+  Equivalente Python:
+  - Filtrado: [x for x in lista if condicion]
+  - Ordenamiento: sorted(lista, key=lambda x: x.campo)
+  - Paginación: datos[start:end]
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!--
+    =====================================================
+    HEAD: Metadatos del documento
+    =====================================================
+
+    El head contiene información sobre el documento que NO se
+    muestra directamente en la página, como el título y
+    conexiones a archivos CSS/JS.
+  -->
   <meta charset="UTF-8" />
+  <!-- viewport: Hace la página responsiva (adaptable a móviles) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S18 - Tablas y Filtrado</title>
+  <!-- link rel="stylesheet": Conecta el archivo CSS que da estilo a la página -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- main: Contenido principal de la página -->
   <main class="container">
+    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
       <h1>📊 Práctica S18: Tablas y Filtrado</h1>
       <p class="subtitle">Python + JavaScript: Mostrar y filtrar datos</p>
     </header>
 
-    <!-- Tarjeta 1: Tabla de Estudiantes -->
+    <!--
+      =====================================================
+      TARJETA 1: TABLA DE ESTUDIANTES
+      =====================================================
+
+      Conceptos clave:
+      - <table>: Estructura HTML para datos tabulares
+      - Filtrado en tiempo real: Buscar mientras escribes
+      - Ordenamiento: Click en encabezado para ordenar
+      - Paginación: Dividir datos en páginas
+
+      Equivalente Python:
+      - pandas DataFrame → Array de objetos JS
+      - df[df['columna'] > valor] → array.filter(x => x.campo > valor)
+      - df.sort_values('columna') → array.sort((a,b) => a.campo - b.campo)
+
+      ESTRUCTURA DE UNA TABLA HTML:
+      -------------------------------
+      <table>
+        <thead>                    <!-- Cabecera -->
+          <tr>                    <!-- Fila de encabezados -->
+            <th>Nombre</th>     <!-- Celda de título -->
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>                    <!-- Cuerpo de datos -->
+          <tr>                    <!-- Fila de datos -->
+            <td>Ana</td>         <!-- Celda de dato -->
+            <td>ana@email.com</td>
+          </tr>
+        </tbody>
+      </table>
+    -->
     <section class="card highlight">
       <h2>📋 Tabla de Estudiantes</h2>
       <p class="hint">Datos estructurados con búsqueda, filtrado y ordenamiento</p>
 
-      <!-- Búsqueda -->
+      <!-- Búsqueda: type="search" es un input especial para búsqueda -->
       <div class="search-box">
+        <!-- placeholder: Texto de ejemplo que desaparece al escribir -->
         <input id="busquedaInput" type="search" placeholder="Buscar por nombre o email..." />
       </div>
 
-      <!-- Filtros por curso -->
+      <!-- Filtros por curso: "chips" son botones pequeños de filtro -->
       <div class="filter-row">
+        <!-- data-curso: Atributo personalizado para JavaScript -->
         <span class="filter-chip active" data-curso="todos" onclick="filtrarPorCurso('todos')">Todos</span>
         <span class="filter-chip" data-curso="Python" onclick="filtrarPorCurso('Python')">Python</span>
         <span class="filter-chip" data-curso="JavaScript" onclick="filtrarPorCurso('JavaScript')">JavaScript</span>
       </div>
 
-      <!-- Select de filtro -->
+      <!-- Select: Lista desplegable de opciones -->
       <div class="input-group">
         <label for="filtroCurso">Filtrar por curso:</label>
         <select id="filtroCurso">
+          <!-- option: Cada opción en la lista desplegable -->
           <option value="todos">Todos los cursos</option>
           <option value="Python">Python</option>
           <option value="JavaScript">JavaScript</option>
         </select>
       </div>
 
-      <!-- Botón limpiar -->
+      <!-- Botón limpiar: Restablece todos los filtros -->
       <button class="btn option" onclick="limpiarFiltros()">🔄 Limpiar Filtros</button>
 
-      <!-- Info de resultados -->
+      <!-- Info de resultados: Muestra cuántos elementos se ven -->
       <div id="resultsInfo" class="results-info"></div>
 
-      <!-- Tabla -->
+      <!-- Tabla HTML: Estructura para mostrar datos tabulares -->
       <div class="tabla-container">
         <table>
+          <!-- thead: Cabecera de la tabla (títulos de columnas) -->
           <thead>
             <tr>
+              <!-- class="sortable": Indica que la columna es ordenable -->
+              <!-- onclick="ordenarPor('nombre')": Ordena por nombre al hacer click -->
               <th class="sortable" data-columna="nombre" onclick="ordenarPor('nombre')">Nombre</th>
               <th class="sortable" data-columna="email" onclick="ordenarPor('email')">Email</th>
               <th class="sortable" data-columna="edad" onclick="ordenarPor('edad')">Edad</th>
@@ -58,26 +157,47 @@
               <th class="sortable" data-columna="nota" onclick="ordenarPor('nota')">Nota</th>
             </tr>
           </thead>
+          <!-- tbody: Cuerpo de la tabla (datos) -->
+          <!-- Se llena dinámicamente con JavaScript -->
           <tbody id="tablaBody">
-            <!-- Se llena dinámicamente -->
+            <!-- Las filas se generan con JS -->
           </tbody>
         </table>
       </div>
 
-      <!-- Paginación -->
+      <!-- Paginación: Botones para navegar entre páginas -->
       <div id="pagination" class="pagination"></div>
 
-      <!-- Botón cargar desde API -->
+      <!-- Botón cargar desde API: Obtiene datos de una API externa -->
       <button class="btn secondary" onclick="cargarDatosAPI()">🌐 Cargar Datos desde API</button>
     </section>
 
-    <!-- Tarjeta 2: Estadísticas -->
+    <!--
+      =====================================================
+      TARJETA 2: ESTADÍSTICAS
+      =====================================================
+
+      Conceptos clave:
+      - Estadísticas automáticas: Total, Promedio, Máx, Mín
+      - Se actualizan automáticamente al filtrar datos
+      - Equivalente Python: sum(), len(), max(), min()
+
+      OPERACIONES PYTHON VS JS:
+      -----------------------------
+      Python: sum(lista)        JS: lista.reduce((a,b) => a+b, 0)
+      Python: len(lista)        JS: lista.length
+      Python: max(lista)        JS: Math.max(...lista)
+      Python: min(lista)        JS: Math.min(...lista)
+      Python: sum(lista)/len()   JS: lista.reduce((a,b) => a+b, 0) / lista.length
+    -->
     <section class="card">
       <h2>📈 Estadísticas</h2>
       <p class="hint">Resumen de los datos mostrados</p>
 
+      <!-- stats-bar: Barra horizontal con estadísticas -->
       <div class="stats-bar">
         <div class="stat-item">
+          <!-- id="statTotal": Identificador para JavaScript actualizar -->
           <div class="stat-value" id="statTotal">0</div>
           <div class="stat-label">Total</div>
         </div>
@@ -96,11 +216,36 @@
       </div>
     </section>
 
-    <!-- Panel de Debug - Comparación Python vs JS -->
+    <!--
+      =====================================================
+      PANEL DE DEBUG / COMPARACIÓN
+      =====================================================
+
+      Muestra las equivalencias entre Python y JavaScript
+      para manipulación de datos en tablas.
+
+      PYTHON (pandas):
+      - DataFrame: estructura de datos tabular
+      - df[df['columna'] > valor]: Filtrar por condición
+      - df.sort_values('columna'): Ordenar por columna
+
+      JAVASCRIPT (arrays):
+      - Array de objetos: equivalente a lista de diccionarios
+      - array.filter(condicion): Filtrar por función
+      - array.sort(): Ordenar in-place o con copia
+
+      CONCEPTOS CLAVE:
+      ----------------
+      - Filtrado: [x for x in lista if cond] → lista.filter(x => cond)
+      - Ordenamiento: sorted(lista, key=) → lista.sort((a,b) => a.campo - b.campo)
+      - Slice/Paginación: datos[start:end] → datos.slice(start, end)
+      - DOM Manipulation: tbody.innerHTML para actualizar tabla HTML
+    -->
     <section class="card debug">
       <h2>🐞 Tablas: Python vs JavaScript</h2>
       <p class="hint">Manipulación de datos en tablas</p>
 
+      <!-- comparison: Dos columnas comparando Python y JavaScript -->
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
@@ -159,6 +304,7 @@ tbody.innerHTML = pagina.map(est => `
         </div>
       </div>
 
+      <!-- warning-box: Advertencias sobre diferencias clave -->
       <div class="warning-box">
         <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
         1. Python: <code>dict["campo"]</code> → JS: <code>objeto.campo</code><br>
@@ -169,6 +315,33 @@ tbody.innerHTML = pagina.map(est => `
     </section>
   </main>
 
+  <!--
+    =====================================================
+    CONECTAR JAVASCRIPT
+    =====================================================
+
+    S18 NO usa type="module" porque no tiene import/export.
+    Simplemente conecta app.js directamente.
+
+    FLUJO COMPLETO:
+    ---------------
+    1. Usuario escribe en input: oninput="busquedaEnTiempoReal()"
+    2. JavaScript filtra datos según el texto
+    3. renderTabla() actualiza el tbody con filas nuevas
+    4. renderStats() actualiza las estadísticas visuales
+
+    MANIPULACIÓN DEL DOM:
+    -------------------
+    - document.getElementById(): Buscar elemento por ID
+    - innerHTML: Reemplazar contenido HTML de un elemento
+    - addEventListener(): Agregar escucha de eventos (input, click, etc)
+
+    DIFERENCIA CON PYTHON:
+    --------------------
+    Python: print() muestra en consola
+    JS: DOM manipulation muestra en la página web
+    JS: Eventos (click, input) reaccionan a usuario
+  -->
   <script src="app.js"></script>
 </body>
 </html>

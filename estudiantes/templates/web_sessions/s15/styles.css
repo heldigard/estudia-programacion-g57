@@ -1,4 +1,46 @@
-/* S15: Fetch API - Estilos */
+/*
+  =====================================================
+  S15: Fetch API - PLANTILLA CSS
+  =====================================================
+
+  ¿QUÉ ES CSS?
+  -------------
+  CSS (Cascading Style Sheets) define el ESTILO de la página.
+  Es como la pintura y decoración de una casa: define CÓMO se ven
+  los elementos (colores, tamaños, posiciones, fuentes).
+
+  SINTAXIS BÁSICA DE CSS:
+  ----------------------
+  selector {
+    propiedad: valor;
+  }
+
+  Ejemplo:
+  h1 {
+    color: orange;  /* Texto en naranja */
+    font-size: 32px;  /* Tamaño de 32 píxeles */
+  }
+
+  SELECTORES COMUNES:
+  ------------------
+  button          - Selecciona todas las etiquetas <button>
+  #miId           - Selecciona el elemento con id="miId"
+  .miClase        - Selecciona todos los elementos con class="miClase"
+  button.primary  - Selecciona botones con class="primary"
+
+  CONEXIÓN HTML ↔ CSS:
+  -------------------
+  HTML: <div id="resultado"> → CSS: #resultado { ... }
+  HTML: <div class="card"> → CSS: .card { ... }
+  HTML: <button class="btn primary"> → CSS: .btn.primary { ... }
+
+  UNIDADES COMUNES:
+  ----------------
+  px              - Píxeles (absoluto)
+  rem             - Relativo al tamaño base del documento
+  %               - Porcentaje relativo al padre
+  vh/vw           - Porcentaje de la altura/ancho de la pantalla
+*/
 
 /* ============================================
    VARIABLES Y RESET
