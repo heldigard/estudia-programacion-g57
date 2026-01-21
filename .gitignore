@@ -55,3 +55,5 @@ desktop.ini
 *.tmp
 *.bak
 *.cache
+
+.claude
