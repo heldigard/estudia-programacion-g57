@@ -1,191 +1,97 @@
-/*
-  =====================================================
-  S12: Módulos y Reuso - PLANTILLA CSS
-  =====================================================
-
-  ¿QUÉ ES CSS?
-  -------------
-  CSS (Cascading Style Sheets) define el ESTILO de la página.
-  Es como la pintura y decoración de una casa: define CÓMO se ven
-  los elementos (colores, tamaños, posiciones, fuentes).
-
-  SINTAXIS BÁSICA DE CSS:
-  ----------------------
-  selector {
-    propiedad: valor;
-  }
-
-  Ejemplo:
-  h1 {
-    color: purple;  /* Texto en púrpura */
-    font-size: 32px;  /* Tamaño de 32 píxeles */
-  }
-
-  SELECTORES COMUNES:
-  ------------------
-  button          - Selecciona todas las etiquetas <button>
-  #miId           - Selecciona el elemento con id="miId"
-  .miClase        - Selecciona todos los elementos con class="miClase"
-  button.primary  - Selecciona botones con class="primary"
-
-  CONEXIÓN HTML ↔ CSS:
-  -------------------
-  HTML: <div id="resultado"> → CSS: #resultado { ... }
-  HTML: <div class="card"> → CSS: .card { ... }
-  HTML: <button class="btn primary"> → CSS: .btn.primary { ... }
-
-  UNIDADES COMUNES:
-  ----------------
-  px              - Píxeles (absoluto)
-  rem             - Relativo al tamaño base del documento
-  %               - Porcentaje relativo al padre
-  vh/vw           - Porcentaje de la altura/ancho de la pantalla
-*/
+/* S12: Módulos - Estilos */
 
 /* ============================================
-   VARIABLES CSS (CSS CUSTOM PROPERTIES)
-   ============================================
-
-   :root define variables globales que podemos reusar.
-   Es como crear constantes en Python para valores que se repiten.
-
-   Para usar una variable: var(--nombre-variable)
-
-   Ejemplo: color: var(--accent-primary);
-*/
+   VARIABLES Y RESET
+   ============================================ */
 :root {
-  /* Colores de fondo - Background colors */
-  --bg-primary: #0f172a;      /* Fondo principal (muy oscuro) */
-  --bg-secondary: #1e293b;    /* Fondo secundario (oscuro) */
-  --bg-card: #1e293b;         /* Fondo de tarjetas */
-
-  /* Colores de texto - Text colors */
-  --text-primary: #f1f5f9;    /* Texto principal (blanco) */
-  --text-secondary: #94a3b8;  /* Texto secundario (gris claro) */
-
-  /* Colores de acento - Accent colors (para botones, resaltados) */
-  --accent-primary: #84cc16;    /* Lima verde - botón principal */
-  --accent-secondary: #65a30d;  /* Verde oscuro - botón secundario */
-  --accent-success: #22c55e;    /* Verde - éxito/confirmación */
-  --accent-warning: #f59e0b;    /* Amarillo - advertencia */
-  --accent-danger: #ef4444;     /* Rojo - error */
-
-  /* Otros valores reutilizables - Other reusable values */
-  --border-color: #334155;     /* Color de bordes */
-  --radius-md: 12px;           /* Bordes redondeados medianos */
-  --radius-sm: 8px;            /* Bordes redondeados pequeños */
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);  /* Sombra suave */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent-primary: #84cc16;
+  --accent-secondary: #38bdf8;
+  --accent-success: #22c55e;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --border-color: #334155;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-/* ============================================
-   RESET - Configuración base
-   ============================================
-
-   El * es un comodín que selecciona TODOS los elementos.
-   Esto elimina los márgenes predeterminados del navegador.
-
-   box-sizing: border-box incluye padding y border en el tamaño total,
-   facilitando el cálculo de dimensiones.
-*/
 * {
-  box-sizing: border-box;  /* Incluye padding/border en el tamaño total */
-  margin: 0;               /* Elimina márgenes externos */
-  padding: 0;              /* Elimina márgenes internos */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* ============================================
-   LAYOUT - Estructura general
-   ============================================
-
-   Conexión HTML: <body>, <main class="container">
-
-   body: Estilos para todo el documento
-   .container: Contenedor centrado con ancho máximo
-*/
+   LAYOUT
+   ============================================ */
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* Fuente del sistema: usa la fuente predeterminada del usuario */
-
-  background: var(--bg-primary);  /* Fondo oscuro */
-  color: var(--text-primary);     /* Texto blanco */
-  line-height: 1.6;               /* Espacio entre líneas (interlineado) */
-  min-height: 100vh;              /* Altura mínima = 100% de la ventana */
-  padding: 20px;                  /* Espacio alrededor del contenido */
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .container {
-  max-width: 800px;   /* Ancho máximo del contenedor */
-  margin: 0 auto;     /* Centrar horizontalmente (0 arriba/abajo, auto izq/der) */
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* ============================================
-   HEADER - Cabecera de la página
-   ============================================
-
-   Conexión HTML: <header class="header">
-
-   El header contiene el título y subtítulo de la página.
-*/
+   HEADER
+   ============================================ */
 .header {
-  text-align: center;      /* Centrar texto */
-  margin-bottom: 32px;     /* Espacio debajo del header */
-  padding: 24px;           /* Espacio interno */
-  background: var(--bg-secondary);  /* Fondo */
-  border-radius: var(--radius-md);  /* Esquinas redondeadas */
-  border: 1px solid var(--border-color);  /* Borde */
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
 }
 
 .header h1 {
-  font-size: 1.8rem;       /* Tamaño grande (rem es relativo) */
-  margin-bottom: 8px;      /* Espacio debajo */
-  color: var(--accent-primary);  /* Color verde lima */
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  color: var(--accent-primary);
 }
 
 .subtitle {
-  color: var(--text-secondary);  /* Gris claro */
-  font-size: 1rem;               /* Tamaño normal */
+  color: var(--text-secondary);
+  font-size: 1rem;
 }
 
 /* ============================================
-   CARDS - Tarjetas de ejercicios
-   ============================================
-
-   Conexión HTML: <section class="card">
-
-   Las tarjetas son contenedores visuales que agrupan
-   contenido relacionado (inputs, botones, resultados).
-
-   SELECTORES USADOS:
-   - .card: Todas las tarjetas
-   - .card.highlight: Tarjetas destacadas (bordes verdes)
-   - .card.debug: Tarjeta de debug (más opaca)
-*/
+   CARDS
+   ============================================ */
 .card {
-  background: var(--bg-card);              /* Fondo */
-  border-radius: var(--radius-md);        /* Esquinas redondeadas */
-  padding: 24px;                           /* Espacio interno */
-  margin-bottom: 20px;                     /* Espacio debajo de cada tarjeta */
-  border: 1px solid var(--border-color);   /* Borde sutil */
-  box-shadow: var(--shadow);               /* Sombra */
-  transition: transform 0.2s, box-shadow 0.2s;  /* Animación suave */
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Efecto al pasar el mouse (hover) */
 .card:hover {
-  transform: translateY(-2px);  /* Mueve hacia arriba 2px */
-  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);  /* Sombra más grande */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.4);
 }
 
-/* Tarjeta destacada (ej: el ejercicio principal) */
 .card.highlight {
-  border-color: var(--accent-primary);  /* Borde verde */
+  border-color: var(--accent-primary);
   background: linear-gradient(135deg, var(--bg-card) 0%, rgba(132, 204, 22, 0.1) 100%);
-  /* Degradado sutil */
 }
 
 .card.debug {
   background: var(--bg-secondary);
-  opacity: 0.9;  /* Ligeramente transparente */
+  opacity: 0.9;
 }
 
 .card h2 {
@@ -196,50 +102,35 @@ body {
 
 .hint {
   color: var(--text-secondary);
-  font-size: 0.9rem;     /* Un poco más pequeño */
+  font-size: 0.9rem;
   margin-bottom: 16px;
-  font-style: italic;    /* Texto en cursiva */
+  font-style: italic;
 }
 
 /* ============================================
-   FORMS - Inputs y etiquetas
-   ============================================
-
-   Conexión HTML: <div class="input-group">, <input>, <label>
-
-   SELECTORES:
-   - .input-group: Contenedor de input + label
-   - .input-row: Varios inputs en una fila
-   - input[type="number"]: Inputs numéricos
-   - input[type="text"]: Inputs de texto
-*/
+   FORMS
+   ============================================ */
 .input-group {
-  margin-bottom: 16px;  /* Espacio entre grupos de inputs */
+  margin-bottom: 16px;
 }
 
 .input-group label {
-  display: block;        /* Ocupa toda la línea (label arriba del input) */
+  display: block;
   margin-bottom: 6px;
   color: var(--text-primary);
-  font-weight: 500;      /* Texto medio grueso */
+  font-weight: 500;
 }
 
-/* input-row: Tres inputs en una misma fila */
 .input-row {
-  display: grid;                /* Grid: layout tipo cuadrícula */
-  grid-template-columns: 1fr 1fr 1fr;  /* 3 columnas de igual tamaño */
-  gap: 12px;                    /* Espacio entre columnas */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.input-row input {
-  width: 100%;  /* Ocupa todo el ancho disponible */
-}
-
-/* Estilo de TODOS los inputs */
 input[type="number"],
 input[type="text"] {
-  width: 100%;           /* Ocupa todo el ancho disponible */
-  padding: 12px 16px;    /* Espacio interno */
+  width: 100%;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   background: var(--bg-primary);
@@ -248,130 +139,94 @@ input[type="text"] {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Estilo cuando el input está seleccionado */
 input[type="number"]:focus,
 input[type="text"]:focus {
-  outline: none;  /* Quita el borde azul predeterminado del navegador */
-  border-color: var(--accent-primary);  /* Borde verde */
-  box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.2);  /* Resplandor verde */
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.2);
 }
 
 input[type="number"]::placeholder,
 input[type="text"]::placeholder {
-  color: var(--text-secondary);  /* Texto de ejemplo gris */
+  color: var(--text-secondary);
 }
 
 /* ============================================
-   BUTTONS - Botones
-   ============================================
-
-   Conexión HTML: <button class="btn primary">
-
-   SELECTORES:
-   - .btn: Todos los botones
-   - .btn.primary: Botón principal (verde)
-   - .btn.secondary: Botón secundario (verde oscuro)
-   - .btn.success: Botón de éxito (verde brillante)
-   - .btn.option: Botón de opción (gris)
-*/
+   BUTTONS
+   ============================================ */
 .btn {
-  padding: 12px 24px;         /* Espacio interno */
-  border: none;                /* Sin borde */
+  padding: 12px 24px;
+  border: none;
   border-radius: var(--radius-sm);
   font-size: 1rem;
-  font-weight: 600;            /* Texto grueso */
-  cursor: pointer;             /* Cambia cursor al pasar el mouse */
-  transition: all 0.2s;        /* Animación suave */
-  width: 100%;                 /* Ancho completo */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
 }
 
 .btn:hover {
-  transform: translateY(-1px);  /* Eleva 1px al pasar mouse */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .btn:active {
-  transform: translateY(0);    /* Vuelve a posición al hacer click */
+  transform: translateY(0);
 }
 
-/* Variantes de botones */
 .btn.primary {
-  background: var(--accent-primary);  /* Verde lima */
+  background: var(--accent-primary);
   color: var(--bg-primary);
 }
 
 .btn.primary:hover {
-  background: var(--accent-secondary);  /* Verde más oscuro */
+  background: #65a30d;
 }
 
 .btn.secondary {
-  background: var(--accent-secondary);  /* Verde oscuro */
+  background: var(--accent-secondary);
   color: var(--bg-primary);
 }
 
 .btn.secondary:hover {
-  background: #4d7c0f;  /* Verde aún más oscuro */
+  background: #0ea5e9;
 }
 
 .btn.success {
-  background: var(--accent-success);  /* Verde brillante */
+  background: var(--accent-success);
   color: var(--bg-primary);
 }
 
 .btn.success:hover {
-  background: #16a34a;  /* Verde más oscuro */
+  background: #16a34a;
 }
 
 .btn.option {
   background: var(--bg-secondary);
   color: var(--text-primary);
-}
-
-/* botones-grid: Cuadrícula de 3 columnas para botones */
-.botones-grid {
-  display: grid;                /* Grid: layout tipo cuadrícula */
-  grid-template-columns: repeat(3, 1fr);  /* 3 columnas de igual tamaño */
-  gap: 8px;                    /* Espacio entre botones */
-  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
 /* ============================================
-   RESULTS - Cajas de resultado
-   ============================================
-
-   Conexión HTML: <div id="resultado" class="result hidden">
-
-   Estas clases controlan si se muestra u oculta el resultado.
-
-   CLASES DE ESTADO:
-   - .result.hidden: Oculto (no se ve)
-   - .result.visible: Visible (se muestra)
-
-   CLASES DE TIPO:
-   - .success-box: Caja verde (éxito)
-   - .info-box: Caja azul (información)
-   - .error-box: Caja roja (error)
-*/
+   RESULTS
+   ============================================ */
 .result {
   margin-top: 16px;
   padding: 16px;
   border-radius: var(--radius-sm);
-  animation: fadeIn 0.3s ease-in;  /* Animación de entrada */
+  animation: fadeIn 0.3s ease-in;
 }
 
-/* Ocultar elemento */
 .result.hidden {
-  display: none;  /* No se muestra ni ocupa espacio */
+  display: none;
 }
 
-/* Mostrar elemento */
 .result.visible {
-  display: block;  /* Se muestra como bloque */
+  display: block;
 }
 
-/* Caja de resultado exitoso (verde) */
 .success-box {
-  background: rgba(34, 197, 94, 0.1);  /* Verde transparente */
+  background: rgba(34, 197, 94, 0.1);
   border: 1px solid var(--accent-success);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -382,9 +237,8 @@ input[type="text"]::placeholder {
   margin-bottom: 12px;
 }
 
-/* Caja informativa (verde oscuro) */
 .info-box {
-  background: rgba(56, 189, 248, 0.1);  /* Azul transparente */
+  background: rgba(56, 189, 248, 0.1);
   border: 1px solid var(--accent-secondary);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -395,9 +249,8 @@ input[type="text"]::placeholder {
   margin-bottom: 12px;
 }
 
-/* Caja de error (rojo) */
 .error-box {
-  background: rgba(239, 68, 68, 0.1);  /* Rojo transparente */
+  background: rgba(239, 68, 68, 0.1);
   border: 1px solid var(--accent-danger);
   padding: 16px;
   border-radius: var(--radius-sm);
@@ -408,7 +261,6 @@ input[type="text"]::placeholder {
   margin-bottom: 12px;
 }
 
-/* Mensaje de error simple */
 .error {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid var(--accent-danger);
@@ -417,7 +269,6 @@ input[type="text"]::placeholder {
   color: var(--accent-danger);
 }
 
-/* Números grandes para resaltar resultados */
 .numero-grande {
   font-size: 2rem;
   font-weight: bold;
@@ -426,32 +277,41 @@ input[type="text"]::placeholder {
   margin: 12px 0;
 }
 
-/* Fórmula o código mostrado */
 .formula {
   margin-top: 12px;
   padding: 12px;
   background: var(--bg-primary);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
-  font-family: monospace;  /* Fuente de código */
+  font-family: monospace;
 }
 
 .formula code {
-  color: var(--accent-warning);  /* Amarillo */
+  color: var(--accent-warning);
 }
 
 /* ============================================
-   COMPARISON - Panel de comparación Python vs JS
-   ============================================
+   CLASES PARA RETOS (deben crear los estudiantes)
+   ============================================ */
 
-   Conexión HTML: <div class="comparison">
+/* RETO 1: .import-destacado */
+/* TODO: Crea esta clase con background: rgba(132, 204, 22, 0.1) y border: 1px solid #84cc16 */
 
-   Muestra código Python y JavaScript lado a lado.
-*/
+/* RETO 2: .numero-grande ya existe arriba, solo cambiar color */
+
+/* RETO 3: .dado-resultado */
+/* TODO: Crea esta clase con font-size: 3rem y text-align: center */
+
+/* RETO 4: .mensaje-exportado */
+/* TODO: Crea esta clase con font-style: italic y color: #a78bfa */
+
+/* ============================================
+   COMPARISON (DEBUG PANEL)
+   ============================================ */
 .comparison {
   display: grid;
-  grid-template-columns: 1fr 1fr;  /* 2 columnas de igual tamaño */
-  gap: 16px;                    /* Espacio entre columnas */
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
   margin-top: 12px;
 }
 
@@ -464,13 +324,13 @@ input[type="text"]::placeholder {
 }
 
 .python-code h4 {
-  color: #fef08a;  /* Amarillo (color de Python) */
+  color: #fef08a;
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
 .js-code h4 {
-  color: var(--accent-secondary);  /* Verde (color de JS) */
+  color: var(--accent-secondary);
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
@@ -481,11 +341,10 @@ input[type="text"]::placeholder {
   font-family: monospace;
   font-size: 0.75rem;
   color: var(--text-secondary);
-  white-space: pre-wrap;  /* Mantiene formato pero adapta a ancho */
+  white-space: pre-wrap;
   line-height: 1.4;
 }
 
-/* Caja de advertencias (diferencias clave) */
 .warning-box {
   margin-top: 12px;
   padding: 12px;
@@ -504,59 +363,117 @@ input[type="text"]::placeholder {
 }
 
 /* ============================================
-   ANIMATIONS
-   ============================================
+   RETOS HTML/CSS/JS BADGES
+   ============================================ */
+.html-hint {
+  color: #f97316;
+  font-weight: 600;
+  font-style: normal;
+}
 
-   Las animaciones se definen con @keyframes
-   y se aplican con la propiedad "animation"
-*/
+.css-hint {
+  color: #ec4899;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.js-hint {
+  color: #8b5cf6;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hint pre {
+  background: var(--bg-primary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-family: monospace;
+  margin: 4px 0;
+  overflow-x: auto;
+}
+
+.leyenda {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.leyenda-item {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.html-badge {
+  background: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+  border: 1px solid #f97316;
+}
+
+.css-badge {
+  background: rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+  border: 1px solid #ec4899;
+}
+
+.js-badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  border: 1px solid #8b5cf6;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);  /* Comienza 10px arriba */
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);  /* Termina en posición */
+    transform: translateY(0);
   }
 }
 
 /* ============================================
-   RESPONSIVE - Adaptación a móviles
-   ============================================
-
-   @media query: aplica estilos solo cuando la condición es verdadera
-   En este caso: pantallas de menos de 600px de ancho (móviles)
-
-   Esto se llama "responsive design" - adaptar el diseño
-   según el tamaño de la pantalla del usuario.
-*/
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 600px) {
   body {
-    padding: 12px;  /* Menos espacio en móviles */
+    padding: 12px;
   }
 
   .header h1 {
-    font-size: 1.4rem;  /* Título más pequeño */
+    font-size: 1.4rem;
   }
 
   .card {
-    padding: 16px;  /* Tarjetas más compactas */
-  }
-
-  .botones-grid {
-    grid-template-columns: 1fr;  /* 1 columna en móviles */
+    padding: 16px;
   }
 
   .input-row {
-    grid-template-columns: 1fr;  /* 1 columna en móviles */
+    grid-template-columns: 1fr;
   }
 
   .comparison {
-    grid-template-columns: 1fr;  /* 1 columna en móviles */
+    grid-template-columns: 1fr;
   }
 
   .numero-grande {
-    font-size: 1.5rem;  /* Números más pequeños */
+    font-size: 1.5rem;
+  }
+
+  .leyenda {
+    grid-template-columns: 1fr;
   }
 }

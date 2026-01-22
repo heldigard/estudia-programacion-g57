@@ -1,536 +1,163 @@
-<!--
-  =====================================================
-  S15: Archivos y Fetch API - PLANTILLA HTML
-  =====================================================
-
-  Esta página practica el concepto de PETICIONES HTTP en JavaScript,
-  que es equivalente a usar requests en Python.
-
-  CONCEPTOS HTML UTILIZADOS:
-  -------------------------
-  <section> - Contenedor semántico para secciones de contenido
-  <button> - Botón clickeable
-  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
-  <input> - Campo donde el usuario escribe datos
-  <select> - Lista desplegable de opciones
-  <option> - Opción dentro de un select
-  value="valor" - Valor por defecto del input
-
-  CONEXIÓN HTML ↔ JAVASCRIPT PARA PETICIONES HTTP:
-  ---------------------------------------------------
-  1. HTML: <button onclick="obtenerUsuario()">
-  2. JavaScript: async function obtenerUsuario() { ... }
-  3. La función usa fetch() para hacer petición HTTP
-
-  PETICIONES HTTP:
-  ---------------
-  GET    - Obtener datos (como requests.get en Python)
-  POST   - Crear nuevo recurso (como requests.post)
-  PUT    - Actualizar recurso completo (como requests.put)
-  DELETE - Eliminar recurso (como requests.delete)
-
-  ATRIBUTOS IMPORTANTES:
-  ---------------------
-  type="number" - Input solo acepta números
-  type="text" - Input acepta texto
-  placeholder="texto" - Texto de ejemplo en el input
-  value="valor" - Valor inicial del input
-  min="1" max="10" - Rango permitido (para type="number")
-  id="nombre" - Identificador ÚNICO para JavaScript encontrar elementos
-
-  ASINCRONÍA EN JAVASCRIPT:
-  -------------------------
-  Las peticiones fetch son ASÍNCRONAS - toman tiempo y no
-  bloquean el navegador mientras esperan respuesta.
-
-  Python (síncrono por defecto):
-    response = requests.get(url)  # Espera aquí
-    data = response.json()
-
-  JavaScript (asíncrono):
-    async function obtener() {
-      const response = await fetch(url);  # Espera sin bloquear
-      const data = await response.json();
-    }
--->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!--
-    =====================================================
-    HEAD: Metadatos del documento
-    =====================================================
-
-    El head contiene información sobre el documento que NO se
-    muestra directamente en la página, como el título y
-    conexiones a archivos CSS/JS.
-  -->
   <meta charset="UTF-8" />
-  <!-- viewport: Hace la página responsiva (adaptable a móviles) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S15 - Fetch API</title>
-  <!-- link rel="stylesheet": Conecta el archivo CSS que da estilo a la página -->
+  <title>S15 - Archivos</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- main: Contenido principal de la página -->
   <main class="container">
-    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
-      <h1>🌐 Práctica S15: Fetch API</h1>
-      <p class="subtitle">Python + JavaScript: Peticiones HTTP</p>
+      <h1>📁 S15: Archivos (localStorage)</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!--
-      =====================================================
-      TARJETA 1: GET - OBTENER UN RECURSO
-      =====================================================
+    <!-- RETO 1: Guardar en "archivo" -->
+    <section class="card">
+      <h2>Reto 1: Guardar en "Archivo"</h2>
 
-      Conceptos clave:
-      - GET es el método HTTP para OBTENER datos
-      - fetch() es la función nativa de JS para peticiones
-      - Equivalente Python: requests.get(url)
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el placeholder del input</p>
+      <p class="hint">Cámbialo a "Escribe algo..."</p>
 
-      Esta tarjeta demuestra cómo obtener datos desde una API
-      usando el método HTTP GET.
-    -->
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .guardado-mensaje</p>
+      <p class="hint">Con background: rgba(34, 197, 94, 0.1) y border verde</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa localStorage.setItem()</p>
+      <p class="hint">Completa guardarEnArchivo() para guardar el texto</p>
+
+      <div class="input-group">
+        <label for="textoGuardar">Texto para guardar:</label>
+        <input id="textoGuardar" type="text" placeholder="Escribe algo..." value="Hola mundo" />
+      </div>
+      <button class="btn success" onclick="guardarEnArchivo()">💾 Guardar</button>
+      <div id="resultadoGuardar" class="result hidden"></div>
+    </section>
+
+    <!-- RETO 2: Leer de "archivo" -->
     <section class="card highlight">
-      <h2>📥 GET - Obtener un Recurso</h2>
-      <p class="hint">Obtener datos de un servidor (como requests.get en Python)</p>
+      <h2>Reto 2: Leer de "Archivo"</h2>
 
-      <!-- onclick="obtenerUsuario()" ejecuta la función en app.js -->
-      <button class="btn primary" onclick="obtenerUsuario()">GET /users/1</button>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega emoji 📖 al título</p>
+      <p class="hint">Cámbialo a: &lt;h2&gt;Reto 2: Leer de "Archivo" 📖&lt;/h2&gt;</p>
 
-      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
-      <div id="resultadoGet" class="result hidden"></div>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .contenido-leido</p>
+      <p class="hint">Con padding: 16px y background: var(--bg-primary)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa localStorage.getItem()</p>
+      <p class="hint">Completa leerDeArchivo() para leer el texto guardado</p>
+
+      <button class="btn primary" onclick="leerDeArchivo()">📖 Leer</button>
+      <div id="resultadoLeer" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 2: GET - LISTA DE RECURSOS
-      =====================================================
-
-      Conceptos clave:
-      - GET con query params (?_limit=5) limita resultados
-      - Equivalente Python: requests.get(url, params={"_limit": 5})
-      - La API devuelve múltiples registros en un array
-    -->
+    <!-- RETO 3: Borrar "archivo" -->
     <section class="card">
-      <h2>👥 GET - Lista de Recursos</h2>
-      <p class="hint">Obtener múltiples elementos</p>
-      <button class="btn secondary" onclick="obtenerUsuarios()">GET /users (lista)</button>
-      <div id="resultadoGetLista" class="result hidden"></div>
+      <h2>Reto 3: Borrar "Archivo"</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el color del botón</p>
+      <p class="hint">Agrega style="background: var(--accent-danger);" al botón</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .borrado-mensaje</p>
+      <p class="hint">Con color: var(--accent-danger) y text-align: center</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa localStorage.removeItem()</p>
+      <p class="hint">Completa borrarArchivo() para eliminar los datos</p>
+
+      <button class="btn primary" onclick="borrarArchivo()">🗑️ Borrar</button>
+      <div id="resultadoBorrar" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 3: GET CON PARÁMETROS (QUERY PARAMS)
-      =====================================================
-
-      Conceptos clave:
-      - Query Params se agregan a la URL: ?clave=valor
-      - Ejemplo: /posts?userId=1 filtra posts del usuario 1
-      - Equivalente Python: requests.get(url, params={"userId": 1})
-
-      ESTRUCTURA HTML:
-      - input-group: Contenedor para input + label
-      - label for="id": Conecta etiqueta con input
-      - input id="id": Identificador único para JavaScript
-    -->
+    <!-- RETO 4: Guardar objeto -->
     <section class="card">
-      <h2>🔍 GET con Query Params</h2>
-      <p class="hint">Filtrar resultados con parámetros URL</p>
+      <h2>Reto 4: Guardar Objeto</h2>
 
-      <!-- input-group: Contenedor para input y su label -->
-      <div class="input-group">
-        <!-- for="postsUserId" conecta el label con el input -->
-        <label for="postsUserId">ID del Usuario:</label>
-        <!-- id="postsUserId" es el identificador que JavaScript usa -->
-        <input id="postsUserId" type="number" placeholder="1" value="1" min="1" max="10" />
-      </div>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el label</p>
+      <p class="hint">Cámbialo a "Tu nombre:"</p>
 
-      <button class="btn primary" onclick="obtenerPosts()">GET /posts?userId=X</button>
-      <div id="resultadoQueryParams" class="result hidden"></div>
-    </section>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .objeto-guardado</p>
+      <p class="hint">Con border: 1px solid var(--accent-primary)</p>
 
-    <!--
-      =====================================================
-      TARJETA 4: POST - CREAR RECURSO
-      =====================================================
-
-      Conceptos clave:
-      - POST crea NUEVOS recursos en el servidor
-      - JSON.stringify() convierte objeto JS a string JSON
-      - Equivalente Python: requests.post(url, json=diccionario)
-
-      DIFERENCIA IMPORTANTE:
-      Python: requests.post(url, json=nuevo_post)
-      JS: fetch(url, {method: "POST", body: JSON.stringify(nuevo_post)})
-
-      JSON.stringify() es necesario porque fetch NO convierte
-      automáticamente a JSON como lo hace requests en Python.
-    -->
-    <section class="card highlight">
-      <h2>➕ POST - Crear Recurso</h2>
-      <p class="hint">Enviar nuevos datos al servidor</p>
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Guarda un objeto con JSON</p>
+      <p class="hint">Usa JSON.stringify() antes de guardar</p>
 
       <div class="input-group">
-        <label for="postTitulo">Título:</label>
-        <!-- type="text": Input que acepta texto -->
-        <input id="postTitulo" type="text" placeholder="Mi Nuevo Post" value="Mi Nuevo Post" />
+        <label for="nombreObjeto">Tu nombre:</label>
+        <input id="nombreObjeto" type="text" placeholder="Ej: Ana" value="Ana" />
       </div>
-
-      <div class="input-group">
-        <label for="postCuerpo">Contenido:</label>
-        <input id="postCuerpo" type="text" placeholder="Contenido del post" value="Contenido del post" />
-      </div>
-
-      <button class="btn success" onclick="crearPost()">POST /posts</button>
-      <div id="resultadoPost" class="result hidden"></div>
+      <button class="btn secondary" onclick="guardarObjeto()">📦 Guardar Objeto</button>
+      <div id="resultadoObjeto" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 5: PUT - ACTUALIZAR RECURSO
-      =====================================================
-
-      Conceptos clave:
-      - PUT actualiza COMPLETAMENTE un recurso existente
-      - Reemplaza TODOS los campos del recurso
-      - Equivalente Python: requests.put(f"{url}/{id}", json=datos)
-
-      ESTRUCTURA HTML:
-      - input-row: Varios inputs en una misma fila (grid layout)
-    -->
-    <section class="card">
-      <h2>✏️ PUT - Actualizar Recurso</h2>
-      <p class="hint">Reemplazar completamente un recurso</p>
-
-      <!-- input-row: Dos inputs en una misma fila -->
-      <div class="input-row">
-        <div class="input-group">
-          <label for="putPostId">ID del Post:</label>
-          <input id="putPostId" type="number" placeholder="1" value="1" min="1" />
-        </div>
-        <div class="input-group">
-          <label for="putTitulo">Nuevo Título:</label>
-          <input id="putTitulo" type="text" placeholder="Título Actualizado" value="Título Actualizado" />
-        </div>
-      </div>
-
-      <button class="btn secondary" onclick="actualizarPost()">PUT /posts/:id</button>
-      <div id="resultadoPut" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 6: DELETE - ELIMINAR RECURSO
-      =====================================================
-
-      Conceptos clave:
-      - DELETE elimina un recurso del servidor
-      - Es una operación destructiva (no se puede deshacer)
-      - Equivalente Python: requests.delete(f"{url}/{id}")
-
-      style="background: var(--accent-danger)": Sobrescribe el estilo
-      para hacer el botón rojo (indicando operación destructiva).
-    -->
-    <section class="card">
-      <h2>🗑️ DELETE - Eliminar Recurso</h2>
-      <p class="hint">Borrar un recurso del servidor</p>
-
-      <div class="input-group">
-        <label for="deletePostId">ID del Post a eliminar:</label>
-        <input id="deletePostId" type="number" placeholder="1" value="1" min="1" />
-      </div>
-
-      <button class="btn primary" style="background: var(--accent-danger);" onclick="eliminarPost()">DELETE /posts/:id</button>
-      <div id="resultadoDelete" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 7: HEADERS PERSONALIZADOS
-      =====================================================
-
-      Conceptos clave:
-      - Headers son metadatos de la petición HTTP
-      - Se usan para autenticación, formato de datos, etc.
-      - Equivalente Python: requests.get(url, headers={"Autorización": "token"})
-
-      HEADERS COMUNES:
-      - Content-Type: Indica el formato de datos (application/json)
-      - Authorization: Token de autenticación
-      - User-Agent: Identifica al cliente
-    -->
-    <section class="card">
-      <h2>📋 Headers Personalizados</h2>
-      <p class="hint">Agregar encabezados a la petición</p>
-      <button class="btn option" onclick="consultarConHeaders()">Consultar con Headers</button>
-      <div id="resultadoHeaders" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 8: MANEJO DE ERRORES HTTP
-      =====================================================
-
-      Conceptos clave:
-      - Códigos HTTP de error: 404 (Not Found), 500 (Server Error)
-      - fetch NO lanza error automáticamente en 4xx
-      - Equivalente Python: try/except con response.raise_for_status()
-
-      IMPORTANTE:
-      En Python requests, response.raise_for_status() lanza excepción
-      en códigos 4xx/5xx. En fetch, debes verificar response.ok manualmente.
-    -->
-    <section class="card">
-      <h2>⚠️ Manejo de Errores HTTP</h2>
-      <p class="hint">Cómo manejar respuestas de error (404, 500, etc)</p>
-
-      <!-- botones-grid: Diseño de cuadrícula para botones -->
-      <div class="botones-grid">
-        <button class="btn option" onclick="demoError404()">Error 404</button>
-        <button class="btn option" onclick="demoError500()">Error 500</button>
-      </div>
-
-      <div id="resultadoErrores" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 9: PROMISE CHAINING VS ASYNC/AWAIT
-      =====================================================
-
-      Conceptos clave:
-      - .then().catch() es la forma tradicional de manejar promesas
-      - async/await hace el código "parecer" más síncrono
-      - Equivalente Python: No hay equivalente directo a .then()
-
-      PROMISE CHAINING (.then/.catch):
-      fetch(url).then(r => r.json()).then(data => console.log(data))
-
-      ASYNC/AWAIT:
-      async function main() {
-        const response = await fetch(url);
-        const data = await response.json();
-      }
-
-      async/await es más similar a Python y más legible.
-    -->
-    <section class="card highlight">
-      <h2>⛓️ vs ⏹️ Promise Chaining vs Async/Await</h2>
-      <p class="hint">Dos formas de manejar peticiones asíncronas</p>
-
-      <div class="botones-grid">
-        <button class="btn secondary" onclick="demoThenCatch()">.then().catch()</button>
-        <button class="btn primary" onclick="demoAsyncAwait()">async/await</button>
-      </div>
-
-      <div id="resultadoComparacion" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 10: TIMEOUT
-      =====================================================
-
-      Conceptos clave:
-      - Timeout cancela petición si toma mucho tiempo
-      - Equivalente Python: requests.get(url, timeout=5)
-      - JS usa AbortController para cancelar fetch
-
-      IMPORTANTE:
-      fetch() NO tiene timeout nativo como requests.get(timeout=5).
-      Debemos implementarlo manualmente con AbortController.
-    -->
-    <section class="card">
-      <h2>⏱️ Timeout</h2>
-      <p class="hint">Cancelar petición si toma demasiado tiempo</p>
-      <button class="btn option" onclick="demoTimeout()">Demo Timeout (100ms)</button>
-      <div id="resultadoTimeout" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      PANEL DE DEBUG / COMPARACIÓN
-      =====================================================
-
-      Muestra las equivalencias entre Python y JavaScript
-      para peticiones HTTP con requests vs fetch.
-
-      PYTHON (requests):
-      - import requests necesario
-      - response.json() convierte automáticamente
-      - response.raise_for_status() lanza excepción
-
-      JAVASCRIPT (fetch):
-      - fetch es nativo (no requiere import)
-      - response.json() es asíncrono (requiere await)
-      - if (!response.ok) verifica errores manualmente
-    -->
+    <!-- Leyenda de colores para retos -->
     <section class="card debug">
-      <h2>🐞 HTTP: Python vs JavaScript</h2>
-      <p class="hint">Fetch API es nativo en JS (no requiere import)</p>
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- comparison: Dos columnas comparando Python y JavaScript -->
+    <!-- Ayuda: Sintaxis -->
+    <section class="card debug">
+      <h2>📖 Archivos: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
-          <h4>Python (requests)</h4>
-          <pre>import requests
+          <h4>Python</h4>
+          <pre># Guardar en archivo
+with open("datos.txt", "w") as f:
+    f.write("Hola mundo")
 
-# GET simple
-response = requests.get(url)
-data = response.json()
+# Leer archivo
+with open("datos.txt", "r") as f:
+    contenido = f.read()
 
-# POST con JSON
-nuevo_post = {
-    "title": "Mi Post",
-    "body": "Contenido"
-}
-response = requests.post(
-    url,
-    json=nuevo_post
-)
-
-# PUT - Actualizar
-response = requests.put(
-    f"{url}/{id}",
-    json=datos_actualizados
-)
-
-# DELETE
-response = requests.delete(
-    f"{url}/{id}"
-)
-
-# Con parámetros
-response = requests.get(
-    url,
-    params={"userId": 1}
-)
-
-# Con headers
-response = requests.get(
-    url,
-    headers={
-        "Authorization": "Bearer token"
-    }
-)
-
-# Con timeout
-response = requests.get(
-    url,
-    timeout=5
-)
-
-# Manejo de errores
-try:
-    response = requests.get(url)
-    response.raise_for_status()
-except requests.HTTPError as e:
-    print(f"Error: {e}")</pre>
+# Borrar archivo
+import os
+os.remove("datos.txt")</pre>
         </div>
         <div class="js-code">
-          <h4>JavaScript (fetch)</h4>
-          <pre>// GET simple
-const response = await fetch(url);
-const data = await response.json();
+          <h4>JavaScript (localStorage)</h4>
+          <pre>// Guardar
+localStorage.setItem("clave", "valor")
 
-// POST con JSON
-const nuevoPost = {
-    title: "Mi Post",
-    body: "Contenido"
-};
-const response = await fetch(url, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(nuevoPost)
-});
+// Leer
+const valor = localStorage.getItem("clave")
 
-// PUT - Actualizar
-const response = await fetch(
-    `${url}/${id}`,
-    {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(datos)
-    }
-);
+// Borrar
+localStorage.removeItem("clave")
 
-// DELETE
-const response = await fetch(
-    `${url}/${id}`,
-    { method: "DELETE" }
-);
-
-// Con parámetros
-const response = await fetch(
-    `${url}?userId=1`
-);
-
-// Con headers
-const response = await fetch(url, {
-    headers: {
-        "Authorization": "Bearer token"
-    }
-});
-
-// Con timeout (AbortController)
-const controller = new AbortController();
-setTimeout(() => controller.abort(), 5000);
-const response = await fetch(url, {
-    signal: controller.signal
-});
-
-// Manejo de errores
-try {
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-    }
-    const data = await response.json();
-} catch (error) {
-    console.error(error);
-}</pre>
+// Con JSON
+const obj = { nombre: "Ana" }
+localStorage.setItem("user", JSON.stringify(obj))
+const leido = JSON.parse(localStorage.getItem("user"))</pre>
         </div>
-      </div>
-
-      <!-- warning-box: Advertencias sobre diferencias clave -->
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>import requests</code> → JS: <code>fetch</code> (built-in, no import)<br>
-        2. Python: <code>json=data</code> → JS: <code>body: JSON.stringify(data)</code><br>
-        3. Python: <code>params=dict</code> → JS: Query string en URL<br>
-        4. JS <code>fetch</code> NO lanza error en 4xx, verificar <code>response.ok</code>
       </div>
     </section>
   </main>
 
-  <!--
-    =====================================================
-    CONECTAR JAVASCRIPT
-    =====================================================
-
-    S15 NO usa type="module" porque no tiene import/export.
-    Simplemente conecta app.js directamente.
-
-    FLUJO COMPLETO:
-    ---------------
-    1. Usuario hace click en botón: onclick="obtenerUsuario()"
-    2. Browser busca obtenerUsuario en app.js
-    3. La función usa fetch() para hacer petición HTTP
-    4. Se muestra el resultado en el div correspondiente
-
-    DIFERENCIA CON S12:
-    -------------------
-    S12 usa type="module" para importar desde utils.js
-    S15 NO usa módulos, solo un archivo app.js simple
-  -->
   <script src="app.js"></script>
 </body>
 </html>

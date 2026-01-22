@@ -1,280 +1,132 @@
-<!--
-  =====================================================
-  S09: Funciones con Return - PLANTILLA HTML
-  =====================================================
-
-  Esta página practica el concepto de return en Python
-  con funciones que devuelven valores en JavaScript.
-
-  CONCEPTOS HTML UTILIZADOS:
-  -------------------------
-  <button> - Botón clickeable
-  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
-  <input> - Campo donde el usuario escribe datos
-  value="valor" - Valor por defecto del input
-  <div> - Contenedor genérico invisible (para agrupar elementos)
-  <section> - Agrupa contenido relacionado (cada tarjeta de ejercicio)
-  <p> - Párrafo de texto
-  <h2>, <h3> - Títulos de sección
-  <span> - Contenedor en línea (para texto dentro de párrafos)
-
-  ATRIBUTOS IMPORTANTES PARA RETURN:
-  ------------------------------------
-  onclick="funcion()" - Conecta un botón con una función JavaScript
-  id="nombre" - Identificador ÚNICO para JavaScript encontrar elementos
-  placeholder="texto" - Texto de ejemplo en el input
-  value="valor" - Valor inicial del input
-  class="clase" - Clase para CSS (puede repetirse)
-
-  CONEXIÓN HTML ↔ JAVASCRIPT:
-  ------------------------------
-  1. HTML: <button onclick="calcularCuadrado()">
-  2. JavaScript: function calcularCuadrado() { ... return resultado; }
-
-  La función JavaScript DEBE estar definida en app.js o en <script>
--->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Información de encabezado (metadatos) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S09 - Funciones con Return</title>
-  <!-- Conectar el archivo CSS que da estilo a la página -->
+  <title>S09 - Return</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- main: Contenido principal de la página -->
   <main class="container">
-    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
-      <h1>🔁 Práctica S09: Funciones con Return</h1>
-      <p class="subtitle">Python + JavaScript: Devolver valores</p>
+      <h1>🔁 S09: Return</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!--
-      =====================================================
-      TARJETA 1: print() vs return()
-      =====================================================
-
-      Conceptos clave:
-      - print() muestra en pantalla, pero NO devuelve un valor útil
-      - return devuelve un valor que puedes guardar y usar después
-      - Python: print() → None, JavaScript: console.log() → undefined
-      - return en ambos lenguajes devuelve un valor usable
-
-      Esta tarjeta demuestra la diferencia fundamental entre
-      mostrar información y devolver valores.
-    -->
+    <!-- RETO 1: print vs return -->
     <section class="card">
-      <h2>📊 print() vs return()</h2>
-      <p class="hint">La diferencia fundamental: print muestra, return devuelve</p>
+      <h2>Reto 1: print vs Return</h2>
 
-      <!-- comparison-demo: Dos cajas lado a lado para comparar -->
-      <div class="comparison-demo">
-        <div class="demo-box">
-          <h4>con print()</h4>
-          <!-- Este p muestra el resultado (será actualizado por JavaScript) -->
-          <p id="printResult">-</p>
-          <button class="btn option" onclick="demoPrint()">Ejecutar</button>
-        </div>
-        <div class="demo-box">
-          <h4>con return()</h4>
-          <!-- Este p muestra el resultado (será actualizado por JavaScript) -->
-          <p id="returnResult">-</p>
-          <button class="btn option" onclick="demoReturn()">Ejecutar</button>
-        </div>
-      </div>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el texto del botón</p>
+      <p class="hint">Donde dice "Probar Diferencia", cámbialo a "¡Probar!"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .demo-resultado</p>
+      <p class="hint">Con background: var(--bg-primary) y border: 1px solid var(--border-color)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa probarDiferencia()</p>
+      <p class="hint">Muestra la diferencia entre console.log y return</p>
 
       <button class="btn primary" onclick="probarDiferencia()">Probar Diferencia</button>
-
-      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
       <div id="resultadoPrintReturn" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 2: DEVOLVER UN VALOR
-      =====================================================
-
-      Practicamos con:
-      - Funciones que devuelven un único valor
-      - Usar el valor retornado en cálculos
-      - cuadrado(n) y cubo(n) como ejemplos
-
-      El valor retornado se puede guardar en una variable,
-      usar en operaciones matemáticas, o pasar a otra función.
-    -->
+    <!-- RETO 2: Devolver un valor -->
     <section class="card highlight">
-      <h2>➗ Devolver un Valor</h2>
-      <p class="hint">Funciones matemáticas que devuelven un resultado</p>
+      <h2>Reto 2: Devolver un Valor</h2>
 
-      <!-- input-row: Dos inputs en una misma fila (grid layout) -->
-      <div class="input-row">
-        <div class="input-group">
-          <label for="cuadradoNum">Número:</label>
-          <!-- value="5" establece un valor por defecto -->
-          <input id="cuadradoNum" type="number" placeholder="Ej: 5" value="5" />
-        </div>
-        <div class="input-group">
-          <label for="cuboNum">Número:</label>
-          <input id="cuboNum" type="number" placeholder="Ej: 3" value="3" />
-        </div>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega un emoji al título h2</p>
+      <p class="hint">Cámbialo a: &lt;h2&gt;Reto 2: Devolver un Valor ➗&lt;/h2&gt;</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Personaliza .numero-grande</p>
+      <p class="hint">Cambia font-size a 2.5rem</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa cuadradoFn()</p>
+      <p class="hint">Usa return para devolver el cuadrado de n</p>
+
+      <div class="input-group">
+        <label for="cuadradoNum">Número:</label>
+        <input id="cuadradoNum" type="number" placeholder="Ej: 5" value="5" />
       </div>
-
-      <div class="botones-grid">
-        <button class="btn primary" onclick="calcularCuadrado()">cuadrado(n)</button>
-        <button class="btn secondary" onclick="calcularCubo()">cubo(n)</button>
-      </div>
-
+      <button class="btn primary" onclick="calcularCuadrado()">cuadrado(n)</button>
       <div id="resultadoUnico" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 3: DEVOLVER MÚLTIPLES VALORES
-      =====================================================
-
-      Practicamos con:
-      - Python: return min, max, prom (tupla)
-      - JavaScript: return [min, max, prom] (array)
-      - Destructuring: const [min, max, prom] = funcion()
-
-      IMPORTANTE:
-      - Python puede devolver múltiples valores directamente
-      - JavaScript devuelve un array que se "destructura"
-      - Ambos usan sintaxis similar para capturar los valores
-    -->
+    <!-- RETO 3: Múltiples valores -->
     <section class="card">
-      <h2>📦 Devolver Múltiples Valores</h2>
-      <p class="hint">Una función puede devolver varios valores a la vez</p>
+      <h2>Reto 3: Devolver Múltiples Valores</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el placeholder del input</p>
+      <p class="hint">Cámbialo a "Ej: 80,90,85"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .estadistica-card</p>
+      <p class="hint">Con padding: 12px y border-left: 3px solid var(--accent-primary)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa calcularEstadisticasFn()</p>
+      <p class="hint">Devuelve [minimo, maximo, promedio]</p>
 
       <div class="input-group">
         <label for="notasInput">Notas (separadas por coma):</label>
-        <!-- El usuario escribe notas separadas por coma: 85,92,78,90,88 -->
         <input id="notasInput" type="text" placeholder="Ej: 85,92,78,90,88" value="85,92,78,90,88" />
       </div>
-
       <button class="btn success" onclick="calcularEstadisticas()">calcular_estadisticas(notas)</button>
       <div id="resultadoMultiple" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 4: RETURN TEMPRANO
-      =====================================================
+    <!-- RETO 4: Return temprano -->
+    <section class="card">
+      <h2>Reto 4: Return Temprano</h2>
 
-      Practicamos con:
-      - Validación de inputs con return temprano
-      - Múltiples return statements en una función
-      - Código después de return NUNCA se ejecuta
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el label del input</p>
+      <p class="hint">Cámbialo a "Edad a verificar:"</p>
 
-      CONCEPTO CLAVE:
-      Cuando return se ejecuta, la función TERMINA inmediatamente.
-      Esto es útil para validar y salir temprano si hay error.
-    -->
-    <section class="card highlight">
-      <h2>🚪 Return Temprano</h2>
-      <p class="hint">return termina la función inmediatamente</p>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .verificacion-resultado</p>
+      <p class="hint">Con text-align: center y font-weight: bold</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa verificarEdadFn()</p>
+      <p class="hint">Usa return temprano para validar la edad</p>
 
       <div class="input-group">
         <label for="edadVerificar">Edad:</label>
-        <!-- min y max limitan los valores aceptados -->
         <input id="edadVerificar" type="number" placeholder="-5 a 100" min="-5" max="100" />
       </div>
-
       <button class="btn primary" onclick="verificarEdadReturn()">verificar_edad(edad)</button>
       <div id="resultadoReturnEarly" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 5: CALCULADORA DE COMPRAS
-      =====================================================
-
-      Mini-proyecto completo que practica:
-      - Múltiples funciones que devuelven valores
-      - Concepto de DIVIDE AND CONQUER: dividir problema grande
-        en funciones pequeñas, cada una con una tarea específica
-      - El valor retornado de una función se usa en la siguiente
-
-      Flujo de datos:
-      calcular_subtotal() → valor subtotal
-      calcular_descuento(subtotal) → valor descuento
-      calcular_impuesto(base) → valor impuesto
-      calcular_total() → valor total
-    -->
-    <section class="card">
-      <h2>🛒 Calculadora de Compras</h2>
-      <p class="hint">Usa funciones que devuelven valores para calcular el total</p>
-
-      <div class="input-row">
-        <div class="input-group">
-          <label for="compraCantidad">Cantidad:</label>
-          <input id="compraCantidad" type="number" placeholder="Ej: 2" min="1" value="2" />
-        </div>
-        <div class="input-group">
-          <label for="compraPrecio">Precio unitario:</label>
-          <input id="compraPrecio" type="number" placeholder="Ej: 50000" value="50000" />
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label for="compraDescuento">% Descuento (opcional):</label>
-        <!-- Si se deja vacío, JavaScript usa 0 por defecto -->
-        <input id="compraDescuento" type="number" placeholder="0" min="0" max="100" value="0" />
-      </div>
-
-      <button class="btn success" onclick="generarFactura()">generar_factura()</button>
-      <div id="resultadoCompras" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 6: ARROW FUNCTIONS (LAMBDA)
-      =====================================================
-
-      Practicamos con:
-      - Arrow functions en JavaScript (equivalente a lambda en Python)
-      - map() - transformar cada elemento (como list comprehension)
-      - filter() - filtrar elementos (como list comprehension con if)
-      - reduce() - reducir a un solo valor (como sum())
-
-      Sintaxis:
-      Python: lambda x: x * 2
-      JavaScript: x => x * 2
-    -->
-    <section class="card">
-      <h2>➡️ Arrow Functions (Lambda)</h2>
-      <p class="hint">Funciones anónimas de una sola línea</p>
-
-      <div class="input-group">
-        <label for="listaNumeros">Números (separados por coma):</label>
-        <input id="listaNumeros" type="text" placeholder="Ej: 1,2,3,4,5" value="1,2,3,4,5" />
-      </div>
-
-      <div class="botones-grid">
-        <button class="btn primary" onclick="procesarDobles()">map(x => x * 2)</button>
-        <button class="btn secondary" onclick="procesarPares()">filter(x => x % 2 === 0)</button>
-        <button class="btn success" onclick="procesarSuma()">reduce((a,b) => a+b)</button>
-      </div>
-
-      <div id="resultadoArrow" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      PANEL DE DEBUG / COMPARACIÓN
-      =====================================================
-
-      Muestra las equivalencias entre Python y JavaScript.
-      Útil para entender que la lógica es la misma, solo cambia sintaxis.
-    -->
+    <!-- Leyenda de colores para retos -->
     <section class="card debug">
-      <h2>🐞 Return: Python vs JavaScript</h2>
-      <p class="hint">El concepto es el mismo, solo cambia la sintaxis.</p>
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- comparison: Dos columnas comparando Python y JavaScript -->
+    <!-- Ayuda: Sintaxis -->
+    <section class="card debug">
+      <h2>📖 Return: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
@@ -286,12 +138,11 @@ def cuadrado(n):
 def estadisticas(lista):
     return min(lista), max(lista)
 
-# Sin return (devuelve None)
-def mostrar(msg):
-    print(msg)
-
-# Lambda
-doble = lambda x: x * 2</pre>
+# Return temprano
+def verificar(edad):
+    if edad < 0:
+        return "Error"
+    return "Válido"</pre>
         </div>
         <div class="js-code">
           <h4>JavaScript</h4>
@@ -305,34 +156,18 @@ function estadisticas(lista) {
     return [Math.min(...lista), Math.max(...lista)];
 }
 
-// Sin return (devuelve undefined)
-function mostrar(msg) {
-    console.log(msg);
-}
-
-// Arrow function
-const doble = x => x * 2;</pre>
+// Return temprano
+function verificar(edad) {
+    if (edad < 0) {
+        return "Error";
+    }
+    return "Válido";
+}</pre>
         </div>
-      </div>
-
-      <!-- warning-box: Advertencias sobre diferencias clave -->
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>return a, b, c</code> → JS: <code>return [a, b, c]</code> (usar array)<br>
-        2. Python: <code>lambda x: x * 2</code> → JS: <code>x => x * 2</code><br>
-        3. Python sin return → None, JS sin return → undefined
       </div>
     </section>
   </main>
 
-  <!--
-    =====================================================
-    CONECTAR JAVASCRIPT
-    =====================================================
-
-    Esta línea conecta el archivo app.js que contiene todo el
-    comportamiento de la página. Siempre va al FINAL del body.
-  -->
   <script src="app.js"></script>
 </body>
 </html>

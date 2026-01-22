@@ -1,46 +1,4 @@
-/*
-  =====================================================
-  S15: Fetch API - PLANTILLA CSS
-  =====================================================
-
-  ¿QUÉ ES CSS?
-  -------------
-  CSS (Cascading Style Sheets) define el ESTILO de la página.
-  Es como la pintura y decoración de una casa: define CÓMO se ven
-  los elementos (colores, tamaños, posiciones, fuentes).
-
-  SINTAXIS BÁSICA DE CSS:
-  ----------------------
-  selector {
-    propiedad: valor;
-  }
-
-  Ejemplo:
-  h1 {
-    color: orange;  /* Texto en naranja */
-    font-size: 32px;  /* Tamaño de 32 píxeles */
-  }
-
-  SELECTORES COMUNES:
-  ------------------
-  button          - Selecciona todas las etiquetas <button>
-  #miId           - Selecciona el elemento con id="miId"
-  .miClase        - Selecciona todos los elementos con class="miClase"
-  button.primary  - Selecciona botones con class="primary"
-
-  CONEXIÓN HTML ↔ CSS:
-  -------------------
-  HTML: <div id="resultado"> → CSS: #resultado { ... }
-  HTML: <div class="card"> → CSS: .card { ... }
-  HTML: <button class="btn primary"> → CSS: .btn.primary { ... }
-
-  UNIDADES COMUNES:
-  ----------------
-  px              - Píxeles (absoluto)
-  rem             - Relativo al tamaño base del documento
-  %               - Porcentaje relativo al padre
-  vh/vw           - Porcentaje de la altura/ancho de la pantalla
-*/
+/* S15: Archivos (localStorage) - Estilos */
 
 /* ============================================
    VARIABLES Y RESET
@@ -51,8 +9,8 @@
   --bg-card: #1e293b;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
-  --accent-primary: #fb923c;
-  --accent-secondary: #f97316;
+  --accent-primary: #06b6d4;
+  --accent-secondary: #38bdf8;
   --accent-success: #22c55e;
   --accent-warning: #f59e0b;
   --accent-danger: #ef4444;
@@ -128,7 +86,7 @@ body {
 
 .card.highlight {
   border-color: var(--accent-primary);
-  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(251, 146, 60, 0.1) 100%);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(6, 182, 212, 0.1) 100%);
 }
 
 .card.debug {
@@ -163,16 +121,8 @@ body {
   font-weight: 500;
 }
 
-.input-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
 input[type="number"],
-input[type="text"],
-input[type="url"],
-select {
+input[type="text"] {
   width: 100%;
   padding: 12px 16px;
   border-radius: var(--radius-sm);
@@ -184,16 +134,14 @@ select {
 }
 
 input[type="number"]:focus,
-input[type="text"]:focus,
-input[type="url"]:focus,
-select:focus {
+input[type="text"]:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.2);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
 }
 
-input::placeholder,
-select:invalid {
+input[type="number"]::placeholder,
+input[type="text"]::placeholder {
   color: var(--text-secondary);
 }
 
@@ -220,18 +168,13 @@ select:invalid {
   transform: translateY(0);
 }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .btn.primary {
   background: var(--accent-primary);
-  color: var(--bg-primary);
+  color: white;
 }
 
-.btn.primary:hover:not(:disabled) {
-  background: var(--accent-secondary);
+.btn.primary:hover {
+  background: #0891b2;
 }
 
 .btn.secondary {
@@ -239,8 +182,8 @@ select:invalid {
   color: var(--bg-primary);
 }
 
-.btn.secondary:hover:not(:disabled) {
-  background: #ea580c;
+.btn.secondary:hover {
+  background: #0ea5e9;
 }
 
 .btn.success {
@@ -248,19 +191,14 @@ select:invalid {
   color: var(--bg-primary);
 }
 
-.btn.success:hover:not(:disabled) {
+.btn.success:hover {
   background: #16a34a;
 }
 
 .btn.option {
   background: var(--bg-secondary);
   color: var(--text-primary);
-}
-
-.botones-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  margin-top: 8px;
 }
 
 /* ============================================
@@ -347,109 +285,20 @@ select:invalid {
 }
 
 /* ============================================
-   LOADING
+   CLASES PARA RETOS (deben crear los estudiantes)
    ============================================ */
-.loading {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: spin 1s ease-in-out infinite;
-}
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* RETO 1: .guardado-mensaje */
+/* TODO: Crea esta clase con background: rgba(34, 197, 94, 0.1) y border: 1px solid var(--accent-success) */
 
-.loading::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
+/* RETO 2: .contenido-leido */
+/* TODO: Crea esta clase con padding: 16px y background: var(--bg-primary) */
 
-/* ============================================
-   JSON DISPLAY
-   ============================================ */
-.json-display {
-  background: var(--bg-primary);
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  font-family: monospace;
-  font-size: 0.85rem;
-  max-height: 300px;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  word-break: break-all;
-  color: var(--text-secondary);
-}
+/* RETO 3: .borrado-mensaje */
+/* TODO: Crea esta clase con text-align: center y color: var(--accent-danger) */
 
-.json-key {
-  color: #7dd3fc;
-}
-
-.json-string {
-  color: #86efac;
-}
-
-.json-number {
-  color: #fca5a5;
-}
-
-.json-boolean {
-  color: #fcd34d;
-}
-
-/* ============================================
-   USER CARD
-   ============================================ */
-.user-card {
-  background: var(--bg-primary);
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-  margin-bottom: 12px;
-}
-
-.user-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.user-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--bg-primary);
-}
-
-.user-name {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: var(--accent-primary);
-}
-
-.user-info {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.user-info p {
-  margin: 4px 0;
-}
+/* RETO 4: .objeto-guardado */
+/* TODO: Crea esta clase con border: 1px solid var(--accent-primary) */
 
 /* ============================================
    COMPARISON (DEBUG PANEL)
@@ -509,6 +358,75 @@ select:invalid {
 }
 
 /* ============================================
+   RETOS HTML/CSS/JS BADGES
+   ============================================ */
+.html-hint {
+  color: #f97316;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.css-hint {
+  color: #ec4899;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.js-hint {
+  color: #8b5cf6;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hint pre {
+  background: var(--bg-primary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-family: monospace;
+  margin: 4px 0;
+  overflow-x: auto;
+}
+
+.leyenda {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.leyenda-item {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.html-badge {
+  background: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+  border: 1px solid #f97316;
+}
+
+.css-badge {
+  background: rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+  border: 1px solid #ec4899;
+}
+
+.js-badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  border: 1px solid #8b5cf6;
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 @keyframes fadeIn {
@@ -538,19 +456,15 @@ select:invalid {
     padding: 16px;
   }
 
-  .botones-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .input-row {
-    grid-template-columns: 1fr;
-  }
-
   .comparison {
     grid-template-columns: 1fr;
   }
 
   .numero-grande {
     font-size: 1.5rem;
+  }
+
+  .leyenda {
+    grid-template-columns: 1fr;
   }
 }

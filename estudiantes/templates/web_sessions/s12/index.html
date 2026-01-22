@@ -1,489 +1,175 @@
-<!--
-  =====================================================
-  S12: Módulos y Reuso - PLANTILLA HTML
-  =====================================================
-
-  Esta página practica el concepto de MÓDULOS en JavaScript,
-  que es equivalente a importar módulos en Python.
-
-  CONCEPTOS HTML UTILIZADOS:
-  -------------------------
-  <section> - Contenedor semántico para secciones de contenido
-  <button> - Botón clickeable
-  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
-  <input> - Campo donde el usuario escribe datos
-  value="valor" - Valor por defecto del input
-
-  CONEXIÓN HTML ↔ JAVASCRIPT PARA MÓDULOS:
-  ------------------------------------------
-  1. HTML: <button onclick="demoRaiz()">
-  2. JavaScript: import { raizCuadrada } from "./utils.js"
-  3. La función JavaScript está definida en app.js e importa de utils.js
-
-  SCRIPT CON TYPE="MODULE":
-  --------------------------
-  IMPORTANTE: Cuando usas ES6 modules (import/export) en JavaScript,
-  el script tag DEBE tener type="module":
-
-  <script type="module" src="app.js"></script>
-
-  Sin type="module", NO puedes usar import/export.
-
-  ATRIBUTOS IMPORTANTES PARA MÓDULOS:
-  -------------------------------------
-  onclick="funcion()" - Conecta un botón con una función JavaScript
-  id="nombre" - Identificador ÚNICO para JavaScript encontrar elementos
-  placeholder="texto" - Texto de ejemplo en el input
-  value="valor" - Valor inicial del input
--->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!--
-    =====================================================
-    HEAD: Metadatos del documento
-    =====================================================
-
-    El head contiene información sobre el documento que NO se
-    muestra directamente en la página, como el título y
-    conexiones a archivos CSS/JS.
-  -->
   <meta charset="UTF-8" />
-  <!-- viewport: Hace la página responsiva (adaptable a móviles) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S12 - Módulos y Reuso</title>
-  <!-- link rel="stylesheet": Conecta el archivo CSS que da estilo a la página -->
+  <title>S12 - Módulos</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- main: Contenido principal de la página -->
   <main class="container">
-    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
-      <h1>📦 Práctica S12: Módulos y Reuso</h1>
-      <p class="subtitle">Python + JavaScript: Import/Export y Librerías</p>
+      <h1>📦 S12: Módulos</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!--
-      =====================================================
-      TARJETA 1: MÓDULO MATH
-      =====================================================
+    <!-- RETO 1: Importar desde un módulo -->
+    <section class="card">
+      <h2>Reto 1: Importar desde un Módulo</h2>
 
-      Conceptos clave:
-      - En Python: import math
-      - En JavaScript: Math es un objeto global (no requiere import)
-      - Math.sqrt(), Math.pow(), Math.PI, etc. siempre están disponibles
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Revisa el script tag</p>
+      <p class="hint">Verifica que tenga type="module" al final del archivo</p>
 
-      Esta tarjeta demuestra funciones matemáticas importadas desde utils.js
-      y cómo se comparan con el módulo math de Python.
-    -->
-    <section class="card highlight">
-      <h2>📐 Módulo Math</h2>
-      <p class="hint">Funciones matemáticas integradas (como math en Python)</p>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .import-destacado</p>
+      <p class="hint">Con background: rgba(132, 204, 22, 0.1) y border: 1px solid #84cc16</p>
 
-      <!-- botones-grid: Diseño de cuadrícula para botones -->
-      <div class="botones-grid">
-        <!-- onclick="demoConstantes()" ejecuta la función en app.js -->
-        <button class="btn option" onclick="demoConstantes()">Constantes</button>
-        <button class="btn option" onclick="demoMaxMin()">Max/Min</button>
-      </div>
-
-      <!-- input-row: Dos inputs en una misma fila -->
-      <div class="input-row">
-        <!-- input-group: Contenedor para un input y su label -->
-        <div class="input-group">
-          <!-- for="raizNumero" conecta el label con el input -->
-          <label for="raizNumero">Raíz de:</label>
-          <!-- id="raizNumero" es el identificador que JavaScript usa -->
-          <input id="raizNumero" type="number" placeholder="Ej: 16" value="16" />
-        </div>
-        <div class="input-group">
-          <label for="absolutoNum">Absoluto de:</label>
-          <input id="absolutoNum" type="number" placeholder="Ej: -5" value="-5" />
-        </div>
-      </div>
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa el import</p>
+      <p class="hint">Importa la función "sumar" desde utils.js</p>
 
       <div class="input-row">
         <div class="input-group">
-          <label for="potenciaBase">Base:</label>
-          <input id="potenciaBase" type="number" placeholder="2" value="2" />
+          <label for="numeroA">Número A:</label>
+          <input id="numeroA" type="number" placeholder="Ej: 5" value="5" />
         </div>
         <div class="input-group">
-          <label for="potenciaExp">Exponente:</label>
-          <input id="potenciaExp" type="number" placeholder="8" value="8" />
+          <label for="numeroB">Número B:</label>
+          <input id="numeroB" type="number" placeholder="Ej: 3" value="3" />
         </div>
       </div>
-
-      <div class="input-group">
-        <label for="redondeoNum">Redondear:</label>
-        <!-- step="0.1" permite decimales -->
-        <input id="redondeoNum" type="number" placeholder="3.7" value="3.7" step="0.1" />
-      </div>
-
-      <div class="botones-grid">
-        <button class="btn primary" onclick="demoRaiz()">√ Raíz</button>
-        <button class="btn secondary" onclick="demoAbsoluto()">|x| Abs</button>
-        <button class="btn success" onclick="demoPotencia()">^ Potencia</button>
-        <button class="btn primary" onclick="demoRedondeo()">≈ Redondear</button>
-      </div>
-
-      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
-      <div id="resultadoMath" class="result hidden"></div>
+      <button class="btn primary" onclick="probarImport()">probar_import()</button>
+      <div id="resultadoImport" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 2: MÓDULO RANDOM
-      =====================================================
+    <!-- RETO 2: Módulo Math -->
+    <section class="card highlight">
+      <h2>Reto 2: Módulo Math 📐</h2>
 
-      Practicamos con:
-      - Python: import random; random.randint(1, 6)
-      - JavaScript: Math.floor(Math.random() * 6) + 1
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega emoji al título</p>
+      <p class="hint">Cámbialo a: &lt;h2&gt;Reto 2: Módulo Math 📐&lt;/h2&gt;</p>
 
-      DIFERENCIA IMPORTANTE:
-      Python tiene un módulo "random" separado.
-      JavaScript NO tiene módulo "random" - usa Math.random()
-    -->
-    <section class="card">
-      <h2>🎲 Módulo Random</h2>
-      <p class="hint">Generación de números aleatorios</p>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Personaliza .numero-grande</p>
+      <p class="hint">Cambia color a #84cc16 (verde lima)</p>
 
-      <div class="botones-grid">
-        <button class="btn primary" onclick="demoDado()">🎲 Dado</button>
-        <button class="btn secondary" onclick="demoMoneda()">🪙 Moneda</button>
-        <button class="btn success" onclick="demoChoice()">🎰 Choice</button>
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa Math.sqrt()</p>
+      <p class="hint">Completa la función para calcular la raíz cuadrada</p>
+
+      <div class="input-group">
+        <label for="raizNumero">Número para raíz:</label>
+        <input id="raizNumero" type="number" placeholder="Ej: 16" value="16" />
       </div>
+      <button class="btn success" onclick="calcularRaiz()">Math.sqrt(n)</button>
+      <div id="resultadoRaiz" class="result hidden"></div>
+    </section>
+
+    <!-- RETO 3: Funciones de utils.js -->
+    <section class="card">
+      <h2>Reto 3: Usar Funciones Importadas</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el placeholder del input</p>
+      <p class="hint">Cámbialo a "Ej: 6"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .dado-resultado</p>
+      <p class="hint">Con font-size: 3rem y text-align: center</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa lanzarDado() de utils.js</p>
+      <p class="hint">Esta función ya está importada, solo llámala</p>
 
       <div class="input-group">
         <label for="dadoCaras">Caras del dado:</label>
-        <!-- min="2" max="20" restringe el rango permitido -->
-        <input id="dadoCaras" type="number" placeholder="6" value="6" min="2" max="20" />
+        <input id="dadoCaras" type="number" placeholder="Ej: 6" value="6" min="2" max="20" />
       </div>
-
-      <div class="input-row">
-        <div class="input-group">
-          <label for="aleatorioMin">Mínimo:</label>
-          <input id="aleatorioMin" type="number" placeholder="1" value="1" />
-        </div>
-        <div class="input-group">
-          <label for="aleatorioMax">Máximo:</label>
-          <input id="aleatorioMax" type="number" placeholder="100" value="100" />
-        </div>
-      </div>
-
-      <button class="btn primary" onclick="demoEnteroAleatorio()">randint(min, max)</button>
-
-      <div class="input-row">
-        <div class="input-group">
-          <label for="listaCantidad">Cantidad:</label>
-          <input id="listaCantidad" type="number" placeholder="5" value="5" min="1" max="20" />
-        </div>
-        <div class="input-group">
-          <label for="listaMin">Min:</label>
-          <input id="listaMin" type="number" placeholder="1" value="1" />
-        </div>
-        <div class="input-group">
-          <label for="listaMax">Max:</label>
-          <input id="listaMax" type="number" placeholder="100" value="100" />
-        </div>
-      </div>
-
-      <button class="btn success" onclick="demoListaAleatoria()">Generar Lista</button>
-
-      <div id="resultadoRandom" class="result hidden"></div>
+      <button class="btn primary" onclick="lanzarDadoReto()">🎲 Lanzar Dado</button>
+      <div id="resultadoDado" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 3: MÓDULO DATETIME
-      =====================================================
-
-      Practicamos con:
-      - Python: from datetime import datetime; datetime.now()
-      - JavaScript: new Date()
-
-      DIFERENCIA IMPORTANTE:
-      Python requiere importar desde datetime.
-      JavaScript tiene Date como un constructor global.
-    -->
-    <section class="card highlight">
-      <h2>📅 Módulo DateTime</h2>
-      <p class="hint">Trabajo con fechas y horas</p>
-
-      <div class="botones-grid">
-        <button class="btn primary" onclick="demoFechaAhora()">Ahora</button>
-        <button class="btn secondary" onclick="demoFormatearFecha()">Formatear</button>
-        <button class="btn success" onclick="demoDiferenciaFechas()">Diferencia</button>
-      </div>
-
-      <div class="input-group">
-        <label for="sumarDias">Sumar días a hoy:</label>
-        <input id="sumarDias" type="number" placeholder="7" value="7" />
-      </div>
-
-      <button class="btn primary" onclick="demoSumarDias()">Sumar Días</button>
-
-      <div id="resultadoFecha" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 4: MÓDULO STRING
-      =====================================================
-
-      Practicamos con:
-      - Python: str.capitalize(), texto.split(), len(texto)
-      - JavaScript: text.charAt(), text.split(), text.length
-    -->
+    <!-- RETO 4: Exportar tu función -->
     <section class="card">
-      <h2>🔤 Módulo String</h2>
-      <p class="hint">Utilidades para manipular texto</p>
+      <h2>Reto 4: Exportar una Función</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el label</p>
+      <p class="hint">Cámbialo a "Tu texto aquí:"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .mensaje-exportado</p>
+      <p class="hint">Con font-style: italic y color: #a78bfa</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre utils.js</p>
+      <p class="hint">Crea una función exportada llamada "saludar"</p>
 
       <div class="input-group">
-        <label for="capitalizarInput">Texto para capitalizar:</label>
-        <input id="capitalizarInput" type="text" placeholder="hola mundo" value="hola mundo" />
+        <label for="tuNombre">Tu nombre:</label>
+        <input id="tuNombre" type="text" placeholder="Ej: Ana" value="Ana" />
       </div>
-
-      <div class="input-group">
-        <label for="palindromoInput">Verificar palíndromo:</label>
-        <input id="palindromoInput" type="text" placeholder="radar" value="radar" />
-      </div>
-
-      <div class="input-group">
-        <label for="palabrasInput">Contar palabras:</label>
-        <input id="palabrasInput" type="text" placeholder="Hola mundo, cómo estás?" value="Hola mundo, cómo estás?" />
-      </div>
-
-      <div class="botones-grid">
-        <button class="btn primary" onclick="demoCapitalizar()">Aa Capitalizar</button>
-        <button class="btn secondary" onclick="demoPalindromo()">🔄 Palíndromo</button>
-        <button class="btn success" onclick="demoContarPalabras()">📝 Contar</button>
-      </div>
-
-      <div id="resultadoString" class="result hidden"></div>
+      <button class="btn secondary" onclick="probarSaludar()">saludar(nombre)</button>
+      <div id="resultadoExportar" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 5: MÓDULO VALIDACIÓN
-      =====================================================
-
-      Practicamos con:
-      - Python: isinstance(), type(), condiciones
-      - JavaScript: typeof, expresiones regulares
-    -->
-    <section class="card">
-      <h2>✅ Módulo Validación</h2>
-      <p class="hint">Funciones para validar datos</p>
-
-      <div class="input-group">
-        <label for="emailInput">Email:</label>
-        <input id="emailInput" type="text" placeholder="usuario@ejemplo.com" value="usuario@ejemplo.com" />
-      </div>
-
-      <div class="input-row">
-        <div class="input-group">
-          <label for="rangoValor">Valor:</label>
-          <input id="rangoValor" type="number" placeholder="50" value="50" />
-        </div>
-        <div class="input-group">
-          <label for="rangoMin">Mínimo:</label>
-          <input id="rangoMin" type="number" placeholder="0" value="0" />
-        </div>
-        <div class="input-group">
-          <label for="rangoMax">Máximo:</label>
-          <input id="rangoMax" type="number" placeholder="100" value="100" />
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label for="positivoNum">Número positivo:</label>
-        <input id="positivoNum" type="number" placeholder="5" value="5" />
-      </div>
-
-      <div class="botones-grid">
-        <button class="btn primary" onclick="demoValidarEmail()">📧 Email</button>
-        <button class="btn secondary" onclick="demoValidarRango()">📊 Rango</button>
-        <button class="btn success" onclick="demoValidarPositivo()">➕ Positivo</button>
-      </div>
-
-      <div id="resultadoValidacion" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 6: FACTURA - INTEGRACIÓN DE MÓDULOS
-      =====================================================
-
-      Esta tarjeta demuestra cómo usar funciones importadas
-      desde múltiples "módulos" (todos están en utils.js)
-
-      Python: from calculos import calcular_factura, formatear_moneda
-      JS: import { calcularTotalFactura, formatearMoneda } from "./utils.js"
-    -->
-    <section class="card highlight">
-      <h2>🧾 Factura - Integración</h2>
-      <p class="hint">Usa funciones de múltiples módulos</p>
-
-      <div class="input-row">
-        <div class="input-group">
-          <label for="facturaCantidad">Cantidad:</label>
-          <!-- min="1" asegura que sea al menos 1 -->
-          <input id="facturaCantidad" type="number" placeholder="2" min="1" value="2" />
-        </div>
-        <div class="input-group">
-          <label for="facturaPrecio">Precio unitario:</label>
-          <input id="facturaPrecio" type="number" placeholder="50000" value="50000" />
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label for="facturaDescuento">% Descuento:</label>
-        <!-- min="0" max="100" restringe entre 0 y 100 -->
-        <input id="facturaDescuento" type="number" placeholder="0" min="0" max="100" value="0" />
-      </div>
-
-      <button class="btn success" onclick="demoFactura()">calcular_total_factura()</button>
-
-      <div id="resultadoFactura" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 7: ARRAY UTILS
-      =====================================================
-
-      Practicamos con funciones de lista (array) importadas
-      desde utils.js.
-
-      Python: sum(lista), len(lista), sorted(lista)
-      JS: lista.reduce(), lista.length, [...lista].sort()
-    -->
-    <section class="card">
-      <h2>📊 Array Utils</h2>
-      <p class="hint">Funciones de lista reutilizables</p>
-
-      <div class="input-group">
-        <label for="arrayInput">Números (separados por coma):</label>
-        <input id="arrayInput" type="text" placeholder="3,7,2,9,1,5" value="3,7,2,9,1,5" />
-      </div>
-
-      <button class="btn primary" onclick="demoArrays()">procesar_lista()</button>
-
-      <div id="resultadoArrays" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      PANEL DE DEBUG / COMPARACIÓN
-      =====================================================
-
-      Muestra las equivalencias entre Python y JavaScript.
-      Útil para entender que la sintaxis es diferente, pero el
-      concepto de módulos es el mismo.
-    -->
+    <!-- Leyenda de colores para retos -->
     <section class="card debug">
-      <h2>🐞 Módulos: Python vs JavaScript</h2>
-      <p class="hint">En JS los módulos se importan con ES6 syntax.</p>
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js y utils.js</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- comparison: Dos columnas comparando Python y JavaScript -->
+    <!-- Ayuda: Sintaxis -->
+    <section class="card debug">
+      <h2>📖 Módulos: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
-          <pre># Importar todo
-from utils import *
+          <pre># Importar función
+from utils import sumar
 
-# Importar específico
-from math import pi, sqrt, pow
-import random
-from datetime import datetime
+# Usar función
+resultado = sumar(5, 3)
 
-# Usar funciones
-resultado = sqrt(16)
-numero = random.randint(1, 10)
-ahora = datetime.now()
-
-# Crear módulo propio
-# mi_modulo.py
-def saludar():
-    return "Hola"
-
-# Exportar en Python
-# No existe "export" en Python
-# Todo en el módulo está disponible automáticamente</pre>
+# Exportar (automatico)
+# utils.py
+def sumar(a, b):
+    return a + b</pre>
         </div>
         <div class="js-code">
           <h4>JavaScript</h4>
-          <pre>// Importar específico (named)
-import { sqrt, pow } from "./utils.js";
+          <pre>// Importar función
+import { sumar } from "./utils.js";
 
-// Importar todo
-import * as utils from "./utils.js";
+// Usar función
+const resultado = sumar(5, 3);
 
-// Math está disponible globalmente
-const resultado = Math.sqrt(16);
-
-// Random es Math.random()
-const numero = Math.floor(Math.random() * 10) + 1;
-
-// Date es un constructor
-const ahora = new Date();
-
-// Crear módulo propio
+// Exportar (explicito)
 // utils.js
-export function saludar() {
-  return "Hola";
-}
-
-// Importar en app.js
-import { saludar } from "./utils.js";</pre>
+export function sumar(a, b) {
+  return a + b;
+}</pre>
         </div>
-      </div>
-
-      <!-- warning-box: Advertencias sobre diferencias clave -->
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>import math</code> → JS: <code>Math</code> (objeto global)<br>
-        2. Python: <code>import random</code> → JS: <code>Math.random()</code><br>
-        3. Python: <code>from datetime import datetime</code> → JS: <code>new Date()</code><br>
-        4. JS requiere <code>type="module"</code> en el script tag
       </div>
     </section>
   </main>
 
-  <!--
-    =====================================================
-    CONECTAR JAVASCRIPT CON MÓDULOS
-    =====================================================
-
-    IMPORTANTE: type="module" es OBLIGATORIO para usar import/export.
-
-    Sin type="module":
-      ❌ NO puedes usar: import { funcion } from "./archivo.js"
-      ✅ Solo puedes usar: <script src="app.js"></script>
-
-    Con type="module":
-      ✅ Puedes usar: import { funcion } from "./archivo.js"
-      ✅ Puedes usar: export function funcion() { ... }
-
-    EJEMPLO DE CONEXIÓN:
-    ---------------------
-    utils.js (módulo):
-      export function raizCuadrada(x) { ... }
-
-    app.js (importa desde utils.js):
-      import { raizCuadrada } from "./utils.js";
-
-    index.html (conecta app.js):
-      <script type="module" src="app.js"></script>
-
-    FLUJO COMPLETO:
-    ---------------
-    1. Usuario hace click en botón: onclick="demoRaiz()"
-    2. Browser busca demoRaiz en app.js
-    3. app.js importó raizCuadrada desde utils.js
-    4. Se ejecuta la función y muestra el resultado
-  -->
+  <!-- IMPORTANTE: type="module" es necesario para usar import/export -->
   <script type="module" src="app.js"></script>
 </body>
 </html>
