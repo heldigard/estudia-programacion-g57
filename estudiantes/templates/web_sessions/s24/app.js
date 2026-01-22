@@ -1,409 +1,179 @@
-// S24: Clínica de Bugs - Práctica de Debugging
-// Python: Depuración con print, pdb, logging → JS: console.log, debugger, DevTools
+// =====================================================
+// S24: Bugs Comunes - JAVASCRIPT
+// =====================================================
+//
+// En esta sesión practicaremos:
+// - Identificar bugs comunes en JavaScript
+// - Entender concatenación vs suma
+// - Comparación == vs ===
+// - undefined vs null
+//
+// Python vs JavaScript:
+// Python: int("5") → JS: Number("5")
+// Python: == (estricto) → JS: === (estricto), == (con coerción)
+// Python: None → JS: null o undefined
+//
+// =====================================================
 
-// ============================================
-   PROGRESO
-   ============================================
+// -----------------------------------------------------
+// RETO 1: Concatenación vs Suma
+// -----------------------------------------------------
+//
+// El operador + concatena strings, NO suma
+//
+// TU MISIÓN:
+// 1. Completa demostrarBug1() mostrando el bug y la solución
+// Pista: Number(valor) convierte string a número
+// -----------------------------------------------------
 
-let bugsResueltos = 0;
-const totalBugs = 5;
+function demostrarBug1() {
+  const input = document.getElementById("bug1Numero");
+  const valor = input.value;  // Es un STRING, no un número
 
-function actualizarProgreso() {
-  const progreso = (bugsResueltos / totalBugs) * 100;
-  const progresoFill = document.getElementById("progresoFill");
-  const progresoLabel = document.getElementById("progresoLabel");
+  // TODO: Demuestra el bug de concatenación
+  // Pista: valor + valor concatena, Number(valor) + Number(valor) suma
+  /*
+  const bug = valor + valor;  // "55" (concatenación)
+  const fixed = Number(valor) + Number(valor);  // 10 (suma)
 
-  if (progresoFill && progresoLabel) {
-    progresoFill.style.width = `${progreso}%`;
-    progresoFill.textContent = `${bugsResueltos}/${totalBugs}`;
-    progresoLabel.textContent = `${progreso.toFixed(0)}% completado`;
-  }
+  mostrarResultado("resultado1", `
+    <div class="bug-demostrado">
+      <h3>🐛 Bug Identificado</h3>
+      <p><strong>Valor:</strong> "${valor}" (tipo: ${typeof valor})</p>
+      <p class="buggy-line">❌ CON bug: ${bug} (¡concatenó!)</p>
+      <p class="fixed-line">✅ SIN bug: ${fixed} (suma correcta)</p>
+      <p class="formula">
+        Python: <code>int("${valor}") + int("${valor}") = ${fixed}</code><br>
+        JS: <code>Number("${valor}") + Number("${valor}") = ${fixed}</code>
+      </p>
+    </div>
+  `);
+  */
 }
 
-// ============================================
-   BUG 1: Concatenación vs Suma
-   // Python: tipado dinámico, pero el operador + tiene reglas claras
-   // JS: + concatena strings, convierte a número cuando es posible
-   ============================================
+// -----------------------------------------------------
+// RETO 2: Comparación == vs ===
+// -----------------------------------------------------
+//
+// == compara con coerción (peligroso)
+// === compara estrictamente (recomendado)
+//
+// TU MISIÓN:
+// 1. Completa compararIgualdad() mostrando la diferencia
+// -----------------------------------------------------
 
-function probarBug1() {
-  // Python: input() siempre retorna string, necesita int()
-  // JS: input.value siempre es string, necesita Number() o parseInt()
-  const n = document.getElementById("bug1Numero").value;
-
-  // BUG: n + n concatena strings en lugar de sumar números
-  // Si n = "5", entonces n + n = "55" (concatenación)
-  // Python: "5" + "5" = "55" (misma lógica)
-  // Solución: Number(n) + Number(n) o n * 1 + n * 1
-
-  const buggyResult = n + n;
-  const fixedResult = Number(n) + Number(n);
-
-  const resultado = document.getElementById("bug1Resultado");
-
-  resultado.innerHTML = `
-    <div class="bug-description">
-      <h4>🐛 BUG IDENTIFICADO</h4>
-      <p><strong>Entrada:</strong> "${n}" (tipo: ${typeof n})</p>
-      <p class="buggy-line">Resultado CON bug: "${buggyResult}" (¡concatenó strings!)</p>
-      <p class="fixed-line">Resultado SIN bug: ${fixedResult} (suma correcta)</p>
-      <p class="bug-hint">💡 En JavaScript, el operador + concatena strings. Usa Number() para convertir.</p>
-    </div>
-    <div class="comparison">
-      <div class="python-code">
-        <h4>Python</h4>
-        <pre># BUG común
-n = input()  # "5"
-resultado = n + n  # "55"
-
-# SOLUCIÓN
-n = int(input())  # 5
-resultado = n + n  # 10</pre>
-      </div>
-      <div class="js-code">
-        <h4>JavaScript</h4>
-        <pre>// BUG común
-const n = input.value;  // "5"
-const resultado = n + n;  // "55"
-
-// SOLUCIÓN
-const n = Number(input.value);  // 5
-const resultado = n + n;  // 10</pre>
-      </div>
-    </div>
-  `;
-
-  // Marcar como resuelto
-  marcarBugResuelto("bug1");
-}
-
-// ============================================
-   BUG 2: Comparación == vs ===
-   // Python: == compara valores (no hay ===)
-   // JS: == compara con coerción, === compara estrictamente
-   ============================================
-
-function probarBug2() {
+function compararIgualdad() {
   const valor = document.getElementById("bug2Valor").value;
   const numero = 5;
 
-  // BUG: == hace coerción de tipos, "5" == 5 es true
-  // FIXED: === no hace coerción, "5" === 5 es false
+  // TODO: Compara == vs ===
+  // Pista: valor == numero vs valor === numero
+  /*
+  const igualdadFloja = valor == numero;   // true si valor = "5"
+  const igualdadEstricta = valor === numero; // false si valor = "5"
 
-  const buggyResult = valor == numero;  // true si valor = "5"
-  const fixedResult = valor === numero; // false si valor = "5"
-
-  const resultado = document.getElementById("bug2Resultado");
-
-  resultado.innerHTML = `
-    <div class="bug-description">
-      <h4>🐛 BUG IDENTIFICADO</h4>
-      <p><strong>Entrada:</strong> "${valor}" (tipo: ${typeof valor})</p>
-      <p><strong>Comparado con:</strong> ${numero} (tipo: number)</p>
-      <p class="buggy-line">== (con coerción): ${buggyResult} ${buggyResult ? "⚠️ ¡Mal!" : "✅ OK"}</p>
-      <p class="fixed-line">=== (estricto): ${fixedResult} ${fixedResult ? "⚠️ ¡Mal!" : "✅ OK"}</p>
-      <p class="bug-hint">💡 Si valor = "5", == devuelve true (coerción), === devuelve false (estricto)</p>
+  mostrarResultado("resultado2", `
+    <div class="comparacion-resultado">
+      <h3>⚖️ Comparación == vs ===</h3>
+      <p><strong>Valor:</strong> "${valor}" (${typeof valor}) vs ${numero} (${typeof numero})</p>
+      <p><strong>== (floja):</strong> ${igualdadFloja} ${igualdadFloja ? "⚠️ Cuidado!" : ""}</p>
+      <p><strong>=== (estricta):</strong> ${igualdadEstricta} ${!igualdadEstricta ? "✅ Correcto" : ""}</p>
+      <p class="formula">
+        Python: <code>"${valor}" == ${numero} es False</code><br>
+        JS: <code>"${valor}" === ${numero} es ${igualdadEstricta}</code>
+      </p>
     </div>
-    <div class="comparison">
-      <div class="python-code">
-        <h4>Python</h4>
-        <pre># Python no tiene ===
-# == siempre compara valores
-"5" == 5  # False (sin coerción)
-5 == 5    # True</pre>
-      </div>
-      <div class="js-code">
-        <h4>JavaScript</h4>
-        <pre>// == con coerción
-"5" == 5   // true ⚠️
-0 == ""    // true ⚠️
-
-// === estricto (recomendado)
-"5" === 5  // false ✅
-0 === ""   // false ✅</pre>
-      </div>
-    </div>
-  `;
-
-  marcarBugResuelto("bug2");
+  `);
+  */
 }
 
-// ============================================
-   BUG 3: undefined vs null
-   // Python: None → JS: null o undefined
-   ============================================
+// -----------------------------------------------------
+// RETO 3: undefined vs null
+// -----------------------------------------------------
+//
+// undefined = "no definido"
+// null = "vacío intencional"
+//
+// TU MISIÓN:
+// 1. Completa verificarValor() comprobando undefined/null
+// -----------------------------------------------------
 
-function probarBug3() {
-  const checkbox = document.getElementById("bug3Check");
-  const valor = checkbox.checked ? "valor activo" : undefined;
+function verificarValor() {
+  const checkbox = document.getElementById("checkValor");
+  const valor = checkbox.checked ? "Tiene valor" : undefined;
 
-  // BUG: undefined y null son diferentes, pero == los considera iguales
-  // undefined es "no existe", null es "existe pero está vacío"
-
+  // TODO: Verifica si valor es undefined o null
+  // Pista: valor === undefined, valor === null
+  /*
   const esUndefined = valor === undefined;
   const esNull = valor === null;
-  const esFalsy = !valor;  // undefined es falsy
+  const esFalsy = !valor;  // Ambos son falsy
 
-  const resultado = document.getElementById("bug3Resultado");
-
-  resultado.innerHTML = `
-    <div class="bug-description">
-      <h4>🐛 BUG IDENTIFICADO</h4>
+  mostrarResultado("resultado3", `
+    <div class="valor-vacio">
+      <h3>❓ undefined vs null</h3>
       <p><strong>Checkbox marcado:</strong> ${checkbox.checked}</p>
-      <p><strong>Valor:</strong> ${valor}</p>
+      <p><strong>Valor:</strong> ${valor === undefined ? "undefined" : valor}</p>
       <p><strong>Es undefined:</strong> ${esUndefined}</p>
       <p><strong>Es null:</strong> ${esNull}</p>
       <p><strong>Es falsy:</strong> ${esFalsy}</p>
-      <p class="bug-hint">💡 undefined = "no tiene valor", null = "valor intencionalmente vacío"</p>
+      <p class="formula">
+        Python: <code>valor = None</code><br>
+        JS: <code>let x; // undefined</code>
+      </p>
     </div>
-    <div class="comparison">
-      <div class="python-code">
-        <h4>Python</h4>
-        <pre># None indica ausencia de valor
-valor = None
-if valor is None:
-    print("No hay valor")
+  `);
+  */
+}
 
-# No existe undefined
-# Solo None</pre>
-      </div>
-      <div class="js-code">
-        <h4>JavaScript</h4>
-        <pre>// undefined = no definido
-let x;
-console.log(x); // undefined
+// -----------------------------------------------------
+// RETO 4: Corregir el Bug
+// -----------------------------------------------------
+//
+// Encuentra y corrige el error
+//
+// TU MISIÓN:
+// 1. Corrige el bug en esta función
+// Pista: Los inputs devuelven strings, no números
+// -----------------------------------------------------
 
-// null = vacío intencional
-let y = null;
-console.log(y); // null
+function corregirBug() {
+  const num1 = document.getElementById("num1").value;
+  const num2 = document.getElementById("num2").value;
 
-// Ambos son falsy
-if (!x) console.log("x es falsy");
-if (!y) console.log("y es falsy");</pre>
-      </div>
+  // BUG: Esto concatena en lugar de sumar
+  // const resultado = num1 + num2;  // "53" ❌
+
+  // TODO: Corrige el bug
+  // Pista: Usa Number() o parseInt() para convertir
+  /*
+  const resultado = Number(num1) + Number(num2);  // 8 ✅
+
+  mostrarResultado("resultado4", `
+    <div class="bug-corregido">
+      <h3>✏️ Bug Corregido</h3>
+      <p><strong>Número 1:</strong> "${num1}" → ${Number(num1)}</p>
+      <p><strong>Número 2:</strong> "${num2}" → ${Number(num2)}</p>
+      <p class="numero-grande">${resultado}</p>
+      <p class="formula">
+        Antes: <code>"${num1}" + "${num2}" = "${num1 + num2}"</code> ❌<br>
+        Después: <code>Number("${num1}") + Number("${num2}") = ${resultado}</code> ✅
+      </p>
     </div>
-  `;
-
-  marcarBugResuelto("bug3");
+  `);
+  */
 }
 
-// ============================================
-   BUG 4: Scope de variables (var vs let/const)
-   // Python: scope por función (no existe block scope)
-   // JS: var es function scope, let/const son block scope
-   ============================================
+// -----------------------------------------------------
+// FUNCIÓN AUXILIAR (no necesitas modificar esto)
+// -----------------------------------------------------
 
-function probarBug4() {
-  // BUG: var tiene scope de función, no de bloque
-  // FIXED: let/const tienen scope de bloque
-
-  const resultado = document.getElementById("bug4Resultado");
-  let codigoBuggy = "";
-  let codigoFixed = "";
-
-  // Simular el comportamiento
-  {
-    var x = 10;  // BUG: x escapa del bloque
-    let y = 20;  // FIXED: y no escapa del bloque
-  }
-
-  codigoBuggy = `var x fuera del bloque: ${x} (¡accesible!)`;
-  codigoFixed = `let y fuera del bloque: Error (no accesible, correcto)`;
-
-  resultado.innerHTML = `
-    <div class="bug-description">
-      <h4>🐛 BUG IDENTIFICADO</h4>
-      <p class="buggy-line">${codigoBuggy}</p>
-      <p class="fixed-line">${codigoFixed}</p>
-      <p class="bug-hint">💡 var tiene function scope, let/const tienen block scope</p>
-    </div>
-    <div class="comparison">
-      <div class="python-code">
-        <h4>Python</h4>
-        <pre># Python no tiene block scope
-# Solo function scope
-
-def mi_funcion():
-    if True:
-        x = 10
-    # x sigue accesible aquí
-    print(x)  # 10
-
-# NO existe var/let/const</pre>
-      </div>
-      <div class="js-code">
-        <h4>JavaScript</h4>
-        <pre>// var: function scope (old way)
-{
-  var x = 10;
-}
-console.log(x); // 10 ⚠️
-
-// let/const: block scope (new way)
-{
-  let y = 20;
-}
-console.log(y); // ReferenceError ✅</pre>
-      </div>
-    </div>
-  `;
-
-  marcarBugResuelto("bug4");
+function mostrarResultado(id, contenido) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.classList.remove("hidden");
 }
 
-// ============================================
-   BUG 5: Asincronía - Falta await
-   // Python: asyncio, sync/await similar
-   // JS: async/await para manejar promesas
-   ============================================
-
-function probarBug5() {
-  const resultado = document.getElementById("bug5Resultado");
-
-  // Simular una operación asíncrona
-  const promesa = new Promise(resolve => {
-    setTimeout(() => resolve("Datos cargados"), 1000);
-  });
-
-  resultado.innerHTML = `
-    <div class="info-box">
-      <h4>⏳ Cargando...</h4>
-      <p>Esperando 1 segundo...</p>
-    </div>
-  `;
-
-  // BUG: Sin await, la promesa no se resuelve
-  // FIXED: Con await, esperamos el resultado
-
-  setTimeout(async () => {
-    const resultadoSinAwait = promesa; // [object Promise]
-    const resultadoConAwait = await promesa; // "Datos cargados"
-
-    resultado.innerHTML = `
-      <div class="bug-description">
-        <h4>🐛 BUG IDENTIFICADO</h4>
-        <p class="buggy-line">Sin await: ${resultadoSinAwait} (¡Es una Promise!)</p>
-        <p class="fixed-line">Con await: ${resultadoConAwait} (Resultado correcto)</p>
-        <p class="bug-hint">💡 Siempre usa await cuando llamas a funciones async</p>
-      </div>
-      <div class="comparison">
-        <div class="python-code">
-          <h4>Python</h4>
-          <pre>import asyncio
-
-async def obtener_datos():
-    await asyncio.sleep(1)
-    return "Datos cargados"
-
-# BUG: olvidar await
-resultado = obtener_datos()
-# <coroutine object>
-
-# FIXED: usar await
-resultado = await obtener_datos()
-# "Datos cargados"</pre>
-        </div>
-        <div class="js-code">
-          <h4>JavaScript</h4>
-          <pre>async function obtenerDatos() {
-  await new Promise(r =>
-    setTimeout(r, 1000)
-  );
-  return "Datos cargados";
-}
-
-// BUG: olvidar await
-const resultado = obtenerDatos();
-// [object Promise]
-
-// FIXED: usar await
-const resultado = await obtenerDatos();
-// "Datos cargados"</pre>
-        </div>
-      </div>
-    `;
-
-    marcarBugResuelto("bug5");
-  }, 1000);
-}
-
-// ============================================
-   HELPER FUNCTIONS
-   ============================================
-
-function marcarBugResuelto(bugId) {
-  // Actualizar contador
-  if (!window.bugsResueltosSet) {
-    window.bugsResueltosSet = new Set();
-  }
-
-  if (!window.bugsResueltosSet.has(bugId)) {
-    window.bugsResueltosSet.add(bugId);
-    bugsResueltos++;
-    actualizarProgreso();
-
-    // Cambiar estilo del card
-    const card = document.getElementById(bugId).closest(".card");
-    card.classList.remove("bug-card");
-    card.classList.add("fixed-card");
-
-    const badge = card.querySelector(".bug-badge");
-    if (badge) {
-      badge.textContent = "✅ RESUELTO";
-      badge.classList.remove("bug-badge");
-      badge.classList.add("fixed-badge");
-    }
-  }
-}
-
-function reiniciarProgreso() {
-  window.bugsResueltosSet = new Set();
-  bugsResueltos = 0;
-  actualizarProgreso();
-
-  // Resetear todos los cards
-  document.querySelectorAll(".fixed-card").forEach(card => {
-    card.classList.remove("fixed-card");
-    card.classList.add("bug-card");
-
-    const badge = card.querySelector(".fixed-badge");
-    if (badge) {
-      badge.textContent = "🐛 BUG";
-      badge.classList.remove("fixed-badge");
-      badge.classList.add("bug-badge");
-    }
-  });
-
-  // Limpiar resultados
-  document.querySelectorAll(".result").forEach(r => {
-    r.innerHTML = "";
-    r.classList.add("hidden");
-  });
-}
-
-// ============================================
-   INICIALIZACIÓN
-   ============================================
-
-console.log("%cS24: Clínica de Bugs - Práctica de Debugging", "color: #f97316; font-size: 20px; font-weight: bold;");
-console.log("\n--- Bugs comunes en JavaScript ---");
-console.log("1. String + String = Concatenación (no suma)");
-console.log("2. == vs === (coerción vs estricto)");
-console.log("3. undefined vs null");
-console.log("4. var vs let/const (scope)");
-console.log("5. Falta await en async functions");
-
-document.addEventListener("DOMContentLoaded", () => {
-  actualizarProgreso();
-
-  // Enter key support
-  const inputs = document.querySelectorAll("input");
-  inputs.forEach(input => {
-    input.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const button = input.closest(".card")?.querySelector("button:not(.option)");
-        if (button && button.onclick) button.click();
-      }
-    });
-  });
-});
+console.log("S24: Bugs Comunes - Abre la consola (F12) para ver logs");
+console.log("Tip: Usa Number() para convertir strings a números");
+console.log("Tip: Usa === en lugar de == para comparación estricta");
