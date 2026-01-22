@@ -1,353 +1,200 @@
-// S04: Condicionales (if/elif/else)
-// Equivalente JavaScript de las prácticas de Python
+// =====================================================
+// S04: Condicionales (if/else) - JAVASCRIPT
+// =====================================================
+//
+// En esta sesión practicaremos:
+// - if: si se cumple una condición
+// - else: si NO se cumple la condición
+// - else if: otra condición para probar
+//
+// Python vs JavaScript:
+// Python: if edad >= 18:        JS: if (edad >= 18) {
+// Python:     print("mayor")    JS:     console.log("mayor");
+// Python: elif edad >= 13:      JS: } else if (edad >= 13) {
+// Python:     print("teen")     JS:     console.log("teen");
+// Python: else:                 JS: } else {
+// Python:     print("nino")     JS:     console.log("nino");
+//                                  }
+//
+// =====================================================
 
-// ============================================
-// ESTADO GLOBAL
-// ============================================
-let saldo = 500000;
+// -----------------------------------------------------
+// RETO 1: ¿Eres mayor de edad?
+// -----------------------------------------------------
+//
+// Vamos a verificar si una persona es mayor de edad (18 o más)
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega max="120" al input de edad
+// 2. RETO CSS: Crea las clases .edad-mayor y .edad-menor
+// 3. TODO: Agrega else if para adolescentes (13-17 años)
+// 4. TODO: Agrega else para niños (menos de 13)
+// -----------------------------------------------------
 
-// ============================================
-// UTILIDADES
-// ============================================
-
-function mostrarResultado(elementId, contenido) {
-  const elemento = document.getElementById(elementId);
-  elemento.innerHTML = contenido;
-  elemento.classList.remove("hidden");
-  elemento.classList.add("visible");
-}
-
-function obtenerNumero(id) {
-  const valor = document.getElementById(id).value;
-  const numero = Number(valor);
-  return Number.isNaN(numero) ? null : numero;
-}
-
-function ocultarPaneles() {
-  document.querySelectorAll(".panel-operacion").forEach(p => p.classList.add("hidden"));
-}
-
-// ============================================
-// FUNCIONES PRINCIPALES
-// ============================================
-
-/**
- * Verificador de Edad
- * Python: if/else simple
- * JS: if/else (¡misma lógica!)
- */
 function verificarEdad() {
-  const edad = obtenerNumero("edad");
+  const edad = Number(document.getElementById("edad").value);
 
-  if (edad === null) {
-    mostrarResultado("resultadoEdad", "<p class='error'>Por favor, ingresa una edad válida.</p>");
-    return;
-  }
+  let mensaje = "";
+  let claseCss = "";  // RETO CSS: Asigna "edad-mayor" o "edad-menor"
 
-  let resultado, mensaje;
-
-  // Python: if edad >= 18:
-  // JS: if (edad >= 18) {
+  // Esta parte ya está hecha para ti
   if (edad >= 18) {
-    resultado = "✅ Eres mayor de edad";
-    mensaje = "Puedes votar, conducir y trabajar legalmente.";
-  } else if (edad >= 13) {
-    resultado = "📝 Eres adolescente";
-    mensaje = "Estás en la etapa de desarrollo entre niñez y adultez.";
-  } else {
-    resultado = "👶 Eres un niño";
-    mensaje = "Disfruta tu infancia mientras puedes.";
+    mensaje = "✅ Eres MAYOR de edad. Puedes votar y conducir.";
+    claseCss = "edad-mayor";  // RETO CSS: Debes crear esta clase
   }
+  // TODO: Agrega aquí el else if para adolescentes (13-17 años)
+  // Pista: else if (edad >= 13) {
 
-  const html = `
-    <div class="success-box">
-      <h3>${resultado}</h3>
-      <p>${mensaje}</p>
-      <p class="formula">
-        Python: <code>if edad >= 18: ... elif edad >= 13: ... else: ...</code><br>
-        JS: <code>if (edad >= 18) { ... } else if (edad >= 13) { ... } else { ... }</code>
-      </p>
-    </div>
-  `;
+  // TODO: Agrega aquí el else para niños (menos de 13)
+  // Pista: } else {
 
-  mostrarResultado("resultadoEdad", html);
+  mostrarResultadoConClase("resultadoEdad", mensaje, claseCss);
 }
 
-/**
- * Clasificador de Notas
- * Python: if/elif/else con múltiples condiciones
- * JS: if/else if/else (¡misma estructura!)
- */
+// -----------------------------------------------------
+// RETO 2: Clasificador de notas
+// -----------------------------------------------------
+//
+// Vamos a clasificar una nota en letras: A, B, C, D, o F
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega emoji 📝 al título h2
+// 2. RETO CSS: Crea .nota-a, .nota-b, .nota-c, .nota-d, .nota-f
+// 3. TODO: Completa las condiciones que faltan
+//
+// Tabla de notas:
+// 90-100 = A (Excelente)
+// 80-89  = B (Muy bien)
+// 70-79  = C (Bien)
+// 60-69  = D (Suficiente)
+// 0-59   = F (Reprobado)
+// -----------------------------------------------------
+
 function clasificarNota() {
-  const nota = obtenerNumero("nota");
+  const nota = Number(document.getElementById("nota").value);
 
-  if (nota === null || nota < 0 || nota > 100) {
-    mostrarResultado("resultadoNota", "<p class='error'>Por favor, ingresa una nota válida (0-100).</p>");
-    return;
-  }
+  let letra = "";
+  let mensaje = "";
+  let claseCss = "";  // RETO CSS: Asigna según la letra
 
-  let letra, color, mensaje;
-
-  // IMPORTANTE: Orden de mayor a menor (como en Python)
+  // Ya está hecho: nota de A
   if (nota >= 90) {
     letra = "A";
-    color = "#22c55e"; // verde
-    mensaje = "Excelente - ¡Felicidades!";
-  } else if (nota >= 80) {
-    letra = "B";
-    color = "#818cf8"; // púrpura
-    mensaje = "Muy bien - ¡Sigue así!";
-  } else if (nota >= 70) {
-    letra = "C";
-    color = "#38bdf8"; // azul
-    mensaje = "Bien - Puedes mejorar.";
-  } else if (nota >= 60) {
-    letra = "D";
-    color = "#f59e0b"; // amarillo
-    mensaje = "Suficiente - Aprobaste, pero debes esforzarte más.";
-  } else {
-    letra = "F";
-    color = "#ef4444"; // rojo
-    mensaje = "Reprobado - Necesitas estudiar más.";
+    mensaje = "¡Excelente! ¡Felicidades!";
+    claseCss = "nota-a";  // RETO CSS: Debes crear esta clase
   }
+  // TODO: Agrega else if para nota B (80 o más)
+  // Pista: else if (nota >= 80) {
 
-  const html = `
-    <div class="nota-box" style="border-left: 4px solid ${color}">
-      <h3 style="color: ${color}">Calificación: ${letra}</h3>
-      <p class="nota-grande" style="color: ${color}">${nota}</p>
-      <p>${mensaje}</p>
-    </div>
-  `;
+  // TODO: Agrega else if para nota C (70 o más)
 
-  mostrarResultado("resultadoNota", html);
-}
+  // TODO: Agrega else if para nota D (60 o más)
 
-/**
- * Verificador de Fin de Semana
- * Python: dia == "sabado" or dia == "domingo"
- * JS: dia === "sabado" || dia === "domingo"
- */
-function verificarFinSemana() {
-  const dia = document.getElementById("dia").value;
+  // TODO: Agrega else para nota F (menos de 60)
 
-  if (!dia) {
-    mostrarResultado("resultadoFinSemana", "<p class='error'>Por favor, selecciona un día.</p>");
-    return;
-  }
-
-  // Python: if dia == "sabado" or dia == "domingo":
-  // JS: if (dia === "sabado" || dia === "domingo") {
-  const esFinDeSemana = dia === "sabado" || dia === "domingo";
-  const esInicioDeSemana = dia === "lunes";
-
-  let resultado, emoji;
-  if (esFinDeSemana) {
-    resultado = "¡Es fin de semana!";
-    emoji = "🎉";
-  } else if (esInicioDeSemana) {
-    resultado = "Es lunes... ¡ánimo!";
-    emoji = "💪";
-  } else {
-    resultado = "Es día de semana";
-    emoji = "📚";
-  }
-
-  const html = `
-    <div class="${esFinDeSemana ? "success-box" : "info-box"}">
-      <h3>${emoji} ${resultado}</h3>
-      <p class="formula">
-        Python: <code>if dia == "sabado" or dia == "domingo"</code><br>
-        JS: <code>if (dia === "sabado" || dia === "domingo")</code>
-      </p>
-    </div>
-  `;
-
-  mostrarResultado("resultadoFinSemana", html);
-}
-
-/**
- * Cajero Automático
- * Python: Condicionales anidados
- * JS: Condicionales anidados (¡igual!)
- */
-function operacionCajero(opcion) {
-  ocultarPaneles();
-
-  if (opcion === "consultar") {
-    consultarSaldo();
-  } else if (opcion === "retirar") {
-    document.getElementById("panelRetiro").classList.remove("hidden");
-    mostrarResultado("resultadoCajero", "");
-  } else if (opcion === "depositar") {
-    document.getElementById("panelDeposito").classList.remove("hidden");
-    mostrarResultado("resultadoCajero", "");
-  }
-}
-
-function consultarSaldo() {
-  const html = `
-    <div class="success-box">
-      <h3>💰 Tu saldo</h3>
-      <p class="saldo-grande">$${saldo.toLocaleString("es-CO")}</p>
-    </div>
-  `;
-  mostrarResultado("resultadoCajero", html);
-}
-
-function ejecutarRetiro() {
-  const monto = obtenerNumero("montoRetiro");
-
-  if (!monto || monto <= 0) {
-    mostrarResultado("resultadoCajero", "<p class='error'>Ingresa un monto válido.</p>");
-    return;
-  }
-
-  // Condicionales anidados (igual que Python)
-  if (monto > saldo) {
-    mostrarResultado("resultadoCajero", `
-      <div class="error-box">
-        <h3>❌ Saldo insuficiente</h3>
-        <p>Saldo actual: $${saldo.toLocaleString("es-CO")}</p>
-        <p>Monto solicitado: $${monto.toLocaleString("es-CO")}</p>
-      </div>
-    `);
-  } else {
-    saldo -= monto;
-    actualizarSaldoDisplay();
-    ocultarPaneles();
-    mostrarResultado("resultadoCajero", `
-      <div class="success-box">
-        <h3>✅ Retiro exitoso</h3>
-        <p>Monto retirado: $${monto.toLocaleString("es-CO")}</p>
-        <p>Nuevo saldo: $${saldo.toLocaleString("es-CO")}</p>
-      </div>
-    `);
-  }
-}
-
-function ejecutarDeposito() {
-  const monto = obtenerNumero("montoDeposito");
-
-  if (!monto || monto <= 0) {
-    mostrarResultado("resultadoCajero", "<p class='error'>Ingresa un monto válido.</p>");
-    return;
-  }
-
-  saldo += monto;
-  actualizarSaldoDisplay();
-  ocultarPaneles();
-  mostrarResultado("resultadoCajero", `
-    <div class="success-box">
-      <h3>✅ Depósito exitoso</h3>
-      <p>Monto depositado: $${monto.toLocaleString("es-CO")}</p>
-      <p>Nuevo saldo: $${saldo.toLocaleString("es-CO")}</p>
-    </div>
+  mostrarResultado("resultadoNota", `
+    <h2>Nota: ${letra}</h2>
+    <p>${mensaje}</p>
+    <p>Tu nota: ${nota}/100</p>
   `);
 }
 
-function actualizarSaldoDisplay() {
-  document.getElementById("saldoDisplay").textContent = `$${saldo.toLocaleString("es-CO")}`;
-}
+// -----------------------------------------------------
+// RETO 3: ¿Es fin de semana?
+// -----------------------------------------------------
+//
+// Vamos a verificar si un día es fin de semana o no
+//
+// Sábado y Domingo = fin de semana
+// Lunes a Viernes = día de semana
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega un <p> explicando qué días son fin de semana
+// 2. RETO CSS: Agrega text-transform: lowercase al input
+// 3. TODO: Completa la condición para verificar si es fin de semana
+// 4. Usa el operador || (OR) para combinar dos condiciones
+//
+// Pista: dia === "sabado" || dia === "domingo"
+// -----------------------------------------------------
 
-/**
- * Calculadora de Descuentos
- * Python: if/elif/else con rangos de edad
- * JS: if/else if/else (¡igual!)
- */
-function calcularDescuento() {
-  const precio = obtenerNumero("precio");
-  const edad = obtenerNumero("edadDescuento");
+function esFinDeSemana() {
+  const dia = document.getElementById("dia").value.toLowerCase(); // convertir a minúsculas
 
-  if (!precio || !edad) {
-    mostrarResultado("resultadoDescuento", "<p class='error'>Por favor, completa todos los campos.</p>");
-    return;
-  }
+  let mensaje = "";
 
-  let descuento, categoria;
-
-  // Descuentos escalonados por edad (igual que Python)
-  if (edad <= 12) {
-    descuento = 0.5; // 50%
-    categoria = "Niño";
-  } else if (edad <= 25) {
-    descuento = 0.2; // 20%
-    categoria = "Joven";
-  } else if (edad <= 59) {
-    descuento = 0; // 0%
-    categoria = "Adulto";
+  // TODO: Completa esta condición
+  // Debe ser true si es "sabado" O "domingo"
+  if (false) {  // <-- Cambia false por la condición correcta
+    mensaje = "¡Es fin de semana! 🎉";
   } else {
-    descuento = 0.3; // 30%
-    categoria = "Adulto Mayor";
+    mensaje = "Es día de semana 📚";
   }
 
-  const precioFinal = precio * (1 - descuento);
-  const ahorro = precio * descuento;
-
-  const html = `
-    <div class="success-box">
-      <h3>💰 Resumen de Compra</h3>
-      <p><strong>Categoría:</strong> ${categoria}</p>
-      <p><strong>Precio original:</strong> $${precio.toLocaleString("es-CO")}</p>
-      <p><strong>Descuento:</strong> ${(descuento * 100).toFixed(0)}%</p>
-      <p><strong>Ahorro:</strong> $${ahorro.toLocaleString("es-CO")}</p>
-      <p class="precio-final"><strong>Precio final:</strong> $${precioFinal.toLocaleString("es-CO")}</p>
-    </div>
-  `;
-
-  mostrarResultado("resultadoDescuento", html);
+  mostrarResultado("resultadoFinSemana", mensaje);
 }
 
-/**
- * Verificador de Contraseña
- * Python: if contrasena == "python123"
- * JS: if (contrasena === "python123")
- */
-function verificarContrasena() {
-  const contrasena = document.getElementById("contrasena").value;
-  const contrasenaCorrecta = "python123";
+// -----------------------------------------------------
+// RETO 4: Cajero automático
+// -----------------------------------------------------
+//
+// Simulamos un cajero con saldo inicial de $100,000
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega emoji 💰 al saldo
+// 2. RETO CSS: Personaliza .saldo-grande con font-size más grande
+// 3. El retiro ya está hecho, pero falta el depósito
+// 4. TODO: Completa la función depositar()
+// -----------------------------------------------------
 
-  // Python: if contrasena == contrasena_correcta:
-  // JS: if (contrasena === contrasenaCorrecta) {
-  if (contrasena === contrasenaCorrecta) {
-    mostrarResultado("resultadoContrasena", `
-      <div class="success-box">
-        <h3>✅ Acceso concedido</h3>
-        <p>¡Bienvenido al sistema!</p>
-      </div>
-    `);
+let saldo = 100000; // Saldo inicial
+
+function retirar() {
+  const monto = Number(document.getElementById("montoRetiro").value);
+
+  // Verificamos si hay suficiente saldo
+  if (monto > saldo) {
+    mostrarResultado("resultadoCajero", "❌ No tienes suficiente saldo");
   } else {
-    mostrarResultado("resultadoContrasena", `
-      <div class="error-box">
-        <h3>❌ Contraseña incorrecta</h3>
-        <p>La contraseña correcta es: <code>python123</code></p>
-      </div>
-    `);
+    saldo = saldo - monto; // Restamos del saldo
+    actualizarSaldo();
+    mostrarResultado("resultadoCajero", `✅ Retiraste $${monto}. Nuevo saldo: $${saldo}`);
   }
 }
 
-// ============================================
-// INICIALIZACION
-// ============================================
+function depositar() {
+  const monto = Number(document.getElementById("montoDeposito").value);
 
-console.log("%cS04: Condicionales (if/elif/else)", "color: #22c55e; font-size: 20px; font-weight: bold;");
-console.log("Abre las herramientas de desarrollador (F12) para ver los logs.");
-console.log("\n--- Equivalencias Python vs JavaScript ---");
-console.log("if (Python) → if (JS)");
-console.log("elif (Python) → else if (JS)");
-console.log("else (Python) → else (JS)");
-console.log("and (Python) → && (JS)");
-console.log("or (Python) → || (JS)");
-console.log("not (Python) → ! (JS)");
+  // TODO: Suma el monto al saldo
+  // Pista: saldo += monto
 
-// Permitir Enter para submit en inputs
-document.addEventListener("DOMContentLoaded", () => {
-  const inputs = document.querySelectorAll("input");
-  inputs.forEach(input => {
-    input.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const button = input.closest(".card, .panel-operacion")?.querySelector("button");
-        if (button && button.onclick) button.click();
-      }
-    });
-  });
-});
+  // TODO: Llama a actualizarSaldo()
+
+  // TODO: Muestra un mensaje de éxito
+  mostrarResultado("resultadoCajero", "TODO: escribe el mensaje aquí");
+}
+
+function consultarSaldo() {
+  mostrarResultado("resultadoCajero", `Tu saldo actual es: $${saldo}`);
+}
+
+function actualizarSaldo() {
+  document.getElementById("saldoDisplay").textContent = "💰 $" + saldo;
+}
+
+// -----------------------------------------------------
+// FUNCIONES AUXILIARES (no necesitas modificar esto)
+// -----------------------------------------------------
+
+function mostrarResultado(id, contenido) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.classList.remove("hidden");
+}
+
+// RETO CSS: Esta función agrega una clase CSS personalizada
+// ¡Debes crear las clases en styles.css!
+function mostrarResultadoConClase(id, contenido, clase) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.className = "result " + clase;  // Agrega la clase personalizada
+}

@@ -3,147 +3,194 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S06 - Bucles (for y while)</title>
+  <title>S06 - Bucles</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <main class="container">
     <header class="header">
-      <h1>🔄 Práctica S06: Bucles (for y while)</h1>
-      <p class="subtitle">Python + JavaScript: Repeticiones automáticas</p>
+      <h1>🔄 S06: Bucles (for y while)</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!-- Tarjeta 1: Contador Simple -->
+    <!-- RETO 1: Contar -->
     <section class="card">
-      <h2>🔢 Contador con For</h2>
-      <p class="hint">Bucle for: repite un número conocido de veces</p>
+      <h2>Reto 1: Contar</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el texto del label</p>
+      <p class="hint">Donde dice "Contar hasta:", cámbialo a "Ingresa un número:"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .numero-destacado</p>
+      <p class="hint">En styles.css:</p>
+      <pre>.numero-destacado {
+  color: #f59e0b;
+  font-weight: bold;
+}</pre>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa contar()</p>
+      <p class="hint">Agrega los números al resultado dentro del for</p>
+
       <div class="input-group">
-        <label for="contadorFinal">Contar hasta:</label>
-        <input id="contadorFinal" type="number" placeholder="Ej: 10" min="1" max="50" value="10" />
+        <label for="numero">Contar hasta:</label>
+        <input id="numero" type="number" placeholder="Ej: 5" min="1" />
       </div>
-      <button class="btn primary" onclick="ejecutarFor()">Ejecutar For</button>
-      <div id="resultadoFor" class="result hidden"></div>
+      <button class="btn primary" onclick="contar()">Contar</button>
+      <div id="resultadoContar" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 2: Tabla de Multiplicar -->
-    <section class="card highlight">
-      <h2>✖️ Tabla de Multiplicar</h2>
-      <p class="hint">Usando for para generar una tabla completa</p>
+    <!-- RETO 2: Tabla de multiplicar -->
+    <section class="card">
+      <h2>Reto 2: Tabla de Multiplicar</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega un límite al input</p>
+      <p class="hint">En el input de tabla, agrega: max="12"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Personaliza la tabla</p>
+      <p class="hint">Crea .tabla-result td con padding: 10px</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa tablaMultiplicar()</p>
+      <p class="hint">Completa la multiplicación</p>
+
       <div class="input-group">
-        <label for="tablaNumero">Número:</label>
-        <input id="tablaNumero" type="number" placeholder="Ej: 7" min="1" max="12" value="7" />
+        <label for="tabla">Número (1-12):</label>
+        <input id="tabla" type="number" placeholder="Ej: 7" min="1" max="12" />
       </div>
-      <button class="btn success" onclick="generarTabla()">Generar Tabla</button>
+      <button class="btn secondary" onclick="tablaMultiplicar()">Generar Tabla</button>
       <div id="resultadoTabla" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 3: Suma de Números -->
+    <!-- RETO 3: Sumar números -->
     <section class="card">
-      <h2>➕ Suma de Rango</h2>
-      <p class="hint">Suma todos los números entre dos valores</p>
-      <div class="input-row">
-        <div class="input-group">
-          <label for="sumaInicio">Desde:</label>
-          <input id="sumaInicio" type="number" placeholder="Ej: 1" min="1" value="1" />
-        </div>
-        <div class="input-group">
-          <label for="sumaFin">Hasta:</label>
-          <input id="sumaFin" type="number" placeholder="Ej: 10" min="1" value="10" />
-        </div>
+      <h2>Reto 3: Sumar Números</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega emoji al título</p>
+      <p class="hint">Cámbialo a: &lt;h2&gt;Reto 3: Sumar Números ➕&lt;/h2&gt;</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .resultado-suma</p>
+      <p class="hint">Con background: rgba(34, 197, 94, 0.1) y borde verde</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa sumarNumeros()</p>
+      <p class="hint">Usa un acumulador para sumar</p>
+
+      <div class="input-group">
+        <label for="sumar">Sumar desde 1 hasta:</label>
+        <input id="sumar" type="number" placeholder="Ej: 10" min="1" />
       </div>
-      <button class="btn secondary" onclick="sumarRango()">Sumar</button>
-      <div id="resultadoSuma" class="result hidden"></div>
+      <button class="btn secondary" onclick="sumarNumeros()">Sumar</button>
+      <div id="resultadoSumar" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 4: Lista de Compras -->
+    <!-- RETO 4: Lista de compras -->
     <section class="card highlight">
-      <h2>🛒 Lista de Compras</h2>
-      <p class="hint">Usando un array (lista) con for...of</p>
-      <div class="input-group">
-        <label for="nuevoItem">Producto:</label>
-        <input id="nuevoItem" type="text" placeholder="Ej: Manzanas" />
+      <h2>Reto 4: Lista de Compras</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el placeholder</p>
+      <p class="hint">En el input item, cambia placeholder a "Ej: manzanas"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Personaliza los items de la lista</p>
+      <p class="hint">En #listaCompras li, agrega margin-bottom: 12px</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa mostrarLista()</p>
+      <p class="hint">Usa for para recorrer la lista</p>
+
+      <div class="input-row">
+        <input id="item" type="text" placeholder="Ej: manzanas" />
+        <button class="btn primary" onclick="agregarItem()">Agregar</button>
       </div>
-      <button class="btn primary" onclick="agregarItem()">Agregar</button>
-      <button class="btn secondary" onclick="limpiarLista()">Limpiar Lista</button>
-      <div id="resultadoLista" class="result hidden">
-        <ul id="listaCompras"></ul>
-      </div>
-      <div id="resumenLista" class="resumen hidden"></div>
+      <button class="btn secondary" onclick="limpiarLista()" style="margin-top: 10px;">Limpiar Lista</button>
+      <div id="resultadoLista" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 5: Adivina el Número (While) -->
+    <!-- RETO 5: Juego de adivinar -->
     <section class="card">
-      <h2>🎮 Adivina el Número</h2>
-      <p class="hint">Usando while para intentar hasta acertar</p>
+      <h2>Reto 5: Adivina el Número 🎮</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega un subtítulo explicativo</p>
+      <p class="hint">Agrega un &lt;p&gt; con las instrucciones del juego</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .acierto y .error</p>
+      <p class="hint">Para mostrar mensajes de diferentes colores</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: El juego ya está hecho</p>
+      <p class="hint">¡Solo juega y entiende cómo funciona el while!</p>
+
       <div class="input-group">
-        <label for="advinanza">Tu intento (1-10):</label>
-        <input id="advinanza" type="number" placeholder="1-10" min="1" max="10" />
+        <label for="intento">Tu intento (1-10):</label>
+        <input id="intento" type="number" placeholder="Ej: 5" min="1" max="10" />
       </div>
-      <button class="btn secondary" onclick="adivinar()">Intentar</button>
-      <button class="btn option" onclick="reiniciarJuego()">Reiniciar</button>
+      <button class="btn success" onclick="adivinar()">Adivinar</button>
       <div id="resultadoAdivina" class="result hidden"></div>
     </section>
 
-    <!-- Tarjeta 6: Contador Regresivo -->
-    <section class="card">
-      <h2>⏳ Cuenta Regresiva</h2>
-      <p class="hint">Usando while con condición inversa</p>
-      <div class="input-group">
-        <label for="cuentaInicio">Comenzar desde:</label>
-        <input id="cuentaInicio" type="number" placeholder="Ej: 10" min="1" max="20" value="10" />
+    <!-- Leyenda de colores para retos -->
+    <section class="card debug">
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js</p>
+        </div>
       </div>
-      <button class="btn primary" onclick="ejecutarCuentaRegresiva()">Iniciar Cuenta</button>
-      <div id="resultadoCuenta" class="result hidden"></div>
     </section>
 
-    <!-- Panel de Debug - Comparación Python vs JS -->
+    <!-- Ayuda: Sintaxis -->
     <section class="card debug">
-      <h2>🐞 Bucles: Python vs JavaScript</h2>
-      <p class="hint">¡Muy similares! Solo cambia la sintaxis del bucle.</p>
+      <h2>📖 Bucles: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
-          <pre># Bucle for con range
+          <pre># Contar del 0 al 4
 for i in range(5):
-    print(i)  # 0, 1, 2, 3, 4
+    print(i)
 
-# Bucle for con lista
-frutas = ["manzana", "banana"]
-for fruta in frutas:
-    print(fruta)
+# Recorrer lista
+for item in lista:
+    print(item)
 
-# Bucle while
-contador = 0
-while contador < 5:
-    print(contador)
-    contador += 1</pre>
+# While
+while x < 10:
+    x += 1</pre>
         </div>
         <div class="js-code">
           <h4>JavaScript</h4>
-          <pre>// Bucle for con rango
+          <pre>// Contar del 0 al 4
 for (let i = 0; i < 5; i++) {
-    console.log(i);  // 0, 1, 2, 3, 4
+    console.log(i);
 }
 
-// Bucle for...of con array
-const frutas = ["manzana", "banana"];
-for (const fruta of frutas) {
-    console.log(fruta);
+// Recorrer lista
+for (const item of lista) {
+    console.log(item);
 }
 
-// Bucle while
-let contador = 0;
-while (contador < 5) {
-    console.log(contador);
-    contador++;
+// While
+while (x < 10) {
+    x++;
 }</pre>
         </div>
-      </div>
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>for i in range(5)</code> → JS: <code>for (let i = 0; i < 5; i++)</code><br>
-        2. Python: <code>for item in lista</code> → JS: <code>for (const item of lista)</code><br>
-        3. Python no necesita paréntesis en la condición del while
       </div>
     </section>
   </main>

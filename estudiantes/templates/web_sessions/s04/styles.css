@@ -416,6 +416,75 @@ input[type="text"]:focus {
 }
 
 /* ============================================
+   RETOS HTML/CSS/JS BADGES
+   ============================================ */
+.html-hint {
+  color: #f97316;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.css-hint {
+  color: #ec4899;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.js-hint {
+  color: #8b5cf6;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hint pre {
+  background: var(--bg-primary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-family: monospace;
+  margin: 4px 0;
+  overflow-x: auto;
+}
+
+.leyenda {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.leyenda-item {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.html-badge {
+  background: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+  border: 1px solid #f97316;
+}
+
+.css-badge {
+  background: rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+  border: 1px solid #ec4899;
+}
+
+.js-badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  border: 1px solid #8b5cf6;
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 @keyframes fadeIn {

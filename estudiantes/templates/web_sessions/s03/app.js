@@ -1,240 +1,173 @@
-// S03: Operadores y Expresiones
-// Equivalente JavaScript de las prácticas de Python
+// =====================================================
+// S03: Operadores y Expresiones - JAVASCRIPT
+// =====================================================
+//
+// En esta sesión practicaremos:
+// - Operadores matemáticos: +, -, *, /
+// - Operadores de comparación: >, <, ===
+// - Operadores lógicos: &&, ||
+//
+// =====================================================
 
-// ============================================
-// UTILIDADES
-// ============================================
+// -----------------------------------------------------
+// RETO 1: Completa la calculadora
+// -----------------------------------------------------
+//
+// ¡Hola! Esta función suma dos números.
+// Pero falta la resta, multiplicación y división.
+//
+// TU MISIÓN:
+// 1. Busca donde dice "TODO: agrega la resta"
+// 2. Escribe el código para restar: num1 - num2
+// 3. Haz lo mismo con multiplicación (*) y división (/)
+// 4. ¡Abre el HTML y prueba tu calculadora!
+// -----------------------------------------------------
 
-function mostrarResultado(elementId, contenido) {
-  const elemento = document.getElementById(elementId);
-  elemento.innerHTML = contenido;
-  elemento.classList.remove("hidden");
-  elemento.classList.add("visible");
-}
+function calcular() {
+  // Obtenemos los números de los inputs
+  const num1 = Number(document.getElementById("num1").value);
+  const num2 = Number(document.getElementById("num2").value);
 
-function obtenerNumero(id) {
-  const valor = document.getElementById(id).value;
-  const numero = Number(valor);
-  return Number.isNaN(numero) ? null : numero;
-}
-
-// ============================================
-// FUNCIONES PRINCIPALES
-// ============================================
-
-/**
- * Calculadora Básica
- * Python: Todos los operadores aritméticos
- * JS: ¡Son IGUALES! +, -, *, /, %, **
- */
-function calcularOperaciones() {
-  const num1 = obtenerNumero("num1");
-  const num2 = obtenerNumero("num2");
-
-  if (num1 === null || num2 === null) {
-    mostrarResultado("resultadoCalc", "<p class='error'>Por favor, ingresa ambos números.</p>");
-    return;
-  }
-
+  // La suma ya está hecha para ti
   const suma = num1 + num2;
-  const resta = num1 - num2;
-  const multi = num1 * num2;
-  const div = num2 !== 0 ? num1 / num2 : "∞ (división por cero)";
-  const modulo = num1 % num2;
-  const potencia = num1 ** num2;
 
-  const resultado = `
-    <div class="success-box">
-      <h3>Resultados para ${num1} y ${num2}:</h3>
-      <div class="operadores-grid">
-        <p><strong>Suma (+):</strong> ${suma}</p>
-        <p><strong>Resta (-):</strong> ${resta}</p>
-        <p><strong>Multiplicación (*):</strong> ${multi}</p>
-        <p><strong>División (/):</strong> ${div}</p>
-        <p><strong>Módulo (%):</strong> ${modulo}</p>
-        <p><strong>Potencia (**):</strong> ${potencia}</p>
-      </div>
-    </div>
-  `;
+  // TODO: agrega la resta aquí (pista: num1 - num2)
+  const resta = null;  // <-- Cambia este null por el código correcto
 
-  mostrarResultado("resultadoCalc", resultado);
+  // TODO: agrega la multiplicación aquí (pista: usa *)
+  const multi = null;  // <-- Cambia este null por el código correcto
 
-  console.log("Python equivalente:");
-  console.log(`print(f"{num1} + {num2} = {${num1 + num2}}")`);
+  // TODO: agrega la división aquí (pista: usa /)
+  const div = null;  // <-- Cambia este null por el código correcto
+
+  // Mostramos los resultados
+  mostrarResultado("resultado", `
+    <p>Suma: ${num1} + ${num2} = <strong>${suma}</strong></p>
+    <p>Resta: ${num1} - ${num2} = <strong>${resta}</strong></p>
+    <p>Multi: ${num1} × ${num2} = <strong>${multi}</strong></p>
+    <p>División: ${num1} ÷ ${num2} = <strong>${div}</strong></p>
+  `);
 }
 
-/**
- * Verificar Par o Impar
- * Python: numero % 2 == 0
- * JS: numero % 2 === 0 (¡Usa ===!)
- */
-function verificarParImpar() {
-  const numero = obtenerNumero("numeroParImpar");
+// -----------------------------------------------------
+// RETO 2: ¿Es par o impar?
+// -----------------------------------------------------
+//
+// Un número es PAR si al dividirlo entre 2 el residuo es 0
+// El operador % nos da el residuo de una división
+//
+// Ejemplo: 7 % 2 = 1 (porque 7 ÷ 2 = 3 y sobra 1)
+//          8 % 2 = 0 (porque 8 ÷ 2 = 4 y sobra 0)
+//
+// TU MISIÓN:
+// 1. Haz que funcione correctamente
+// 2. RETO CSS: Agrega la clase "resultado-par" o "resultado-impar"
+//    según corresponda (debes crearlas en styles.css)
+// 3. RETO HTML: Cambia el placeholder del input
+// -----------------------------------------------------
 
-  if (numero === null) {
-    mostrarResultado("resultadoParImpar", "<p class='error'>Por favor, ingresa un número.</p>");
-    return;
-  }
+function esParOImpar() {
+  const numero = Number(document.getElementById("numeroPar").value);
 
+  // El residuo de dividir entre 2
   const residuo = numero % 2;
-  const esPar = residuo === 0;
 
-  const resultado = `
-    <div class="info-box">
-      <h3>Análisis del número ${numero}:</h3>
-      <p><strong>Residuo de dividir entre 2:</strong> ${residuo}</p>
-      <p><strong>Resultado:</strong> El número es <strong>${esPar ? "PAR" : "IMPAR"}</strong></p>
-      <p class="formula">
-        Python: <code>${numero} % 2 == ${residuo}</code><br>
-        JavaScript: <code>${numero} % 2 === ${residuo}</code>
-      </p>
-    </div>
-  `;
+  // Si el residuo es 0, es PAR. Si no, es IMPAR.
+  let mensaje = "";
+  let claseCss = "";  // TODO: Asigna "resultado-par" o "resultado-impar"
 
-  mostrarResultado("resultadoParImpar", resultado);
-}
-
-/**
- * Comparador de Números
- * Python: >, <, >=, <=, ==, !=
- * JS: >, <, >=, <=, ===, !== (¡Usa === y !==!)
- */
-function compararNumeros() {
-  const a = obtenerNumero("compA");
-  const b = obtenerNumero("compB");
-
-  if (a === null || b === null) {
-    mostrarResultado("resultadoComp", "<p class='error'>Por favor, ingresa ambos valores.</p>");
-    return;
+  // TODO: Completa este if/else
+  if (residuo === 0) {
+    mensaje = "El número " + numero + " es PAR";
+    claseCss = "resultado-par";  // RETO CSS: Debes crear esta clase
+  } else {
+    // TODO: Escribe el mensaje cuando es IMPAR
+    mensaje = "TODO: escribe el mensaje aquí";
+    claseCss = "resultado-impar";  // RETO CSS: Debes crear esta clase
   }
 
-  const resultado = `
-    <div class="info-box">
-      <h3>Comparando ${a} y ${b}:</h3>
-      <div class="comparaciones-grid">
-        <p>${a} > ${b}: <strong>${a > b}</strong></p>
-        <p>${a} < ${b}: <strong>${a < b}</strong></p>
-        <p>${a} >= ${b}: <strong>${a >= b}</strong></p>
-        <p>${a} <= ${b}: <strong>${a <= b}</strong></p>
-        <p>${a} === ${b}: <strong>${a === b}</strong></p>
-        <p>${a} !== ${b}: <strong>${a !== b}</strong></p>
-      </div>
-    </div>
+  mostrarResultadoConClase("resultadoPar", mensaje, claseCss);
+}
+
+// -----------------------------------------------------
+// RETO 3: Comparador de números
+// -----------------------------------------------------
+//
+// Vamos a comparar dos números usando:
+// >  (mayor que)
+// <  (menor que)
+// >= (mayor o igual que)
+// <= (menor o igual que)
+// === (igual a)
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega emoji ⚖️ al título h2
+// 2. RETO CSS: Crea clases para resaltar true (verde) y false (rojo)
+// 3. TODO: Agrega las comparaciones de >= y ===
+// -----------------------------------------------------
+
+function comparar() {
+  const a = Number(document.getElementById("compA").value);
+  const b = Number(document.getElementById("compB").value);
+
+  let resultado = `
+    <p>¿${a} es mayor que ${b}? ${a > b}</p>
+    <p>¿${a} es menor que ${b}? ${a < b}</p>
   `;
+
+  // TODO: Agrega aquí la comparación de >=
+  // Pista: Copia una línea de arriba y cámbiala
+
+  // TODO: Agrega aquí la comparación de ===
+  // Pista: Usa tres signos igual ===
 
   mostrarResultado("resultadoComp", resultado);
-
-  console.log("Comparación de igualdad:");
-  console.log(`Python: ${a} == ${b} → ${a == b}`);
-  console.log(`JS (laxo): ${a} == ${b} → ${a == b}`);
-  console.log(`JS (estricto): ${a} === ${b} → ${a === b}`);
 }
 
-/**
- * Evaluador de Condiciones
- * Python: and, or, not
- * JS: &&, ||, !
- */
-function evaluarCondiciones() {
-  const edad = obtenerNumero("edad") ?? 0;
-  const tieneLicencia = document.getElementById("tieneLicencia").checked;
-  const esFinDeSemana = document.getElementById("esFinDeSemana").checked;
+// -----------------------------------------------------
+// RETO 4: ¿Puedes conducir?
+// -----------------------------------------------------
+//
+// En JavaScript usamos && para "Y"
+// y usamos || para "O"
+//
+// Para conducir necesitas:
+// - Ser mayor de 18 años Y tener licencia
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega un <p> después del h2 con las reglas
+// 2. RETO CSS: Cambia el scale del checkbox a 1.5
+// 3. TODO: Completa la condición con && (AND)
+// -----------------------------------------------------
 
-  // Python: edad >= 18 and tiene_licencia
-  // JS: edad >= 18 && tieneLicencia
-  const puedeConducir = edad >= 18 && tieneLicencia;
+function puedeConducir() {
+  const edad = Number(document.getElementById("edad").value);
+  const tieneLicencia = document.getElementById("licencia").checked;
 
-  // Python: es_fin_de_semana or (not edad >= 18 and edad >= 15)
-  // JS: esFinDeSemana || (!(edad >= 18) && edad >= 15)
-  const puedeSalir = esFinDeSemana || edad >= 18;
+  // TODO: Completa esta condición
+  // Debe ser true si edad >= 18 Y tieneLicencia es true
+  // Pista: usa el operador &&
+  let puede = false;  // <-- Cambia esto
 
-  const resultado = `
-    <div class="success-box">
-      <h3>Evaluación de Condiciones:</h3>
-      <p><strong>Edad:</strong> ${edad} años</p>
-      <p><strong>Tiene licencia:</strong> ${tieneLicencia ? "Sí" : "No"}</p>
-      <p><strong>Es fin de semana:</strong> ${esFinDeSemana ? "Sí" : "No"}</p>
-      <hr>
-      <p><strong>¿Puede conducir?</strong> ${puedeConducir ? "✅ Sí" : "❌ No"}</p>
-      <p><strong>¿Puede salir?</strong> ${puedeSalir ? "✅ Sí" : "❌ No"}</p>
-      <p class="formula">
-        Python: <code>edad >= 18 and tiene_licencia</code><br>
-        JavaScript: <code>edad >= 18 && tieneLicencia</code>
-      </p>
-    </div>
-  `;
+  let mensaje = puede ? "¡Puedes conducir!" : "No puedes conducir";
 
-  mostrarResultado("resultadoLogicos", resultado);
+  mostrarResultado("resultadoConducir", mensaje);
 }
 
-/**
- * Conversor de Minutos a Horas
- * Python: horas = minutos // 60, mins_restantes = minutos % 60
- * JS: Math.floor(minutos / 60), minutos % 60
- */
-function convertirMinutos() {
-  const minutos = obtenerNumero("minutos");
+// -----------------------------------------------------
+// FUNCIONES AUXILIARES (no necesitas modificar esto)
+// -----------------------------------------------------
 
-  if (minutos === null || minutos < 0) {
-    mostrarResultado("resultadoMinutos", "<p class='error'>Por favor, ingresa minutos válidos.</p>");
-    return;
-  }
-
-  // Python: minutos // 60 (división entera)
-  // JS: Math.floor(minutos / 60) (no existe división entera)
-  const horas = Math.floor(minutos / 60);
-  const minutosRestantes = minutos % 60;
-
-  let resultadoTexto = "";
-  if (horas > 0 && minutosRestantes > 0) {
-    resultadoTexto = `${horas} hora${horas > 1 ? "s" : ""} y ${minutosRestantes} minuto${minutosRestantes > 1 ? "s" : ""}`;
-  } else if (horas > 0) {
-    resultadoTexto = `${horas} hora${horas > 1 ? "s" : ""}`;
-  } else {
-    resultadoTexto = `${minutosRestantes} minuto${minutosRestantes > 1 ? "s" : ""}`;
-  }
-
-  const resultado = `
-    <div class="success-box">
-      <h3>Conversión:</h3>
-      <p><strong>${minutos} minutos</strong> equivale a:</p>
-      <p class="resultado-grande">${resultadoTexto}</p>
-      <p class="formula">
-        Python: <code>${horas} = ${minutos} // 60, ${minutosRestantes} = ${minutos} % 60</code><br>
-        JavaScript: <code>${horas} = Math.floor(${minutos} / 60), ${minutosRestantes} = ${minutos} % 60</code>
-      </p>
-    </div>
-  `;
-
-  mostrarResultado("resultadoMinutos", resultado);
+function mostrarResultado(id, contenido) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.classList.remove("hidden");
 }
 
-// ============================================
-// INICIALIZACION
-// ============================================
-
-console.log("%cS03: Operadores y Expresiones", "color: #818cf8; font-size: 20px; font-weight: bold;");
-console.log("Abre las herramientas de desarrollador (F12) para ver los logs.");
-console.log("\n--- Equivalencias Python vs JavaScript ---");
-console.log("Aritméticos: ¡IGUALES!");
-console.log("  Python: 10 + 3, 10 % 3, 10 ** 2");
-console.log("  JS:     10 + 3, 10 % 3, 10 ** 2");
-console.log("\nComparación: ¡IGUALES! (pero usa === en JS)");
-console.log("  Python: 10 == 10");
-console.log("  JS:     10 === 10");
-console.log("\nLógicos: Diferente");
-console.log("  Python: and, or, not");
-console.log("  JS:     &&, ||, !");
-
-// Permitir Enter para submit en inputs
-document.addEventListener("DOMContentLoaded", () => {
-  const inputs = document.querySelectorAll("input");
-  inputs.forEach(input => {
-    input.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const button = input.closest(".card").querySelector("button");
-        if (button) button.click();
-      }
-    });
-  });
-});
+// RETO CSS: Esta función agrega una clase CSS personalizada
+// ¡Debes crear las clases en styles.css!
+function mostrarResultadoConClase(id, contenido, clase) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.className = "result " + clase;  // Agrega la clase personalizada
+}

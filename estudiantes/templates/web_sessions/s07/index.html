@@ -1,277 +1,134 @@
-<!--
-  =====================================================
-  S07: Listas y Bucles - PLANTILLA HTML
-  =====================================================
-
-  Esta página practica conceptos de Python listas con JavaScript arrays.
-
-  CONCEPTOS HTML UTILIZADOS:
-  -------------------------
-  <section> - Agrupa contenido relacionado (cada tarjeta de ejercicio)
-  <div> - Contenedor genérico invisible (para agrupar elementos)
-  <input> - Campo donde el usuario escribe datos
-  <button> - Botón clickeable que ejecuta JavaScript
-  <ul>/<li> - Lista desordenada (para mostrar tareas)
-  <h2> - Título de sección
-  <span> - Contenedor en línea (para elementos de lista visual)
-
-  ATRIBUTOS IMPORTANTES:
-  ----------------------
-  id="nombre" - Identificador ÚNICO para que JavaScript encuentre el elemento
-  class="clase" - Clase para CSS (puede repetirse)
-  type="number" - Input solo acepta números
-  type="text" - Input acepta texto
-  placeholder="texto" - Texto de ejemplo que aparece en el input
-  min/max - Valores mínimo y máximo para inputs numéricos
-  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
-
-  CONEXIÓN HTML ↔ CSS ↔ JAVASCRIPT:
-  ---------------------------------
-  HTML: id="miElemento" → CSS: #miElemento { ... } → JS: document.getElementById("miElemento")
-  HTML: class="mi-clase" → CSS: .mi-clase { ... } → JS: element.classList.add("mi-clase")
--->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Información de encabezado (metadatos) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S07 - Listas y Bucles</title>
-  <!-- Conectar el archivo CSS que da estilo a la página -->
+  <title>S07 - Listas (Arrays)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- main: Contenido principal de la página -->
   <main class="container">
-    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
-      <h1>📋 Práctica S07: Listas y Bucles</h1>
-      <p class="subtitle">Python + JavaScript: Colecciones de datos</p>
+      <h1>📋 S07: Listas (Arrays)</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!--
-      =====================================================
-      TARJETA 1: EXPLORADOR DE ÍNDICES
-      =====================================================
-
-      Conceptos clave:
-      - Acceder a elementos por índice positivo y negativo
-      - JavaScript NO tiene índices negativos como Python
-      - Para simular lista[-1], usamos lista[lista.length - 1]
-    -->
+    <!-- RETO 1: Mostrar lista -->
     <section class="card">
-      <h2>🔍 Explorador de Índices</h2>
-      <p class="hint">Accede a elementos por índice positivo y negativo</p>
+      <h2>Reto 1: Mostrar Lista de Frutas</h2>
 
-      <!-- lista-visual: Contenedor donde JavaScript mostrará la lista con índices -->
-      <div class="lista-visual" id="listaVisual">
-        <!-- Se genera dinámicamente con JavaScript -->
-      </div>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el título h2</p>
+      <p class="hint">Agrega tu fruta favorita: &lt;h2&gt;Reto 1: Frutas 🍓&lt;/h2&gt;</p>
 
-      <!-- input-row: Dos inputs en una misma fila (grid layout) -->
-      <div class="input-row">
-        <div class="input-group">
-          <!-- for="indicePositivo" conecta la etiqueta con el input del mismo id -->
-          <label for="indicePositivo">Índice positivo (0-4):</label>
-          <!-- id único es CRÍTICO para que JavaScript pueda leer este valor -->
-          <input id="indicePositivo" type="number" placeholder="Ej: 0" min="0" max="4" value="0" />
-        </div>
-        <div class="input-group">
-          <label for="indiceNegativo">Índice negativo (-1 a -5):</label>
-          <input id="indiceNegativo" type="number" placeholder="Ej: -1" min="-5" max="-1" value="-1" />
-        </div>
-      </div>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .fruta-item</p>
+      <p class="hint">En styles.css:</p>
+      <pre>.fruta-item {
+  padding: 8px;
+  margin: 4px 0;
+  background: rgba(34, 197, 94, 0.1);
+}</pre>
 
-      <!-- Al hacer click, se ejecuta la función explorarIndice() definida en app.js -->
-      <button class="btn primary" onclick="explorarIndice()">Explorar Índices</button>
-      <!-- Este div está oculto (class="hidden") hasta que JavaScript lo muestre -->
-      <div id="resultadoIndice" class="result hidden"></div>
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa mostrarFrutas()</p>
+      <p class="hint">Usa un bucle for para recorrer la lista</p>
+
+      <button class="btn primary" onclick="mostrarFrutas()">Mostrar Frutas</button>
+      <div id="resultadoFrutas" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 2: MÉTODOS DE LISTA
-      =====================================================
+    <!-- RETO 2: Agregar a la lista -->
+    <section class="card">
+      <h2>Reto 2: Agregar Elementos</h2>
 
-      Practicamos con:
-      - append() → push() - Agregar al final
-      - pop() → pop() - Quitar del final
-      - del lista[0] → shift() - Quitar del inicio
-      - insert(pos, val) → splice(pos, 0, val) - Insertar en posición
-    -->
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el placeholder</p>
+      <p class="hint">En el input, cambia placeholder a "Ej: manga"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Personaliza el botón</p>
+      <p class="hint">En .btn.success, cambia background a #ec4899</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa agregarElemento()</p>
+      <p class="hint">Usa push() para agregar al final de la lista</p>
+
+      <div class="input-group">
+        <label for="nuevaFruta">Nueva fruta:</label>
+        <input id="nuevaFruta" type="text" placeholder="Ej: kiwi" />
+      </div>
+      <button class="btn success" onclick="agregarElemento()">Agregar</button>
+      <button class="btn secondary" onclick="verLista()">Ver Lista</button>
+      <div id="resultadoAgregar" class="result hidden"></div>
+    </section>
+
+    <!-- RETO 3: Longitud de lista -->
     <section class="card highlight">
-      <h2>🛠️ Métodos de Lista</h2>
-      <p class="hint">Prueba append, remove, pop, insert</p>
+      <h2>Reto 3: ¿Cuántos Elementos?</h2>
 
-      <div class="metodos-container">
-        <!-- JavaScript actualizará este div con los elementos de la lista -->
-        <div class="lista-display" id="listaMetodos">
-          <!-- Elementos iniciales (se reemplazan con JavaScript) -->
-          <span class="lista-item">🍎 manzana</span>
-          <span class="lista-item">🍌 banana</span>
-          <span class="lista-item">🍊 naranja</span>
-        </div>
-      </div>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega un subtítulo</p>
+      <p class="hint">Después del h2, agrega: &lt;p&gt;Usa .length para saber cuántos elementos hay&lt;/p&gt;</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .numero-grande</p>
+      <p class="hint">Con font-size: 2.5rem y color: #8b5cf6</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa contarElementos()</p>
+      <p class="hint">Usa lista.length para obtener la cantidad</p>
+
+      <button class="btn primary" onclick="contarElementos()">Contar Elementos</button>
+      <div id="resultadoContar" class="result hidden"></div>
+    </section>
+
+    <!-- RETO 4: Buscar en la lista -->
+    <section class="card">
+      <h2>Reto 4: ¿Está en la Lista?</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega un emoji al botón</p>
+      <p class="hint">Cámbialo a: &lt;button class="btn success"&gt;🔍 Buscar&lt;/button&gt;</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .encontrado y .no-encontrado</p>
+      <p class="hint">Verde si está, rojo si no está</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Abre app.js y completa buscarElemento()</p>
+      <p class="hint">Usa includes() para verificar si existe</p>
 
       <div class="input-group">
-        <label for="nuevoElemento">Elemento a agregar:</label>
-        <input id="nuevoElemento" type="text" placeholder="Ej: 🍇 uva" />
+        <label for="buscarFruta">Fruta a buscar:</label>
+        <input id="buscarFruta" type="text" placeholder="Ej: manzana" />
       </div>
-
-      <!-- botones-grid: Tres botones en una fila -->
-      <div class="botones-grid">
-        <button class="btn success" onclick="agregarElemento()">append()</button>
-        <button class="btn secondary" onclick="eliminarUltimo()">pop()</button>
-        <button class="btn option" onclick="eliminarPrimero()">shift()</button>
-      </div>
-
-      <!-- input-row: Dos inputs para insert() en una fila -->
-      <div class="input-row" style="margin-top: 12px;">
-        <div class="input-group">
-          <label for="indiceInsert">Posición:</label>
-          <input id="indiceInsert" type="number" placeholder="0-2" min="0" max="2" value="1" />
-        </div>
-        <div class="input-group">
-          <label for="elementoInsert">Elemento:</label>
-          <input id="elementoInsert" type="text" placeholder="Ej: kiwi" />
-        </div>
-      </div>
-      <button class="btn primary" onclick="insertarElemento()">insert()</button>
-      <div id="resultadoMetodos" class="result hidden"></div>
+      <button class="btn success" onclick="buscarElemento()">Buscar</button>
+      <div id="resultadoBuscar" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 3: ESTADÍSTICAS DE LISTA
-      =====================================================
-
-      Practicamos con:
-      - len() → array.length
-      - min() → Math.min(...array)
-      - max() → Math.max(...array)
-      - sum() → array.reduce((a,b)=>a+b, 0)
-    -->
-    <section class="card">
-      <h2>📊 Estadísticas de Lista</h2>
-      <p class="hint">Usa len(), min(), max(), sum()</p>
-
-      <div class="estadisticas-display" id="listaEstadisticas">
-        <!-- Se genera con JavaScript -->
-      </div>
-
-      <button class="btn primary" onclick="calcularEstadisticas()">Calcular Estadísticas</button>
-      <div id="resultadoEstadisticas" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 4: FILTRADO DE NÚMEROS
-      =====================================================
-
-      Practicamos con:
-      - List comprehension: [x for x in lista if x > 50]
-      - JavaScript filter: lista.filter(x => x > 50)
-    -->
-    <section class="card highlight">
-      <h2>🔢 Filtrado de Números</h2>
-      <p class="hint">Filtra números mayores a un valor (list comprehension)</p>
-
-      <div class="numeros-display" id="numerosFiltrar">
-        <!-- Se genera con JavaScript -->
-      </div>
-
-      <div class="input-group">
-        <label for="umbralFiltro">Filtrar números mayores a:</label>
-        <input id="umbralFiltro" type="number" placeholder="Ej: 50" min="0" max="100" value="50" />
-      </div>
-
-      <button class="btn success" onclick="filtrarNumeros()">Filtrar</button>
-      <div id="resultadoFiltro" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 5: GESTOR DE TAREAS
-      =====================================================
-
-      Mini-proyecto completo que practica:
-      - Agregar elementos (push)
-      - Iterar con forEach
-      - Eliminar por índice (splice)
-      - Verificar longitud (length)
-    -->
-    <section class="card">
-      <h2>📋 Gestor de Tareas</h2>
-      <p class="hint">Agrega, ve y elimina tareas de tu lista</p>
-
-      <div class="input-group">
-        <label for="nuevaTarea">Nueva tarea:</label>
-        <input id="nuevaTarea" type="text" placeholder="Ej: Estudiar para el examen" />
-      </div>
-
-      <div class="botones-grid">
-        <button class="btn success" onclick="agregarTarea()">Agregar Tarea</button>
-        <button class="btn secondary" onclick="verTareas()">Ver Tareas</button>
-      </div>
-
-      <!-- listaTareas: Contenedor de la lista de tareas (inicialmente oculto) -->
-      <div id="listaTareas" class="result hidden">
-        <!-- ul: Unordered List (lista con viñetas) -->
-        <!-- JavaScript agregará <li> elementos aquí dinámicamente -->
-        <ul id="ulTareas"></ul>
-      </div>
-
-      <div class="input-group" style="margin-top: 12px;">
-        <label for="numeroEliminar">Número de tarea a eliminar:</label>
-        <input id="numeroEliminar" type="number" placeholder="Ej: 1" min="1" />
-      </div>
-      <button class="btn option" onclick="eliminarTarea()">Eliminar Tarea</button>
-      <div id="resultadoTareas" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      TARJETA 6: ORDENAMIENTO
-      =====================================================
-
-      Practicamos con:
-      - sorted(lista) → [...lista].sort() - Crea nueva lista ordenada
-      - lista.sort() → lista.sort() - Modifica la lista original
-    -->
-    <section class="card">
-      <h2>🔀 Ordenamiento</h2>
-      <p class="hint">sorted() vs .sort() - Nueva lista vs modificar original</p>
-
-      <!-- comparacion-ordenamiento: Dos listas lado a lado para comparar -->
-      <div class="comparacion-ordenamiento">
-        <div class="lista-box">
-          <h4>Original (no cambia)</h4>
-          <div id="listaOriginal" class="numeros-chips"></div>
-        </div>
-        <div class="lista-box">
-          <h4>Ordenada (sorted)</h4>
-          <div id="listaOrdenada" class="numeros-chips"></div>
-        </div>
-      </div>
-
-      <button class="btn primary" onclick="demostrarOrdenamiento()">Demostrar sorted()</button>
-      <button class="btn secondary" onclick="ordenarInPlace()">Demostrar .sort()</button>
-      <div id="resultadoOrdenamiento" class="result hidden"></div>
-    </section>
-
-    <!--
-      =====================================================
-      PANEL DE DEBUG / COMPARACIÓN
-      =====================================================
-
-      Muestra las equivalencias entre Python y JavaScript.
-      Útil para entender que la lógica es la misma, solo cambia sintaxis.
-    -->
+    <!-- Leyenda de colores para retos -->
     <section class="card debug">
-      <h2>🐞 Listas: Python vs JavaScript</h2>
-      <p class="hint">Los arrays en JS son muy similares a las listas en Python.</p>
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- comparison: Dos columnas comparando Python y JavaScript -->
+    <!-- Ayuda: Sintaxis -->
+    <section class="card debug">
+      <h2>📖 Listas: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
@@ -281,32 +138,18 @@ frutas = ["manzana", "banana"]
 # Agregar al final
 frutas.append("naranja")
 
-# Eliminar último
-eliminado = frutas.pop()
-
-# Eliminar por valor
-frutas.remove("manzana")
-
-# Insertar en posición
-frutas.insert(1, "uva")
-
 # Longitud
 len(frutas)
 
-# Mínimo, máximo, suma
-min(numeros)
-max(numeros)
-sum(numeros)
+# Acceder elemento
+frutas[0]
 
-# Verificar si existe
+# Buscar
 "manzana" in frutas
 
-# Iterar
+# Recorrer
 for fruta in frutas:
-    print(fruta)
-
-# List comprehension
-pares = [x for x in range(10) if x % 2 == 0]</pre>
+    print(fruta)</pre>
         </div>
         <div class="js-code">
           <h4>JavaScript</h4>
@@ -316,56 +159,24 @@ const frutas = ["manzana", "banana"];
 // Agregar al final
 frutas.push("naranja");
 
-// Eliminar último
-const eliminado = frutas.pop();
-
-// Eliminar por índice (no por valor)
-frutas.splice(0, 1); // Elimina índice 0
-
-// Insertar en posición
-frutas.splice(1, 0, "uva");
-
 // Longitud
 frutas.length;
 
-// Mínimo, máximo, suma
-Math.min(...numeros);
-Math.max(...numeros);
-numeros.reduce((a, b) => a + b, 0);
+// Acceder elemento
+frutas[0];
 
-// Verificar si existe
+// Buscar
 frutas.includes("manzana");
 
-// Iterar
+// Recorrer
 for (const fruta of frutas) {
     console.log(fruta);
-}
-
-// Array filter (como list comprehension)
-const pares = [...Array(10).keys()]
-    .filter(x => x % 2 === 0);</pre>
+}</pre>
         </div>
-      </div>
-
-      <!-- warning-box: Advertencias sobre diferencias clave -->
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>remove(valor)</code> → JS: <code>splice(indice, 1)</code><br>
-        2. Python: <code>in</code> → JS: <code>includes()</code><br>
-        3. Python: <code>len(lista)</code> → JS: <code>array.length</code> (es propiedad, no función)<br>
-        4. Python: <code>append()</code> → JS: <code>push()</code>
       </div>
     </section>
   </main>
 
-  <!--
-    =====================================================
-    CONECTAR JAVASCRIPT
-    =====================================================
-
-    Esta línea conecta el archivo app.js que contiene todo el
-    comportamiento de la página. Siempre va al FINAL del body.
-  -->
   <script src="app.js"></script>
 </body>
 </html>

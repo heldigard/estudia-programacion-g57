@@ -1,322 +1,227 @@
-// S06: Bucles (for y while)
-// Equivalente JavaScript de las prácticas de Python
+// =====================================================
+// S06: Bucles (for y while) - JAVASCRIPT
+// =====================================================
+//
+// En esta sesión practicaremos:
+// - for: repetir código un número determinado de veces
+// - while: repetir código mientras se cumpla una condición
+//
+// Python vs JavaScript:
+// Python: for i in range(5):      JS: for (let i = 0; i < 5; i++)
+// Python: for item in lista:      JS: for (const item of lista)
+// Python: while condicion:        JS: while (condicion) { }
+//
+// =====================================================
 
-// ============================================
-// ESTADO GLOBAL
-// ============================================
-const listaCompras = [];
-let numeroSecreto = Math.floor(Math.random() * 10) + 1;
-let intentos = 0;
+// -----------------------------------------------------
+// RETO 1: Contar con for
+// -----------------------------------------------------
+//
+// Vamos a contar desde 0 hasta un número que el usuario ingrese
+//
+// Ejemplo: si el usuario ingresa 5, mostramos: 0, 1, 2, 3, 4, 5
+//
+// TU MISIÓN:
+// 1. RETO HTML: Cambia el texto del label a "Ingresa un número:"
+// 2. RETO CSS: Crea .numero-destacado con color naranja
+// 3. TODO: Completa el bucle for
+// 4. PRUEBA: Escribe diferentes números
+// -----------------------------------------------------
 
-// ============================================
-// UTILIDADES
-// ============================================
+function contar() {
+  const numero = Number(document.getElementById("numero").value);
 
-function mostrarResultado(elementId, contenido) {
-  const elemento = document.getElementById(elementId);
-  elemento.innerHTML = contenido;
-  elemento.classList.remove("hidden");
-  elemento.classList.add("visible");
-}
+  let resultado = "Contando: ";
 
-function obtenerNumero(id) {
-  const valor = document.getElementById(id).value;
-  const numero = Number(valor);
-  return Number.isNaN(numero) ? null : numero;
-}
-
-// ============================================
-// FUNCIONES PRINCIPALES
-// ============================================
-
-/**
- * Contador Simple con For
- * Python: for i in range(final):
- * JS: for (let i = 0; i < final; i++)
- */
-function ejecutarFor() {
-  const final = obtenerNumero("contadorFinal");
-
-  if (!final || final < 1) {
-    mostrarResultado("resultadoFor", "<p class='error'>Ingresa un número válido (mayor a 0).</p>");
-    return;
+  // TODO: Completa el bucle for
+  // Debe contar desde 0 hasta el número que ingresó el usuario
+  for (let i = 0; i <= numero; i++) {
+    // TODO: Agrega i al resultado
+    // Pista: resultado = resultado + i + ", "
   }
 
-  // Python: for i in range(final + 1):
-  // JS: for (let i = 0; i <= final; i++)
-  let resultado = "Números generados: ";
-  for (let i = 0; i <= final; i++) {
-    resultado += i + (i < final ? ", " : "");
-  }
-
-  const html = `
-    <div class="success-box">
-      <h3>🔢 Contando de 0 a ${final}</h3>
-      <p class="numero-grande">${final + 1} números</p>
-      <p>${resultado}</p>
-      <p class="formula">
-        Python: <code>for i in range(${final + 1}): print(i)</code><br>
-        JS: <code>for (let i = 0; i <= ${final}; i++) { console.log(i); }</code>
-      </p>
-    </div>
-  `;
-
-  mostrarResultado("resultadoFor", html);
+  mostrarResultado("resultadoContar", resultado);
 }
 
-/**
- * Tabla de Multiplicar
- * Python: for con range anidado
- * JS: for anidado
- */
-function generarTabla() {
-  const numero = obtenerNumero("tablaNumero");
+// -----------------------------------------------------
+// RETO 2: Tabla de multiplicar
+// -----------------------------------------------------
+//
+// Vamos a generar la tabla de multiplicar de un número
+// Ejemplo: Tabla del 7 → 7×1=7, 7×2=14, 7×3=21, ... 7×10=70
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega max="12" al input de tabla
+// 2. RETO CSS: Crea .tabla-result td con padding: 10px
+// 3. TODO: Completa este bucle for
+// 4. PRUEBA: Prueba con diferentes números
+// -----------------------------------------------------
 
-  if (!numero || numero < 1 || numero > 12) {
-    mostrarResultado("resultadoTabla", "<p class='error'>Ingresa un número entre 1 y 12.</p>");
-    return;
-  }
+function tablaMultiplicar() {
+  const numero = Number(document.getElementById("tabla").value);
 
-  // Python: for i in range(1, 11):
-  // JS: for (let i = 1; i <= 10; i++)
-  let tabla = "<div class='tabla-container'><table>";
-  tabla += "<tr><th>×</th><th>" + numero + "</th></tr>";
+  let resultado = `<h3>Tabla del ${numero}:</h3>`;
 
+  // TODO: Completa este bucle for
+  // Debe ir de 1 a 10
   for (let i = 1; i <= 10; i++) {
-    tabla += `<tr><td>${numero}</td><td>${i}</td><td><strong>${numero * i}</strong></td></tr>`;
+    // TODO: Multiplica numero por i
+    const producto = null; // <-- Cambia null por la operación correcta
+
+    resultado += `<p>${numero} × ${i} = ${producto}</p>`;
   }
-  tabla += "</table></div>";
 
-  const html = `
-    <div class="success-box">
-      <h3>✖️ Tabla del ${numero}</h3>
-      ${tabla}
-    </div>
-  `;
-
-  mostrarResultado("resultadoTabla", html);
+  mostrarResultado("resultadoTabla", resultado);
 }
 
-/**
- * Suma de Rango
- * Python: for con sum() o acumulador
- * JS: for con acumulador
- */
-function sumarRango() {
-  const inicio = obtenerNumero("sumaInicio");
-  const fin = obtenerNumero("sumaFin");
+// -----------------------------------------------------
+// RETO 3: Sumar números
+// -----------------------------------------------------
+//
+// Vamos a sumar todos los números desde 1 hasta el número que ingrese el usuario
+// Ejemplo: Si ingresa 5, sumamos 1+2+3+4+5 = 15
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega emoji ➕ al título h2
+// 2. RETO CSS: Crea .resultado-suma con fondo verde
+// 3. TODO: Completa el bucle para sumar los números
+// 4. Pista: Usa una variable "suma" y ve sumando cada número
+// -----------------------------------------------------
 
-  if (!inicio || !fin || inicio > fin) {
-    mostrarResultado("resultadoSuma", "<p class='error'>Ingresa números válidos (inicio debe ser menor o igual al fin).</p>");
-    return;
+function sumarNumeros() {
+  const numero = Number(document.getElementById("sumar").value);
+
+  let suma = 0; // Aquí acumularemos la suma
+
+  // TODO: Completa el bucle
+  // Debe sumar todos los números desde 1 hasta "numero"
+  for (let i = 1; i <= numero; i++) {
+    // TODO: Suma i a suma
+    // Pista: suma = suma + i  o  suma += i
   }
 
-  // Python: suma = 0; for i in range(inicio, fin + 1): suma += i
-  // JS: let suma = 0; for (let i = inicio; i <= fin; i++) { suma += i; }
-  let suma = 0;
-  let secuencia = [];
-
-  for (let i = inicio; i <= fin; i++) {
-    suma += i;
-    secuencia.push(i);
-  }
-
-  const html = `
-    <div class="success-box">
-      <h3>➕ Suma de ${inicio} a ${fin}</h3>
-      <p class="numero-grande">${suma}</p>
-      <p>Secuencia: ${secuencia.join(" + ")}</p>
-      <p>Cantidad de números: ${fin - inicio + 1}</p>
-      <p class="formula">
-        Promedio: ${(suma / (fin - inicio + 1)).toFixed(2)}
-      </p>
-    </div>
-  `;
-
-  mostrarResultado("resultadoSuma", html);
+  mostrarResultado("resultadoSumar", `
+    <h3>Suma de 1 a ${numero}</h3>
+    <p class="grande">Resultado: ${suma}</p>
+    <p>La suma de 1+2+3+...+${numero} = ${suma}</p>
+  `);
 }
 
-/**
- * Lista de Compras
- * Python: for item in lista:
- * JS: for (const item of lista)
- */
+// -----------------------------------------------------
+// RETO 4: Lista de compras
+// -----------------------------------------------------
+//
+// Vamos a crear una lista de compras
+// El usuario agrega items y los mostramos
+//
+// TU MISIÓN:
+// 1. RETO HTML: Cambia el placeholder a "Ej: manzanas"
+// 2. RETO CSS: En #listaCompras li, agrega margin-bottom: 12px
+// 3. La función de agregar ya está hecha
+// 4. TODO: Completa la función mostrarLista()
+//
+// Pista: for (const item of lista)
+// -----------------------------------------------------
+
+let listaCompras = []; // Lista vacía al inicio
+
 function agregarItem() {
-  const input = document.getElementById("nuevoItem");
+  const input = document.getElementById("item");
   const item = input.value.trim();
 
-  if (!item) {
-    alert("Por favor, ingresa un producto.");
+  if (item === "") {
+    mostrarResultado("resultadoLista", "Escribe algo para agregar");
     return;
   }
 
-  // Python: lista.append(item)
-  // JS: lista.push(item)
+  // Agregamos el item a la lista
   listaCompras.push(item);
+
+  // Limpiamos el input
   input.value = "";
 
-  renderizarLista();
+  // Mostramos la lista actualizada
+  mostrarLista();
 }
 
-function renderizarLista() {
-  const ul = document.getElementById("listaCompras");
-  const resultadoLista = document.getElementById("resultadoLista");
-  const resumenLista = document.getElementById("resumenLista");
-
-  ul.innerHTML = "";
-
-  // Python: for item in lista:
-  // JS: for (const item of lista)
-  for (const item of listaCompras) {
-    const li = document.createElement("li");
-    li.textContent = item;
-    ul.appendChild(li);
+function mostrarLista() {
+  if (listaCompras.length === 0) {
+    mostrarResultado("resultadoLista", "La lista está vacía");
+    return;
   }
 
-  if (listaCompras.length > 0) {
-    resultadoLista.classList.remove("hidden");
-    resumenLista.classList.remove("hidden");
+  let html = "<h3>Tu lista de compras:</h3>";
+  html += "<ul>";
 
-    resumenLista.innerHTML = `
-      <div class="info-box">
-        <h3>📊 Resumen</h3>
-        <p><strong>Total de items:</strong> ${listaCompras.length}</p>
-        <p><strong>Primer item:</strong> ${listaCompras[0]}</p>
-        <p><strong>Último item:</strong> ${listaCompras[listaCompras.length - 1]}</p>
-      </div>
-    `;
-  } else {
-    resultadoLista.classList.add("hidden");
-    resumenLista.classList.add("hidden");
-  }
+  // TODO: Completa este bucle for
+  // Debe recorrer cada item de listaCompras y agregarlo a html
+  // Pista: for (const item of listaCompras) {
+
+  // Dentro del bucle, agrega: html += "<li>" + item + "</li>";
+
+
+  html += "</ul>";
+  html += `<p>Total: ${listaCompras.length} items</p>`;
+
+  mostrarResultado("resultadoLista", html);
 }
 
 function limpiarLista() {
-  // Python: lista.clear() o lista = []
-  // JS: lista.length = 0
-  listaCompras.length = 0;
-  renderizarLista();
+  listaCompras = []; // Lista vacía de nuevo
+  mostrarResultado("resultadoLista", "Lista vaciada");
 }
 
-/**
- * Adivina el Número (While)
- * Python: while not adivino:
- * JS: while (!adivino)
- */
+// -----------------------------------------------------
+// RETO 5: Adivina el número (Juego con while)
+// -----------------------------------------------------
+//
+// Vamos a jugar un juego. La computadora elige un número del 1 al 10
+// y tú tienes que adivinarlo.
+//
+// TU MISIÓN:
+// 1. RETO HTML: Agrega un <p> con las instrucciones del juego
+// 2. RETO CSS: Crea .acierto y .error con diferentes colores
+// 3. Ya está programado, solo juega y entiende cómo funciona el while
+// -----------------------------------------------------
+
+let numeroSecreto = Math.floor(Math.random() * 10) + 1; // Número aleatorio 1-10
+
 function adivinar() {
-  const intento = obtenerNumero("advinanza");
-
-  if (!intento || intento < 1 || intento > 10) {
-    mostrarResultado("resultadoAdivina", "<p class='error'>Ingresa un número entre 1 y 10.</p>");
-    return;
-  }
-
-  intentos++;
-
-  // Python: while intento != numero_secreto:
-  // JS: while (intento !== numeroSecreto)
-  let mensaje;
+  const intento = Number(document.getElementById("intento").value);
 
   if (intento === numeroSecreto) {
-    mensaje = `
-      <div class="success-box">
-        <h3>🎉 ¡Felicidades! Adivinaste el número ${numeroSecreto}</h3>
-        <p>Intentos: ${intentos}</p>
-        <button class="btn success" onclick="reiniciarJuego()">Jugar de Nuevo</button>
-      </div>
-    `;
+    mostrarResultado("resultadoAdivina", `
+      <h3>¡Felicidades! 🎉</h3>
+      <p>Adivinaste el número: ${numeroSecreto}</p>
+      <button onclick="reiniciar()">Jugar de nuevo</button>
+    `);
   } else if (intento < numeroSecreto) {
-    mensaje = `
-      <div class="info-box">
-        <h3>📈 Muy bajo</h3>
-        <p>Intento ${intentos}: ${intento} (¡El número es mayor!)</p>
-      </div>
-    `;
+    mostrarResultado("resultadoAdivina", `
+      <h3>Muy bajo ⬆️</h3>
+      <p>El número es MAYOR que ${intento}</p>
+      <p>Intenta de nuevo</p>
+    `);
   } else {
-    mensaje = `
-      <div class="info-box">
-        <h3>📉 Muy alto</h3>
-        <p>Intento ${intentos}: ${intento} (¡El número es menor!)</p>
-      </div>
-    `;
+    mostrarResultado("resultadoAdivina", `
+      <h3>Muy alto ⬇️</h3>
+      <p>El número es MENOR que ${intento}</p>
+      <p>Intenta de nuevo</p>
+    `);
   }
-
-  mostrarResultado("resultadoAdivina", mensaje);
 }
 
-function reiniciarJuego() {
+function reiniciar() {
   numeroSecreto = Math.floor(Math.random() * 10) + 1;
-  intentos = 0;
-  document.getElementById("advinanza").value = "";
-  mostrarResultado("resultadoAdivina", "");
+  document.getElementById("intento").value = "";
+  mostrarResultado("resultadoAdivina", "Nuevo juego empezado. ¡Adivina el número!");
 }
 
-/**
- * Cuenta Regresiva (While)
- * Python: while contador > 0:
- * JS: while (contador > 0)
- */
-async function ejecutarCuentaRegresiva() {
-  const inicio = obtenerNumero("cuentaInicio");
+// -----------------------------------------------------
+// FUNCIÓN AUXILIAR (no necesitas modificar esto)
+// -----------------------------------------------------
 
-  if (!inicio || inicio < 1) {
-    mostrarResultado("resultadoCuenta", "<p class='error'>Ingresa un número válido (mayor a 0).</p>");
-    return;
-  }
-
-  const resultadoDiv = document.getElementById("resultadoCuenta");
-  resultadoDiv.innerHTML = "<p class='info-box'>⏳ Cuenta regresiva en progreso...</p>";
-  resultadoDiv.classList.remove("hidden");
-
-  let contador = inicio;
-
-  // Python: while contador > 0:
-  // JS: while (contador > 0)
-  while (contador > 0) {
-    resultadoDiv.innerHTML = `<div class="success-box"><h3 class="numero-grande">${contador}</h3></div>`;
-
-    // Pausa dramática
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    contador--;
-  }
-
-  resultadoDiv.innerHTML = `
-    <div class="success-box">
-      <h3>🚀 ¡Despegue!</h3>
-      <p>La cuenta regresiva ha terminado.</p>
-      <p class="formula">
-        Python: <code>while contador > 0: print(contador); contador -= 1</code><br>
-        JS: <code>while (contador > 0) { console.log(contador); contador--; }</code>
-      </p>
-    </div>
-  `;
+function mostrarResultado(id, contenido) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.classList.remove("hidden");
 }
-
-// ============================================
-// INICIALIZACION
-// ============================================
-
-console.log("%cS06: Bucles (for y while)", "color: #f59e0b; font-size: 20px; font-weight: bold;");
-console.log("Abre las herramientas de desarrollador (F12) para ver los logs.");
-console.log("\n--- Equivalencias Python vs JavaScript ---");
-console.log("for i in range(5) (Python) → for (let i = 0; i < 5; i++) (JS)");
-console.log("for item in lista (Python) → for (const item of lista) (JS)");
-console.log("while condicion: (Python) → while (condicion) { } (JS)");
-console.log("\n🎮 Número secreto generado:", numeroSecreto);
-
-// Permitir Enter para submit en inputs
-document.addEventListener("DOMContentLoaded", () => {
-  const inputs = document.querySelectorAll("input");
-  inputs.forEach(input => {
-    input.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const button = input.closest(".card")?.querySelector("button:not(.option)");
-        if (button && button.onclick) button.click();
-      }
-    });
-  });
-
-  // Mostrar lista inicial
-  renderizarLista();
-});
