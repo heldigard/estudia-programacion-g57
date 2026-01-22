@@ -1,251 +1,153 @@
-<!--
-  =====================================================
-  S18: Tablas y Filtrado - PLANTILLA HTML
-  =====================================================
-
-  Esta página practica el concepto de TABLAS Y FILTRADO en JavaScript,
-  que es equivalente a usar pandas y listas en Python.
-
-  CONCEPTOS HTML UTILIZADOS:
-  -------------------------
-  <table> - Tabla HTML para datos estructurados
-  <thead> - Cabecera de la tabla (títulos de columnas)
-  <tbody> - Cuerpo de la tabla (datos)
-  <tr> - Fila de la tabla (table row)
-  <th> - Celda de encabezado (table header)
-  <td> - Celda de datos (table data)
-  <input type="search"> - Campo de búsqueda
-  <select> - Lista desplegable
-  <option> - Opción dentro de un select
-  onclick="funcion()" - Ejecuta función de JavaScript cuando hacen click
-  data-atributo - Atributo personalizado para JavaScript
-
-  CONEXIÓN HTML ↔ JAVASCRIPT PARA TABLAS:
-  -----------------------------------------------
-  1. HTML: <input id="busquedaInput" type="search">
-  2. JavaScript: document.getElementById("busquedaInput").value
-  3. La función filtra los datos y actualiza la tabla
-
-  CONCEPTOS DE TABLAS:
-  ---------------------
-  - <table>: Contenedor principal de la tabla
-  - <thead>: Cabecera (títulos de columnas)
-  - <tbody>: Cuerpo (filas de datos)
-  - <tr>: Row (fila) de la tabla
-  - <th>: Header cell (celda de título)
-  - <td>: Data cell (celda de dato)
-
-  FILTRADO Y ORDENAMIENTO:
-  ------------------------
-  - Filtrado: Mostrar solo elementos que cumplen condición
-  - Ordenamiento: Organizar elementos por un campo
-  - Paginación: Dividir datos en páginas
-
-  Equivalente Python:
-  - Filtrado: [x for x in lista if condicion]
-  - Ordenamiento: sorted(lista, key=lambda x: x.campo)
-  - Paginación: datos[start:end]
--->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!--
-    =====================================================
-    HEAD: Metadatos del documento
-    =====================================================
-
-    El head contiene información sobre el documento que NO se
-    muestra directamente en la página, como el título y
-    conexiones a archivos CSS/JS.
-  -->
   <meta charset="UTF-8" />
-  <!-- viewport: Hace la página responsiva (adaptable a móviles) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S18 - Tablas y Filtrado</title>
-  <!-- link rel="stylesheet": Conecta el archivo CSS que da estilo a la página -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- main: Contenido principal de la página -->
   <main class="container">
-    <!-- HEADER: Cabecera con título de la página -->
     <header class="header">
-      <h1>📊 Práctica S18: Tablas y Filtrado</h1>
-      <p class="subtitle">Python + JavaScript: Mostrar y filtrar datos</p>
+      <h1>📊 S18: Tablas y Filtrado</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!--
-      =====================================================
-      TARJETA 1: TABLA DE ESTUDIANTES
-      =====================================================
+    <!-- RETO 1: Crear tabla HTML -->
+    <section class="card">
+      <h2>Reto 1: Crear Tabla HTML</h2>
 
-      Conceptos clave:
-      - <table>: Estructura HTML para datos tabulares
-      - Filtrado en tiempo real: Buscar mientras escribes
-      - Ordenamiento: Click en encabezado para ordenar
-      - Paginación: Dividir datos en páginas
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega &lt;thead&gt;, &lt;tbody&gt;, &lt;th&gt;</p>
+      <p class="hint">Completa la estructura de la tabla con cabecera y cuerpo</p>
 
-      Equivalente Python:
-      - pandas DataFrame → Array de objetos JS
-      - df[df['columna'] > valor] → array.filter(x => x.campo > valor)
-      - df.sort_values('columna') → array.sort((a,b) => a.campo - b.campo)
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .tabla-borde</p>
+      <p class="hint">Con border: 1px solid var(--accent-primary)</p>
 
-      ESTRUCTURA DE UNA TABLA HTML:
-      -------------------------------
-      <table>
-        <thead>                    <!-- Cabecera -->
-          <tr>                    <!-- Fila de encabezados -->
-            <th>Nombre</th>     <!-- Celda de título -->
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>                    <!-- Cuerpo de datos -->
-          <tr>                    <!-- Fila de datos -->
-            <td>Ana</td>         <!-- Celda de dato -->
-            <td>ana@email.com</td>
-          </tr>
-        </tbody>
-      </table>
-    -->
-    <section class="card highlight">
-      <h2>📋 Tabla de Estudiantes</h2>
-      <p class="hint">Datos estructurados con búsqueda, filtrado y ordenamiento</p>
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Llena la tabla con datos</p>
+      <p class="hint">Usa innerHTML para agregar filas</p>
 
-      <!-- Búsqueda: type="search" es un input especial para búsqueda -->
-      <div class="search-box">
-        <!-- placeholder: Texto de ejemplo que desaparece al escribir -->
-        <input id="busquedaInput" type="search" placeholder="Buscar por nombre o email..." />
-      </div>
-
-      <!-- Filtros por curso: "chips" son botones pequeños de filtro -->
-      <div class="filter-row">
-        <!-- data-curso: Atributo personalizado para JavaScript -->
-        <span class="filter-chip active" data-curso="todos" onclick="filtrarPorCurso('todos')">Todos</span>
-        <span class="filter-chip" data-curso="Python" onclick="filtrarPorCurso('Python')">Python</span>
-        <span class="filter-chip" data-curso="JavaScript" onclick="filtrarPorCurso('JavaScript')">JavaScript</span>
-      </div>
-
-      <!-- Select: Lista desplegable de opciones -->
-      <div class="input-group">
-        <label for="filtroCurso">Filtrar por curso:</label>
-        <select id="filtroCurso">
-          <!-- option: Cada opción en la lista desplegable -->
-          <option value="todos">Todos los cursos</option>
-          <option value="Python">Python</option>
-          <option value="JavaScript">JavaScript</option>
-        </select>
-      </div>
-
-      <!-- Botón limpiar: Restablece todos los filtros -->
-      <button class="btn option" onclick="limpiarFiltros()">🔄 Limpiar Filtros</button>
-
-      <!-- Info de resultados: Muestra cuántos elementos se ven -->
-      <div id="resultsInfo" class="results-info"></div>
-
-      <!-- Tabla HTML: Estructura para mostrar datos tabulares -->
       <div class="tabla-container">
-        <table>
-          <!-- thead: Cabecera de la tabla (títulos de columnas) -->
+        <table class="tabla-borde">
           <thead>
+            <!-- RETO HTML: Agrega 3 th con "Nombre", "Edad", "Curso" -->
             <tr>
-              <!-- class="sortable": Indica que la columna es ordenable -->
-              <!-- onclick="ordenarPor('nombre')": Ordena por nombre al hacer click -->
-              <th class="sortable" data-columna="nombre" onclick="ordenarPor('nombre')">Nombre</th>
-              <th class="sortable" data-columna="email" onclick="ordenarPor('email')">Email</th>
-              <th class="sortable" data-columna="edad" onclick="ordenarPor('edad')">Edad</th>
-              <th class="sortable" data-columna="curso" onclick="ordenarPor('curso')">Curso</th>
-              <th class="sortable" data-columna="nota" onclick="ordenarPor('nota')">Nota</th>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Curso</th>
             </tr>
           </thead>
-          <!-- tbody: Cuerpo de la tabla (datos) -->
-          <!-- Se llena dinámicamente con JavaScript -->
-          <tbody id="tablaBody">
-            <!-- Las filas se generan con JS -->
+          <tbody id="tablaBody1">
+            <!-- JavaScript llenará esto -->
           </tbody>
         </table>
       </div>
-
-      <!-- Paginación: Botones para navegar entre páginas -->
-      <div id="pagination" class="pagination"></div>
-
-      <!-- Botón cargar desde API: Obtiene datos de una API externa -->
-      <button class="btn secondary" onclick="cargarDatosAPI()">🌐 Cargar Datos desde API</button>
+      <button class="btn primary" onclick="llenarTabla1()">📝 Llenar Tabla</button>
+      <div id="resultado1" class="result hidden"></div>
     </section>
 
-    <!--
-      =====================================================
-      TARJETA 2: ESTADÍSTICAS
-      =====================================================
+    <!-- RETO 2: Mostrar lista en tabla -->
+    <section class="card highlight">
+      <h2>Reto 2: Mostrar Lista en Tabla</h2>
 
-      Conceptos clave:
-      - Estadísticas automáticas: Total, Promedio, Máx, Mín
-      - Se actualizan automáticamente al filtrar datos
-      - Equivalente Python: sum(), len(), max(), min()
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia el título</p>
+      <p class="hint">Agrega emoji 📋 al título</p>
 
-      OPERACIONES PYTHON VS JS:
-      -----------------------------
-      Python: sum(lista)        JS: lista.reduce((a,b) => a+b, 0)
-      Python: len(lista)        JS: lista.length
-      Python: max(lista)        JS: Math.max(...lista)
-      Python: min(lista)        JS: Math.min(...lista)
-      Python: sum(lista)/len()   JS: lista.reduce((a,b) => a+b, 0) / lista.length
-    -->
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .fila-resaltada</p>
+      <p class="hint">Con background: rgba(168, 85, 247, 0.1)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa map() y join()</p>
+      <p class="hint">Convierte array a HTML de tabla</p>
+
+      <div class="tabla-container">
+        <table class="tabla-borde">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBody2">
+            <!-- JavaScript llenará esto -->
+          </tbody>
+        </table>
+      </div>
+      <button class="btn secondary" onclick="llenarTabla2()">📋 Mostrar Productos</button>
+      <div id="resultado2" class="result hidden"></div>
+    </section>
+
+    <!-- RETO 3: Filtrar datos -->
     <section class="card">
-      <h2>📈 Estadísticas</h2>
-      <p class="hint">Resumen de los datos mostrados</p>
+      <h2>Reto 3: Filtrar Datos</h2>
 
-      <!-- stats-bar: Barra horizontal con estadísticas -->
-      <div class="stats-bar">
-        <div class="stat-item">
-          <!-- id="statTotal": Identificador para JavaScript actualizar -->
-          <div class="stat-value" id="statTotal">0</div>
-          <div class="stat-label">Total</div>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Agrega input de búsqueda</p>
+      <p class="hint">Ya está agregado, solo estudia el código</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .filtro-activo</p>
+      <p class="hint">Con border-color: var(--accent-success)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa array.filter()</p>
+      <p class="hint">Filtra elementos que cumplan una condición</p>
+
+      <div class="input-group">
+        <label for="filtroNota">Filtrar notas mayores a:</label>
+        <input id="filtroNota" type="number" placeholder="Ej: 80" value="80" />
+      </div>
+      <button class="btn success" onclick="filtrarNotas()">🔍 Filtrar Notas</button>
+      <div id="resultado3" class="result hidden"></div>
+    </section>
+
+    <!-- RETO 4: Contar y resumir -->
+    <section class="card">
+      <h2>Reto 4: Contar y Resumir</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia texto del botón</p>
+      <p class="hint">Ya está con "📊 Contar Estudiantes"</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .resumen-box</p>
+      <p class="hint">Con padding: 16px y text-align: center</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Usa array.length</p>
+      <p class="hint">Cuenta elementos y calcula promedio</p>
+
+      <button class="btn primary" onclick="contarEstudiantes()">📊 Contar Estudiantes</button>
+      <div id="resultado4" class="result hidden"></div>
+    </section>
+
+    <!-- Leyenda de colores para retos -->
+    <section class="card debug">
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
         </div>
-        <div class="stat-item">
-          <div class="stat-value" id="statPromedio">0</div>
-          <div class="stat-label">Promedio</div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
         </div>
-        <div class="stat-item">
-          <div class="stat-value" id="statMax">0</div>
-          <div class="stat-label">Nota Máx</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="statMin">0</div>
-          <div class="stat-label">Nota Mín</div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js</p>
         </div>
       </div>
     </section>
 
-    <!--
-      =====================================================
-      PANEL DE DEBUG / COMPARACIÓN
-      =====================================================
-
-      Muestra las equivalencias entre Python y JavaScript
-      para manipulación de datos en tablas.
-
-      PYTHON (pandas):
-      - DataFrame: estructura de datos tabular
-      - df[df['columna'] > valor]: Filtrar por condición
-      - df.sort_values('columna'): Ordenar por columna
-
-      JAVASCRIPT (arrays):
-      - Array de objetos: equivalente a lista de diccionarios
-      - array.filter(condicion): Filtrar por función
-      - array.sort(): Ordenar in-place o con copia
-
-      CONCEPTOS CLAVE:
-      ----------------
-      - Filtrado: [x for x in lista if cond] → lista.filter(x => cond)
-      - Ordenamiento: sorted(lista, key=) → lista.sort((a,b) => a.campo - b.campo)
-      - Slice/Paginación: datos[start:end] → datos.slice(start, end)
-      - DOM Manipulation: tbody.innerHTML para actualizar tabla HTML
-    -->
+    <!-- Ayuda: Sintaxis -->
     <section class="card debug">
-      <h2>🐞 Tablas: Python vs JavaScript</h2>
-      <p class="hint">Manipulación de datos en tablas</p>
-
-      <!-- comparison: Dos columnas comparando Python y JavaScript -->
+      <h2>📖 Tablas: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
@@ -261,19 +163,13 @@ filtrados = [
     if e["nota"] > 80
 ]
 
-# Ordenar
-ordenados = sorted(
-    estudiantes,
-    key=lambda x: x["nota"]
-)
+# Contar
+cantidad = len(estudiantes)
 
-# Slice (paginación)
-pagina = ordenados[0:5]
-
-# Pandas DataFrame
-import pandas as pd
-df = pd.DataFrame(estudiantes)
-filtrados = df[df["nota"] > 80]</pre>
+# Promedio
+promedio = sum(
+    e["nota"] for e in estudiantes
+) / len(estudiantes)</pre>
         </div>
         <div class="js-code">
           <h4>JavaScript</h4>
@@ -287,61 +183,27 @@ const estudiantes = [
 const filtrados = estudiantes
   .filter(e => e.nota > 80);
 
-// Ordenar
-const ordenados = [...estudiantes]
-  .sort((a, b) => a.nota - b.nota);
+// Contar
+const cantidad = estudiantes.length;
 
-// Slice (paginación)
-const pagina = ordenados.slice(0, 5);
+// Promedio
+const promedio = estudiantes
+  .reduce((sum, e) => sum + e.nota, 0)
+  / estudiantes.length;
 
-// Tabla HTML dinámica
-tbody.innerHTML = pagina.map(est => `
-  <tr>
-    <td>${est.nombre}</td>
-    <td>${est.nota}</td>
-  </tr>
-`).join("");</pre>
+// Llenar tabla HTML
+tbody.innerHTML = estudiantes
+  .map(e => `
+    <tr>
+      <td>${e.nombre}</td>
+      <td>${e.nota}</td>
+    </tr>
+  `).join("");</pre>
         </div>
-      </div>
-
-      <!-- warning-box: Advertencias sobre diferencias clave -->
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>dict["campo"]</code> → JS: <code>objeto.campo</code><br>
-        2. Python: <code>sorted(lista, key=lambda x: x.campo)</code> → JS: <code>lista.sort((a,b) => a.campo - b.campo)</code><br>
-        3. Python: <code>lista[start:end]</code> → JS: <code>lista.slice(start, end)</code><br>
-        4. JS usa DOM para crear tabla HTML dinámicamente
       </div>
     </section>
   </main>
 
-  <!--
-    =====================================================
-    CONECTAR JAVASCRIPT
-    =====================================================
-
-    S18 NO usa type="module" porque no tiene import/export.
-    Simplemente conecta app.js directamente.
-
-    FLUJO COMPLETO:
-    ---------------
-    1. Usuario escribe en input: oninput="busquedaEnTiempoReal()"
-    2. JavaScript filtra datos según el texto
-    3. renderTabla() actualiza el tbody con filas nuevas
-    4. renderStats() actualiza las estadísticas visuales
-
-    MANIPULACIÓN DEL DOM:
-    -------------------
-    - document.getElementById(): Buscar elemento por ID
-    - innerHTML: Reemplazar contenido HTML de un elemento
-    - addEventListener(): Agregar escucha de eventos (input, click, etc)
-
-    DIFERENCIA CON PYTHON:
-    --------------------
-    Python: print() muestra en consola
-    JS: DOM manipulation muestra en la página web
-    JS: Eventos (click, input) reaccionan a usuario
-  -->
   <script src="app.js"></script>
 </body>
 </html>

@@ -1,310 +1,201 @@
-// S18: Tablas y Filtrado
-// Python: pandas, listas de diccionarios → JS: arrays de objetos, HTML tables
+// =====================================================
+// S18: Tablas y Filtrado - JAVASCRIPT
+// =====================================================
+//
+// En esta sesión practicaremos:
+// - Crear tablas HTML con <table>, <thead>, <tbody>
+// - Llenar tablas con innerHTML
+// - Filtrar datos con array.filter()
+// - Contar elementos con array.length
+//
+// Python vs JavaScript:
+// Python: len(lista)                  JS: lista.length
+// Python: [x for x in lista if cond]  JS: lista.filter(x => cond)
+// Python: ", ".join(lista)            JS: lista.map(x => x).join(", ")
+//
+// =====================================================
 
-// ============================================
-   DATOS DE EJEMPLO
-   ============================================
-
-// Datos locales (similar a lista de diccionarios en Python)
+// Datos de ejemplo
 const estudiantes = [
-  { id: 1, nombre: "Ana García", email: "ana.garcia@email.com", edad: 20, curso: "Python", nota: 95 },
-  { id: 2, nombre: "Benito Martínez", email: "benito.m@email.com", edad: 22, curso: "JavaScript", nota: 87 },
-  { id: 3, nombre: "Carolina López", email: "carolina.lopez@email.com", edad: 19, curso: "Python", nota: 92 },
-  { id: 4, nombre: "Daniel Ruiz", email: "daniel.ruiz@email.com", edad: 21, curso: "Python", nota: 78 },
-  { id: 5, nombre: "Elena Castro", email: "elena.castro@email.com", edad: 23, curso: "JavaScript", nota: 88 },
-  { id: 6, nombre: "Felipe Torres", email: "felipe.torres@email.com", edad: 20, curso: "Python", nota: 85 },
-  { id: 7, nombre: "Gina Morales", email: "gina.morales@email.com", edad: 22, curso: "JavaScript", nota: 91 },
-  { id: 8, nombre: "Héctor Vargas", email: "hector.vargas@email.com", edad: 19, curso: "Python", nota: 79 },
-  { id: 9, nombre: "Isabel Navarro", email: "isabel.navarro@email.com", edad: 21, curso: "JavaScript", nota: 94 },
-  { id: 10, nombre: "Jorge Ríos", email: "jorge.rios@email.com", edad: 20, curso: "Python", nota: 82 },
+  { nombre: "Ana García", edad: 20, curso: "Python", nota: 95 },
+  { nombre: "Benito Martínez", edad: 22, curso: "JavaScript", nota: 87 },
+  { nombre: "Carolina López", edad: 19, curso: "Python", nota: 92 },
+  { nombre: "Daniel Ruiz", edad: 21, curso: "Python", nota: 78 },
+  { nombre: "Elena Castro", edad: 23, curso: "JavaScript", nota: 88 }
 ];
 
-// ============================================
-   ESTADO GLOBAL
-   ============================================
-let datosFiltrados = [...estudiantes];
-let paginaActual = 1;
-const elementosPorPagina = 5;
-let columnaOrden = null;
-let ordenDireccion = 'asc';
+const productos = [
+  { nombre: "Laptop", precio: 1200000, stock: 5 },
+  { nombre: "Mouse", precio: 45000, stock: 20 },
+  { nombre: "Teclado", precio: 120000, stock: 15 },
+  { nombre: "Monitor", precio: 450000, stock: 8 }
+];
 
-// ============================================
-   FUNCIONES DE RENDERIZADO
-   ============================================
+// -----------------------------------------------------
+// RETO 1: Llenar Tabla Básica
+// -----------------------------------------------------
+//
+// innerHTML nos permite agregar HTML dentro de un elemento
+//
+// TU MISIÓN:
+// 1. Completa llenarTabla1() con innerHTML
+// Pista: Usa template literals ` ` para crear las filas
+// -----------------------------------------------------
 
-function renderTabla(datos = datosFiltrados) {
-  const tbody = document.getElementById("tablaBody");
-  const start = (paginaActual - 1) * elementosPorPagina;
-  const end = start + elementosPorPagina;
-  const paginados = datos.slice(start, end);
+function llenarTabla1() {
+  const tbody = document.getElementById("tablaBody1");
 
-  if (paginados.length === 0) {
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="5" class="no-results">
-          No se encontraron resultados
-        </td>
-      </tr>
-    `;
-    return;
-  }
+  // TODO: Llena la tabla con los datos de estudiantes
+  // Pista: tbody.innerHTML = estudiantes.map(e => `<tr>...</tr>`).join("");
+  // Pista: Usa ${e.nombre}, ${e.edad}, ${e.curso}
+  /*
+  tbody.innerHTML = estudiantes.map(e => `
+    <tr>
+      <td>${e.nombre}</td>
+      <td>${e.edad}</td>
+      <td>${e.curso}</td>
+    </tr>
+  `).join("");
+  */
 
-  tbody.innerHTML = paginados.map(est => `
-    <tr class="fade-in">
-      <td>
-        <div class="avatar">
-          <div class="avatar-circle">${est.nombre.charAt(0)}</div>
-          <span>${est.nombre}</span>
-        </div>
-      </td>
-      <td>${est.email}</td>
-      <td>${est.edad}</td>
-      <td>${est.curso}</td>
-      <td><strong>${est.nota}</strong></td>
+  mostrarResultado("resultado1", `
+    <div class="success-box">
+      <h3>¡Tabla Llena!</h3>
+      <p>Se mostraron ${estudiantes.length} estudiantes.</p>
+      <p class="formula">
+        Python: <code>for e in estudiantes: print(e.nombre, e.edad)</code><br>
+        JS: <code>estudiantes.map(e => \`&lt;tr&gt;...\`)</code>
+      </p>
+    </div>
+  `);
+}
+
+// -----------------------------------------------------
+// RETO 2: Mostrar Productos
+// -----------------------------------------------------
+//
+// map() transforma cada elemento del array
+// join("") une todos los strings en uno solo
+//
+// TU MISIÓN:
+// 1. Completa llenarTabla2() con map() y join()
+// -----------------------------------------------------
+
+function llenarTabla2() {
+  const tbody = document.getElementById("tablaBody2");
+
+  // TODO: Llena la tabla con productos usando map y join
+  // Pista: productos.map(p => `<tr>...</tr>`).join("")
+  /*
+  tbody.innerHTML = productos.map(p => `
+    <tr class="fila-resaltada">
+      <td>${p.nombre}</td>
+      <td>$${p.precio}</td>
+      <td>${p.stock}</td>
+    </tr>
+  `).join("");
+  */
+
+  mostrarResultado("resultado2", `
+    <div class="info-box">
+      <h3>📋 Productos Mostrados</h3>
+      <p><strong>Total:</strong> ${productos.length} productos</p>
+      <p class="formula">
+        Python: <code>[p for p in productos]</code><br>
+        JS: <code>productos.map(p => ...).join("")</code>
+      </p>
+    </div>
+  `);
+}
+
+// -----------------------------------------------------
+// RETO 3: Filtrar Notas
+// -----------------------------------------------------
+//
+// filter() devuelve solo los elementos que cumplen una condición
+//
+// TU MISIÓN:
+// 1. Completa filtrarNotas() con array.filter()
+// -----------------------------------------------------
+
+function filtrarNotas() {
+  const minNota = parseInt(document.getElementById("filtroNota").value) || 0;
+
+  // TODO: Filtra estudiantes con nota mayor a minNota
+  // Pista: estudiantes.filter(e => e.nota > minNota)
+  // const filtrados = estudiantes.filter(e => e.nota > minNota);
+  const filtrados = estudiantes;  // <-- Cambia esto
+
+  // Crear HTML con resultados
+  let filasHtml = filtrados.map(e => `
+    <tr>
+      <td>${e.nombre}</td>
+      <td><strong>${e.nota}</strong></td>
+      <td>${e.curso}</td>
     </tr>
   `).join("");
 
-  renderInfo(datos.length, paginados.length);
-  renderPaginacion(datos.length);
+  mostrarResultado("resultado3", `
+    <div class="filtro-activo">
+      <h3>🔍 Resultados del Filtro</h3>
+      <p><strong>Notas > ${minNota}:</strong> ${filtrados.length} estudiantes</p>
+      ${filtrados.length > 0 ? `
+        <table class="tabla-borde">
+          <thead>
+            <tr><th>Nombre</th><th>Nota</th><th>Curso</th></tr>
+          </thead>
+          <tbody>${filasHtml}</tbody>
+        </table>
+      ` : '<p class="error">No hay estudiantes con esa nota.</p>'}
+      <p class="formula">
+        Python: <code>[e for e in estudiantes if e["nota"] > ${minNota}]</code><br>
+        JS: <code>estudiantes.filter(e => e.nota > ${minNota})</code>
+      </p>
+    </div>
+  `);
 }
 
-function renderInfo(total, mostrados) {
-  const info = document.getElementById("resultsInfo");
-  info.innerHTML = `
-    <span>Mostrando ${mostrados} de ${total} registros</span>
-    <span>Página ${paginaActual}</span>
-  `;
+// -----------------------------------------------------
+// RETO 4: Contar y Resumir
+// -----------------------------------------------------
+//
+// length nos da la cantidad de elementos
+// reduce() nos permite acumular valores (sumar)
+//
+// TU MISIÓN:
+// 1. Calcula el promedio de notas con reduce()
+// -----------------------------------------------------
+
+function contarEstudiantes() {
+  // TODO: Calcula el promedio de notas
+  // Pista: reduce((sum, e) => sum + e.nota, 0) / estudiantes.length
+  const promedio = 0;  // <-- Cambia esto
+  const maxNota = 0;   // <-- Calcula la nota máxima
+  const minNota = 100; // <-- Calcula la nota mínima
+
+  mostrarResultado("resultado4", `
+    <div class="resumen-box">
+      <h3>📊 Resumen de Estudiantes</h3>
+      <p><strong>Total:</strong> ${estudiantes.length} estudiantes</p>
+      <p><strong>Promedio:</strong> ${promedio.toFixed(1)}</p>
+      <p><strong>Nota Máxima:</strong> ${maxNota}</p>
+      <p><strong>Nota Mínima:</strong> ${minNota}</p>
+      <p class="formula">
+        Python: <code>len(estudiantes), sum(), max(), min()</code><br>
+        JS: <code>length, reduce(), Math.max(), Math.min()</code>
+      </p>
+    </div>
+  `);
 }
 
-function renderPaginacion(total) {
-  const totalPages = Math.ceil(total / elementosPorPagina);
-  const pagination = document.getElementById("pagination");
+// -----------------------------------------------------
+// FUNCIÓN AUXILIAR (no necesitas modificar esto)
+// -----------------------------------------------------
 
-  let html = `
-    <button ${paginaActual === 1 ? 'disabled' : ''} onclick="cambiarPagina(${paginaActual - 1})">← Anterior</button>
-  `;
-
-  for (let i = 1; i <= totalPages; i++) {
-    html += `<button class="${i === paginaActual ? 'current-page' : ''}" onclick="cambiarPagina(${i})">${i}</button>`;
-  }
-
-  html += `
-    <button ${paginaActual === totalPages ? 'disabled' : ''} onclick="cambiarPagina(${paginaActual + 1})">Siguiente →</button>
-  `;
-
-  pagination.innerHTML = html;
+function mostrarResultado(id, contenido) {
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = contenido;
+  elemento.classList.remove("hidden");
 }
 
-function renderStats(datos) {
-  const promedio = datos.reduce((sum, est) => sum + est.nota, 0) / datos.length;
-  const maxNota = Math.max(...datos.map(est => est.nota));
-  const minNota = Math.min(...datos.map(est => est.nota));
-
-  document.getElementById("statTotal").textContent = datos.length;
-  document.getElementById("statPromedio").textContent = promedio.toFixed(1);
-  document.getElementById("statMax").textContent = maxNota;
-  document.getElementById("statMin").textContent = minNota;
-}
-
-// ============================================
-   FILTRADO
-   // Python: [x for x in lista if condicion]
-   // JS: lista.filter(x => condicion)
-   ============================================
-
-function filtrarDatos() {
-  const busqueda = document.getElementById("busquedaInput")?.value?.toLowerCase() || "";
-  const filtroCurso = document.getElementById("filtroCurso")?.value || "todos";
-
-  // Python: [e for e in estudiantes if busqueda in e.nombre.lower()]
-  datosFiltrados = estudiantes.filter(est => {
-    const coincideNombre = est.nombre.toLowerCase().includes(busqueda) ||
-                           est.email.toLowerCase().includes(busqueda);
-    const coincideCurso = filtroCurso === "todos" || est.curso === filtroCurso;
-    return coincideNombre && coincideCurso;
-  });
-
-  paginaActual = 1;
-  renderTabla();
-  renderStats(datosFiltrados);
-}
-
-function filtrarPorCurso(curso) {
-  // Actualizar botones de filtro
-  document.querySelectorAll(".filter-chip").forEach(chip => {
-    chip.classList.remove("active");
-    if (chip.getAttribute("data-curso") === curso) {
-      chip.classList.add("active");
-    }
-  });
-
-  // Actualizar select
-  const select = document.getElementById("filtroCurso");
-  if (select) {
-    select.value = curso;
-  }
-
-  filtrarDatos();
-}
-
-function limpiarFiltros() {
-  document.getElementById("busquedaInput").value = "";
-  document.getElementById("filtroCurso").value = "todos";
-
-  document.querySelectorAll(".filter-chip").forEach(chip => {
-    chip.classList.remove("active");
-  });
-
-  filtrarDatos();
-}
-
-// ============================================
-   ORDENAMIENTO
-   // Python: sorted(lista, key=lambda x: x.campo)
-   // JS: lista.sort((a, b) => a.campo - b.campo)
-   ============================================
-
-function ordenarPor(columna) {
-  // Toggle dirección si es la misma columna
-  if (columnaOrden === columna) {
-    ordenDireccion = ordenDireccion === 'asc' ? 'desc' : 'asc';
-  } else {
-    columnaOrden = columna;
-    ordenDireccion = 'asc';
-  }
-
-  // Python: sorted(datos, key=lambda x: x[columna])
-  datosFiltrados.sort((a, b) => {
-    let valA = a[columna];
-    let valB = b[columna];
-
-    // Para strings, usar toLowerCase para comparación
-    if (typeof valA === 'string') valA = valA.toLowerCase();
-    if (typeof valB === 'string') valB = valB.toLowerCase();
-
-    if (valA < valB) return ordenDireccion === 'asc' ? -1 : 1;
-    if (valA > valB) return ordenDireccion === 'asc' ? 1 : -1;
-    return 0;
-  });
-
-  // Actualizar indicadores visuales
-  document.querySelectorAll("th.sortable").forEach(th => {
-    th.classList.remove("sort-asc", "sort-desc");
-  });
-  const th = document.querySelector(`th[data-columna="${columna}"]`);
-  if (th) {
-    th.classList.add(ordenDireccion === 'asc' ? 'sort-asc' : 'sort-desc');
-  }
-
-  renderTabla();
-}
-
-// ============================================
-   PAGINACIÓN
-   // Python: datos[start:end]
-   // JS: datos.slice(start, end)
-   ============================================
-
-function cambiarPagina(pagina) {
-  const totalPages = Math.ceil(datosFiltrados.length / elementosPorPagina);
-  if (pagina < 1 || pagina > totalPages) return;
-
-  paginaActual = pagina;
-  renderTabla();
-}
-
-// ============================================
-   BÚSQUEDA EN TIEMPO REAL
-   ============================================
-
-let debounceTimeout;
-function busquedaEnTiempoReal() {
-  clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(filtrarDatos, 300);
-}
-
-// ============================================
-   CARGAR DATOS DESDE API
-   // Python: requests.get(url).json()
-   // JS: fetch(url).then(r => r.json())
-   ============================================
-
-async function cargarDatosAPI() {
-  try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/users");
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    const users = await response.json();
-
-    // Transformar datos de la API a nuestro formato
-    estudiantes.length = 0;
-    users.forEach((user, index) => {
-      estudiantes.push({
-        id: user.id,
-        nombre: user.name,
-        email: user.email,
-        edad: 20 + (index % 10),
-        curso: index % 2 === 0 ? "Python" : "JavaScript",
-        nota: 70 + Math.floor(Math.random() * 30)
-      });
-    });
-
-    datosFiltrados = [...estudiantes];
-    filtrarDatos();
-
-    mostrarNotificacion("Datos cargados desde API exitosamente");
-  } catch (error) {
-    console.error("Error cargando datos:", error);
-    mostrarNotificacion("Error al cargar datos: " + error.message);
-  }
-}
-
-function mostrarNotificacion(mensaje) {
-  const notification = document.createElement("div");
-  notification.className = "notification";
-  notification.textContent = mensaje;
-  notification.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--accent-success);
-    color: white;
-    padding: 12px 24px;
-    border-radius: var(--radius-sm);
-    animation: fadeIn 0.3s;
-    z-index: 1000;
-  `;
-  document.body.appendChild(notification);
-  setTimeout(() => notification.remove(), 3000);
-}
-
-// ============================================
-   INICIALIZACIÓN
-   ============================================
-
-console.log("%cS18: Tablas y Filtrado", "color: #a855f7; font-size: 20px; font-weight: bold;");
-console.log("\n--- Equivalencias Python vs JavaScript ---");
-console.log("lista.sort(key=) → array.sort((a,b) => a.campo - b.campo)");
-console.log("lista.filter(condicion) → array.filter(item => condicion)");
-console.log("datos[start:end] → datos.slice(start, end)");
-console.log("[x for x in lista if cond] → lista.filter(x => cond)");
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Cargar datos iniciales
-  filtrarDatos();
-  renderStats(estudiantes);
-
-  // Event listeners para búsqueda
-  const busquedaInput = document.getElementById("busquedaInput");
-  if (busquedaInput) {
-    busquedaInput.addEventListener("input", busquedaEnTiempoReal);
-  }
-
-  const filtroCurso = document.getElementById("filtroCurso");
-  if (filtroCurso) {
-    filtroCurso.addEventListener("change", filtrarDatos);
-  }
-});
+console.log("S18: Tablas y Filtrado - Abre la consola (F12) para ver logs");

@@ -3,191 +3,165 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S24 - Clínica de Bugs</title>
+  <title>S24 - Bugs Comunes</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <main class="container">
     <header class="header">
-      <h1>🐛 Práctica S24: Clínica de Bugs</h1>
-      <p class="subtitle">Python + JavaScript: Identifica y corrige errores comunes</p>
+      <h1>🐛 S24: Bugs Comunes</h1>
+      <p class="subtitle">Completa los RETOS en HTML, CSS y JavaScript</p>
     </header>
 
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div id="progresoFill" class="progress-fill" style="width: 0%">0/5</div>
-      </div>
-      <div class="progress-label" id="progresoLabel">0% completado</div>
-    </div>
+    <!-- RETO 1: Concatenación vs Suma -->
+    <section class="card">
+      <h2>Reto 1: Concatenación vs Suma</h2>
 
-    <button class="btn option" onclick="reiniciarProgreso()">🔄 Reiniciar Progreso</button>
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Cambia placeholder</p>
+      <p class="hint">Cámbialo a "Número..."</p>
 
-    <!-- BUG 1: Concatenación vs Suma -->
-    <section id="bug1" class="card bug-card">
-      <div class="bug-header">
-        <h3>Bug #1: Concatenación vs Suma</h3>
-        <span class="bug-badge">🐛 BUG</span>
-      </div>
-      <p class="hint">El operador + tiene diferente comportamiento según los tipos</p>
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .bug-demostrado</p>
+      <p class="hint">Con background: rgba(239, 68, 68, 0.1)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Completa demostrarBug1()</p>
+      <p class="hint">Usa Number() para convertir string a número</p>
 
       <div class="input-group">
-        <label for="bug1Numero">Ingresa un número:</label>
-        <input id="bug1Numero" type="number" placeholder="Ej: 5" value="5" />
+        <label for="bug1Numero">Número:</label>
+        <input id="bug1Numero" type="text" placeholder="Número..." value="5" />
       </div>
-
-      <button class="btn primary" onclick="probarBug1()">🔍 Identificar Bug</button>
-
-      <div id="bug1Resultado" class="result hidden"></div>
+      <button class="btn primary" onclick="demostrarBug1()">🐛 Demostrar Bug</button>
+      <div id="resultado1" class="result hidden"></div>
     </section>
 
-    <!-- BUG 2: Comparación == vs === -->
-    <section id="bug2" class="card bug-card">
-      <div class="bug-header">
-        <h3>Bug #2: Comparación == vs ===</h3>
-        <span class="bug-badge">🐛 BUG</span>
-      </div>
-      <p class="hint">JavaScript tiene dos operadores de igualdad con comportamientos diferentes</p>
+    <!-- RETO 2: Comparación == vs === -->
+    <section class="card highlight">
+      <h2>Reto 2: Comparación == vs ===</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Label ya está correcto</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .comparacion-resultado</p>
+      <p class="hint">Con padding: 12px y text-align: center</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Completa compararIgualdad()</p>
+      <p class="hint">Compara == (con coerción) vs === (estricto)</p>
 
       <div class="input-group">
-        <label for="bug2Valor">Ingresa un valor (string):</label>
-        <input id="bug2Valor" type="text" placeholder='Ej: "5" o "hola"' value="5" />
+        <label for="bug2Valor">Valor (ej: "5"):</label>
+        <input id="bug2Valor" type="text" placeholder='Ej: "5"' value="5" />
       </div>
-
-      <button class="btn primary" onclick="probarBug2()">🔍 Identificar Bug</button>
-
-      <div id="bug2Resultado" class="result hidden"></div>
+      <button class="btn secondary" onclick="compararIgualdad()">⚖️ Comparar == vs ===</button>
+      <div id="resultado2" class="result hidden"></div>
     </section>
 
-    <!-- BUG 3: undefined vs null -->
-    <section id="bug3" class="card bug-card">
-      <div class="bug-header">
-        <h3>Bug #3: undefined vs null</h3>
-        <span class="bug-badge">🐛 BUG</span>
-      </div>
-      <p class="hint">Dos formas de representar "ausencia de valor" en JavaScript</p>
+    <!-- RETO 3: undefined vs null -->
+    <section class="card">
+      <h2>Reto 3: undefined vs null</h2>
+
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Checkbox ya está agregado</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .valor-vacio</p>
+      <p class="hint">Con color: var(--text-secondary) y font-style: italic</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Completa verificarValor()</p>
+      <p class="hint">Comprueba si valor es undefined o null</p>
 
       <div class="input-group">
         <label>
-          <input id="bug3Check" type="checkbox" />
-          Marca para asignar un valor
+          <input id="checkValor" type="checkbox" />
+          Marca para dar valor
         </label>
       </div>
-
-      <button class="btn primary" onclick="probarBug3()">🔍 Identificar Bug</button>
-
-      <div id="bug3Resultado" class="result hidden"></div>
+      <button class="btn primary" onclick="verificarValor()">❓ Verificar Valor</button>
+      <div id="resultado3" class="result hidden"></div>
     </section>
 
-    <!-- BUG 4: Scope de variables -->
-    <section id="bug4" class="card bug-card">
-      <div class="bug-header">
-        <h3>Bug #4: Scope de variables (var vs let/const)</h3>
-        <span class="bug-badge">🐛 BUG</span>
-      </div>
-      <p class="hint">var tiene function scope, let/const tienen block scope</p>
-
-      <button class="btn primary" onclick="probarBug4()">🔍 Identificar Bug</button>
-
-      <div id="bug4Resultado" class="result hidden"></div>
-    </section>
-
-    <!-- BUG 5: Asincronía - Falta await -->
-    <section id="bug5" class="card bug-card">
-      <div class="bug-header">
-        <h3>Bug #5: Asincronía - Falta await</h3>
-        <span class="bug-badge">🐛 BUG</span>
-      </div>
-      <p class="hint">Sin await, las promesas no se resuelven correctamente</p>
-
-      <button class="btn primary" onclick="probarBug5()">🔍 Identificar Bug</button>
-
-      <div id="bug5Resultado" class="result hidden"></div>
-    </section>
-
-    <!-- Debug Panel - Comparación -->
+    <!-- RETO 4: Corregir el Bug -->
     <section class="card">
-      <h2>🐞 Debugging: Python vs JavaScript</h2>
-      <p class="hint">Errores comunes y cómo evitarlos</p>
+      <h2>Reto 4: Corregir el Bug</h2>
 
+      <!-- RETO HTML -->
+      <p class="hint html-hint">📝 HTML: Botón ya está correcto</p>
+
+      <!-- RETO CSS -->
+      <p class="hint css-hint">🎨 CSS: Crea .bug-corregido</p>
+      <p class="hint">Con border-color: var(--accent-success)</p>
+
+      <!-- RETO JAVASCRIPT -->
+      <p class="hint js-hint">⚙️ JavaScript: Corrige la función</p>
+      <p class="hint">Encuentra y corrige el error en corregirBug()</p>
+
+      <div class="input-group">
+        <label for="num1">Número 1:</label>
+        <input id="num1" type="text" placeholder="5" value="5" />
+      </div>
+      <div class="input-group">
+        <label for="num2">Número 2:</label>
+        <input id="num2" type="text" placeholder="3" value="3" />
+      </div>
+      <button class="btn success" onclick="corregirBug()">✏️ Corregir y Sumar</button>
+      <div id="resultado4" class="result hidden"></div>
+    </section>
+
+    <!-- Leyenda de colores para retos -->
+    <section class="card debug">
+      <h2>📖 Leyenda de Retos</h2>
+      <div class="leyenda">
+        <div class="leyenda-item">
+          <span class="badge html-badge">HTML</span>
+          <p>Modifica la estructura en index.html</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge css-badge">CSS</span>
+          <p>Modifica los estilos en styles.css</p>
+        </div>
+        <div class="leyenda-item">
+          <span class="badge js-badge">JavaScript</span>
+          <p>Modifica la lógica en app.js</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ayuda: Sintaxis -->
+    <section class="card debug">
+      <h2>📖 Bugs: Python vs JavaScript</h2>
       <div class="comparison">
         <div class="python-code">
           <h4>Python</h4>
-          <pre># Bugs comunes en Python
+          <pre># Convertir string a número
+n = int("5")  # 5
 
-# 1. Concatenación involuntaria
-n = input()  # "5"
-resultado = n + n  # "55" ❌
+# Comparación estricta
+"5" == 5  # False
 
-# Solución
-n = int(input())  # 5
-resultado = n + n  # 10 ✅
-
-# 2. Comparación
-"5" == 5  # False (sin coerción)
-
-# 3. None vs (no existe undefined)
+# Valor vacío
 valor = None
 if valor is None:
-    print("Vacío")
-
-# 4. Scope (solo function scope)
-def funcion():
-    if True:
-        x = 10
-    print(x)  # 10
-
-# 5. Async/await
-import asyncio
-async def obtener():
-    await asyncio.sleep(1)
-    return "datos"
-resultado = await obtener()</pre>
+    print("Vacío")</pre>
         </div>
         <div class="js-code">
           <h4>JavaScript</h4>
-          <pre>// Bugs comunes en JavaScript
+          <pre>// Convertir string a número
+const n = Number("5");  // 5
 
-// 1. Concatenación involuntaria
-const n = input.value;  // "5"
-const resultado = n + n;  // "55" ❌
+// Comparación estricta
+"5" === 5  // false ✅
+"5" == 5   // true ⚠️
 
-// Solución
-const n = Number(input.value);  // 5
-const resultado = n + n;  // 10 ✅
-
-// 2. Comparación
-"5" == 5   // true ⚠️ (con coerción)
-"5" === 5  // false ✅ (estricto)
-
-// 3. undefined vs null
+// Valor vacío
 let x;  // undefined
 const y = null;  // null
-if (!x) console.log("falsy");
-if (!y) console.log("falsy");
-
-// 4. Scope
-var x = 10;  // function scope
-let y = 20;  // block scope ✅
-
-// 5. Async/await
-async function obtener() {
-  await new Promise(r =>
-    setTimeout(r, 1000)
-  );
-  return "datos";
-}
-const resultado = await obtener();</pre>
+if (!x) console.log("falsy");</pre>
         </div>
-      </div>
-
-      <div class="warning-box">
-        <strong>⚠️ DIFERENCIAS CLAVE:</strong><br>
-        1. Python: <code>int(input())</code> → JS: <code>Number(input.value)</code><br>
-        2. Python: <code>==</code> (sin coerción) → JS: <code>===</code> (estricto), <code>==</code> (con coerción)<br>
-        3. Python: <code>None</code> → JS: <code>undefined</code> (no definido) o <code>null</code> (vacío intencional)<br>
-        4. Python: function scope → JS: var (function scope), let/const (block scope)<br>
-        5. Ambos usan <code>async/await</code> para manejar asincronía de forma similar
       </div>
     </section>
   </main>
