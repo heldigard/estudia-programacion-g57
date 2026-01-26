@@ -1,7 +1,7 @@
 # Carpetas privadas (NO subir al repositorio)
 profesor/
 memory-bank/
-estudiantes/assignments/
+#estudiantes/assignments/
 
 # Python
 __pycache__/

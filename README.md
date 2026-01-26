@@ -91,25 +91,30 @@ EstudIA-Programacion/
 ## 📊 Sistema de Evaluación
 
 ### **Estructura de Calificación**
-- **70% Talleres evaluativos (4 × 17.5%):** Pruebas prácticas por bloques temáticos
+- **70% Talleres prácticos (2 × 35%):** Trabajos prácticos integradores por bloques temáticos
 - **30% Proyecto final:** Sistema integrado que aplica todos los conceptos del curso
 
 ### **Calendario de Evaluaciones**
-| Evaluación | Sesiones cubiertas | Temas evaluados | Fecha sugerida | Material |
-|------------|-------------------|-----------------|----------------|----------|
-| **Evaluación 1** | 1-4 | Fundamentos y Control de Flujo | 25 enero | [Ver evaluación](estudiantes/assignments/evaluacion_1_fundamentos.md) |
-| **Evaluación 2** | 6-7 | Bucles y Listas | 28 enero | [Ver evaluación](estudiantes/assignments/evaluacion_2_bucles_listas.md) |
-| **Evaluación 3** | 8-9, 12 | Funciones y Modularidad | 5 febrero | [Ver evaluación](estudiantes/assignments/evaluacion_3_funciones.md) |
-| **Evaluación 4** | 15, 18, 21 | Archivos y Debugging | 26 febrero | [Ver evaluación](estudiantes/assignments/evaluacion_4_archivos.md) |
-| **Proyecto Final** | 26-27 | Todos los conceptos integrados | 9 marzo | [Ver proyecto](estudiantes/assignments/proyecto_final.md) |
+| Evaluación | Sesiones cubiertas | Temas evaluados | Fecha entrega | Material |
+|------------|-------------------|-----------------|---------------|----------|
+| **Taller 1** | 1-7 | Fundamentos, Condicionales, Bucles, Listas | Sesión 7 | [Ver taller](estudiantes/assignments/taller_1_fundamentos_control.md) |
+| **Taller 2** | 8-18 | Funciones, Módulos, Archivos | Sesión 18 | [Ver taller](estudiantes/assignments/taller_2_funciones_archivos.md) |
+| **Proyecto Final** | 26-27 | Todos los conceptos integrados | Sesión 27 | [Ver proyecto](estudiantes/assignments/proyecto_final.md) |
 
-### **Formato de Evaluaciones**
-- **Parte A (20%):** Quiz teórico (10 preguntas × 2 puntos)
-- **Parte B (80%):** Taller práctico (ejercicios de programación)
-- **Duración:** 90 minutos por evaluación
-- **Modalidad:** Durante sesión regular o sesión especial designada
+### **Formato de Talleres**
+- **100% práctico:** Ejercicios de programación aplicados
+- **Modalidad:** Individual o en parejas
+- **Tiempo:** 2-4 horas (puede completarse fuera de clase)
+- **Entrega:** Notebook de Google Colab compartido
 
-*Nota: Las fechas son sugeridas basadas en el horario. Confirmar con calendario oficial del programa.*
+### **Opciones de Proyecto Final**
+El proyecto final ofrece **6 opciones** para elegir según tus intereses:
+- 💰 Gestor de Gastos Personales
+- 📦 Sistema de Inventario
+- 📚 Registro de Estudiantes y Notas
+- 🤖 Mini-Asistente por Consola
+- 🎬 Organizador de Entretenimiento *(Nuevo)*
+- 📊 Bot Analizador de Hábitos *(Nuevo 2026)*
 
 ## Requisitos previos
 

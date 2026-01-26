@@ -18,7 +18,7 @@ Soy Ingeniero de Sistemas graduado con **Honores** de la Universidad Autónoma L
 
 He sido docente en instituciones como:
 - **Fundación Universitaria María Cano** - Frameworks Backend y Frontend
-- **Universidad de Colombia** - Electiva de Analítica de Datos con IA
+- **Universidad UdeColombia** - Electiva de Analítica de Datos con IA
 
 Mi pasión es enseñar tecnología de manera práctica, conectando la teoría con aplicaciones del mundo real. Me especializo en:
 - Desarrollo Backend (Java, Python, Django)
