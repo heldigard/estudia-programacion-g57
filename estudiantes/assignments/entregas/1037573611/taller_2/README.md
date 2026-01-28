@@ -1,0 +1,7 @@
+# Taller 2
+
+ID: 1037573611
+
+Sube aquí tu entrega para Taller 2 (usa el ID en el nombre de archivo):
+- 	aller2_1037573611.<ext>
+
