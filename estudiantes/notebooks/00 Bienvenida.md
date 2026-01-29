@@ -193,6 +193,7 @@ Al finalizar este curso, serás capaz de:
 ### Canales de Comunicación
 
 - 📧 **Email:** eldigardo.camacho@gmail.com
+- 📱 **WhatsApp:** [Número de contacto si aplica]
 - 💬 **Horario de oficina:** [Especificar horario si aplica]
 - 🐙 **GitHub:** github.com/heldigard
 
