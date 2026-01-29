@@ -81,10 +81,10 @@ Tu calificación final se compone de:
 
 | Componente | Porcentaje | Descripción |
 |------------|------------|-------------|
-| **Seguimiento** | 70% | 4 notas de seguimiento durante el curso (17.5% cada una) |
+| **Seguimiento** | 70% | 2 notas de seguimiento durante el curso (35% cada una) |
 | **Proyecto Final** | 30% | Proyecto integrador práctico al finalizar el curso |
 
-### Notas de Seguimiento (4 total)
+### Notas de Seguimiento (2 total)
 
 Las notas de seguimiento evalúan:
 - ✅ Participación en clase
